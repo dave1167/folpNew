@@ -177,11 +177,35 @@
                 "column": "notes",
                 "type": "text",
                 "value": "{{encrypt.notes_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName",
+                "type": "text",
+                "value": "{{$_POST.lName}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town1",
+                "type": "text",
+                "value": "{{$_POST.town1}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town2",
+                "type": "text",
+                "value": "{{$_POST.town2}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memNo",
+                "type": "number",
+                "value": "{{$_POST.memNo}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `mobTel`, `notes`, `postcode`, `tel`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -229,6 +253,30 @@
                 "name": ":P8",
                 "type": "expression",
                 "value": "{{encrypt.notes_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{$_POST.lName}}",
+                "test": ""
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{$_POST.town1}}",
+                "test": ""
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{$_POST.town2}}",
+                "test": ""
+              },
+              {
+                "name": ":P12",
+                "type": "expression",
+                "value": "{{$_POST.memNo}}",
                 "test": ""
               }
             ]
