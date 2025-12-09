@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "$_PARAM": [
+      {
+        "type": "text",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "name": "address1"
+      },
+      {
+        "type": "text",
+        "name": "address2"
+      },
+      {
+        "type": "text",
+        "name": "postcode"
+      },
+      {
+        "type": "text",
+        "name": "mobTel"
+      },
+      {
+        "type": "text",
+        "name": "tel"
+      },
+      {
+        "type": "text",
+        "name": "notes"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "email_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.email ? $_PARAM.email.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "address1_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.address1 ? $_PARAM.address1.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "address2_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.address2 ? $_PARAM.address2.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "postcode_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.postcode ? $_PARAM.postcode.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "mobTel_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.mobTel ? $_PARAM.mobTel.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "tel_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.tel ? $_PARAM.tel.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "notes_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.notes ? $_PARAM.notes.encrypt($_ENV.EKY) : null}}"
+        },
+        "output": true,
+        "meta": [],
+        "outputType": "text"
+      }
+    ]
+  }
+}

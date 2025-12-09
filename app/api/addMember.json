@@ -1,0 +1,253 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/member.ejs",
+      "linkedForm": "serverconnectform1"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "fName",
+        "name": "fName"
+      },
+      {
+        "type": "text",
+        "fieldName": "lName",
+        "name": "lName"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "address1",
+        "name": "address1"
+      },
+      {
+        "type": "text",
+        "name": "address2"
+      },
+      {
+        "type": "text",
+        "name": "town1"
+      },
+      {
+        "type": "text",
+        "name": "town2"
+      },
+      {
+        "type": "text",
+        "name": "postcode"
+      },
+      {
+        "type": "text",
+        "name": "mobTel"
+      },
+      {
+        "type": "text",
+        "name": "tel"
+      },
+      {
+        "type": "date",
+        "fieldName": "dateJoined",
+        "options": {
+          "rules": {
+            "core:date": {}
+          }
+        },
+        "name": "dateJoined"
+      },
+      {
+        "type": "datetime",
+        "name": "createdDate"
+      },
+      {
+        "type": "datetime",
+        "name": "modifiedDate"
+      },
+      {
+        "type": "date",
+        "name": "lastPaidDte"
+      },
+      {
+        "type": "boolean",
+        "name": "active"
+      },
+      {
+        "type": "number",
+        "name": "memNo"
+      },
+      {
+        "type": "number",
+        "name": "updatedBy"
+      },
+      {
+        "type": "text",
+        "name": "notes"
+      },
+      {
+        "type": "number",
+        "name": "memType"
+      },
+      {
+        "type": "number",
+        "name": "memStatus"
+      },
+      {
+        "type": "number",
+        "name": "lstFeePd"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "encrypt",
+        "module": "core",
+        "action": "exec",
+        "options": {
+          "exec": "libEncMems",
+          "params": {
+            "email": "{{$_POST.email}}",
+            "address1": "{{$_POST.address1}}",
+            "address2": "{{$_POST.address2}}",
+            "postcode": "{{$_POST.postcode}}",
+            "mobTel": "{{$_POST.mobile}}",
+            "tel": "{{$_POST.tel}}",
+            "notes": "{{$_POST.notes}}"
+          }
+        },
+        "output": true
+      },
+      {
+        "name": "insert",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_member_details",
+                "column": "fName",
+                "type": "text",
+                "value": "{{$_POST.fName}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "email",
+                "type": "text",
+                "value": "{{encrypt.email_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address1",
+                "type": "text",
+                "value": "{{encrypt.address1_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address2",
+                "type": "text",
+                "value": "{{encrypt.address2_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "postcode",
+                "type": "text",
+                "value": "{{encrypt.postcode_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "mobTel",
+                "type": "text",
+                "value": "{{encrypt.mobTel_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "tel",
+                "type": "text",
+                "value": "{{encrypt.tel_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "notes",
+                "type": "text",
+                "value": "{{encrypt.notes_enc}}"
+              }
+            ],
+            "table": "tbl_member_details",
+            "returning": "memDetsId",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `mobTel`, `notes`, `postcode`, `tel`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.fName}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{encrypt.email_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{encrypt.address1_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{encrypt.address2_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{encrypt.postcode_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{encrypt.mobTel_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{encrypt.tel_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{encrypt.notes_enc}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "output": true,
+        "_id": "j1_34",
+        "collapsed": true
+      }
+    ]
+  }
+}

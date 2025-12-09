@@ -1,0 +1,410 @@
+{
+  "direct": true,
+  "type": "mysql2",
+  "connection": {
+    "host": "159.65.95.252",
+    "port": 3306,
+    "user": "folpuser",
+    "password": "%Joanne@01!",
+    "database": "folp_members_dev"
+  },
+  "schema": {
+    "tables": {
+      "tbl_users": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_role_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_roles": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_log_types": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_mem_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_mem_status": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_member_details": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "memDetsId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "fName": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "lName": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "email": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "address1": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "address2": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "town1": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "town2": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "postcode": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "mobTel": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "tel": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "dateJoined": {
+            "db": {
+              "type": "date",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "createdDate": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "modifiedDate": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "lastPaidDte": {
+            "db": {
+              "type": "date",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "active": {
+            "db": {
+              "type": "boolean",
+              "default": "1",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "memNo": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedBy": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "notes": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "memType": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "memStatus": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "lstFeePd": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_activity_log": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_templates": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        }
+      }
+    },
+    "views": {},
+    "collations": [
+      {
+        "collation": "utf8mb4_general_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_bin",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_unicode_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_icelandic_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_latvian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_romanian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_slovenian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_polish_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_estonian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_spanish_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_swedish_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_turkish_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_czech_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_danish_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_lithuanian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_slovak_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_spanish2_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_roman_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_persian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_esperanto_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_hungarian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_sinhala_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_german2_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_croatian_mysql561_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_unicode_520_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_vietnamese_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_croatian_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_myanmar_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_thai_520_w2",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_general_nopad_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_nopad_bin",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_unicode_nopad_ci",
+        "charset": "utf8mb4"
+      },
+      {
+        "collation": "utf8mb4_unicode_520_nopad_ci",
+        "charset": "utf8mb4"
+      }
+    ]
+  }
+}
