@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+
+<head>
+  <base href="/">
+  <script src="/dmxAppConnect/dmxAppConnect.js"></script>
+  <meta charset="UTF-8">
+  <title>LH Menu Layout</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/bootstrap/5/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Alert/dmxBootstrap5Alert.js" defer></script>
+</head>
+
+<body is="dmx-app">
+
+  <!-- sidebar toggle for App Connect -->
+  <dmx-toggle id="menu_toggle" checked="false"></dmx-toggle>
+
+  <!-- Header -->
+  <header class="app-header navbar bg-body shadow-sm">
+    <div class="container-fluid d-flex align-items-center">
+      <button class="btn btn-outline-primary me-2 menu-toggle" type="button" aria-label="Toggle menu" dmx-on:click="menu_toggle.toggle()" dmx-bind:aria-expanded="menu_toggle.checked">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <a class="navbar-brand mb-0 h1" href="/">My App</a>
+
+      <div class="ms-auto d-flex align-items-center">
+        <nav class="nav">
+          <a class="nav-link" href="#">Help</a>
+          <a class="nav-link" href="#">Sign In</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout-root">
+
+    <!-- Left sidebar -->
+    <nav id="sidebar" class="sidebar bg-body border-end" aria-label="Main navigation" dmx-class:open="menu_toggle.checked" dmx-bind:aria-hidden="!menu_toggle.checked">
+      <div class="sidebar-inner p-3">
+        <div class="d-flex justify-content-between align-items-center mb-3 d-lg-none">
+          <strong class="h6 mb-0">Menu</strong>
+          <button class="btn btn-sm btn-outline-secondary" type="button" aria-label="Close menu" dmx-on:click="menu_toggle.toggle()">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/member">Members</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/settings">Settings</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content placeholder -->
+    <main is="dmx-view" id="content" class="flex-fill p-3">
+      <%- await include(content, locals); %>
+    </main>
+
+  </div>
+
+  <script src="/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

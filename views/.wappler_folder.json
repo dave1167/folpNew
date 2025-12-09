@@ -1,6 +1,6 @@
 {
   "member.ejs": {
-    "layoutPage": "main",
+    "layoutPage": "lh_menu",
     "description": ""
   }
 }

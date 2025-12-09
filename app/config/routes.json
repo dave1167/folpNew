@@ -9,7 +9,7 @@
     {
       "path": "/member",
       "page": "member",
-      "layout": "main"
+      "layout": "lh_menu"
     }
   ]
 }
