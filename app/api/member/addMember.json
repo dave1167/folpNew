@@ -27,7 +27,6 @@
       },
       {
         "type": "text",
-        "fieldName": "address2",
         "name": "address2"
       },
       {
@@ -36,12 +35,10 @@
       },
       {
         "type": "text",
-        "fieldName": "town2",
         "name": "town2"
       },
       {
         "type": "text",
-        "fieldName": "postcode",
         "name": "postcode"
       },
       {
@@ -50,7 +47,6 @@
       },
       {
         "type": "text",
-        "fieldName": "tel",
         "name": "tel"
       },
       {
@@ -89,7 +85,6 @@
       },
       {
         "type": "text",
-        "fieldName": "notes",
         "name": "notes"
       },
       {
@@ -103,104 +98,11 @@
       {
         "type": "number",
         "name": "lstFeePd"
-      },
-      {
-        "type": "text",
-        "fieldName": "fname",
-        "name": "fname"
-      },
-      {
-        "type": "text",
-        "fieldName": "lname",
-        "name": "lname"
-      },
-      {
-        "type": "text",
-        "fieldName": "town",
-        "name": "town"
-      },
-      {
-        "type": "text",
-        "fieldName": "mobilee",
-        "name": "mobilee"
-      },
-      {
-        "type": "text",
-        "fieldName": "hidMemType",
-        "name": "hidMemType"
-      },
-      {
-        "type": "text",
-        "fieldName": "selMemType",
-        "name": "selMemType"
       }
     ]
   },
   "exec": {
     "steps": [
-      {
-        "name": "",
-        "options": {
-          "comment": "get last Mem no"
-        }
-      },
-      {
-        "name": "qryLast",
-        "module": "dbconnector",
-        "action": "single",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "SELECT",
-            "columns": [
-              {
-                "table": "tbl_member_details",
-                "column": "memNo",
-                "alias": "lastNo",
-                "aggregate": "MAX"
-              }
-            ],
-            "params": [],
-            "table": {
-              "name": "tbl_member_details"
-            },
-            "primary": "memDetsId",
-            "joins": [],
-            "groupBy": [],
-            "query": "select max(`memNo`) as `lastNo` from `tbl_member_details`"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "number",
-            "name": "lastNo"
-          }
-        ],
-        "outputType": "object"
-      },
-      {
-        "name": "lastNo",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{qryLast.lastNo}}"
-        },
-        "meta": [],
-        "outputType": "text",
-        "output": true
-      },
-      {
-        "name": "nxtMemNo",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{lastNo+1}}"
-        },
-        "meta": [],
-        "outputType": "text",
-        "output": true
-      },
       {
         "name": "encrypt",
         "module": "core",
@@ -298,18 +200,12 @@
                 "table": "tbl_member_details",
                 "column": "memNo",
                 "type": "number",
-                "value": "{{nxtMemNo}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "memType",
-                "type": "number",
-                "value": "{{$_POST.hidMemType}}"
+                "value": "{{$_POST.memNo}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `lName`, `memNo`, `memType`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -380,13 +276,7 @@
               {
                 "name": ":P12",
                 "type": "expression",
-                "value": "{{nxtMemNo}}",
-                "test": ""
-              },
-              {
-                "name": ":P13",
-                "type": "expression",
-                "value": "{{$_POST.hidMemType}}",
+                "value": "{{$_POST.memNo}}",
                 "test": ""
               }
             ]

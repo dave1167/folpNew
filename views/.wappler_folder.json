@@ -2,5 +2,9 @@
   "member.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "list_mems.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }

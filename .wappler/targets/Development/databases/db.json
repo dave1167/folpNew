@@ -48,6 +48,32 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "memTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "memDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "fee": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_mem_status": {
