@@ -1,0 +1,442 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/list_mems.ejs",
+      "linkedForm": "serverconnectform1"
+    },
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "memdetsid"
+      },
+      {
+        "type": "text",
+        "name": "email"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "fname",
+        "name": "fname"
+      },
+      {
+        "type": "text",
+        "fieldName": "lname",
+        "name": "lname"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "address1",
+        "name": "address1"
+      },
+      {
+        "type": "text",
+        "fieldName": "address2",
+        "name": "address2"
+      },
+      {
+        "type": "text",
+        "fieldName": "town",
+        "name": "town"
+      },
+      {
+        "type": "text",
+        "fieldName": "town2",
+        "name": "town2"
+      },
+      {
+        "type": "text",
+        "fieldName": "postcode",
+        "name": "postcode"
+      },
+      {
+        "type": "text",
+        "fieldName": "mobilee",
+        "name": "mobilee"
+      },
+      {
+        "type": "text",
+        "fieldName": "tel",
+        "name": "tel"
+      },
+      {
+        "type": "date",
+        "fieldName": "dateJoined",
+        "options": {
+          "rules": {
+            "core:date": {}
+          }
+        },
+        "name": "dateJoined"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidMemType",
+        "name": "hidMemType"
+      },
+      {
+        "type": "text",
+        "fieldName": "selMemType",
+        "name": "selMemType"
+      },
+      {
+        "type": "text",
+        "fieldName": "notes",
+        "name": "notes"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_member_details",
+                "column": "address1"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memDetsId"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "fName"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "email"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address1"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address2"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town1"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town2"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "postcode"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "mobTel"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "tel"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "dateJoined"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "createdDate"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "modifiedDate"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lastPaidDte"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "active"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memNo"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "updatedBy"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "notes"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memType"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memStatus"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstFeePd"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.memdetsid}}",
+                "test": "223"
+              }
+            ],
+            "table": {
+              "name": "tbl_member_details"
+            },
+            "primary": "memDetsId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_member_details.memDetsId",
+                  "field": "tbl_member_details.memDetsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.memdetsid}}",
+                  "data": {
+                    "table": "tbl_member_details",
+                    "column": "memDetsId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "memDetsId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_member_details"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `address1`, `memDetsId`, `fName`, `lName`, `email`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `tel`, `dateJoined`, `createdDate`, `modifiedDate`, `lastPaidDte`, `active`, `memNo`, `updatedBy`, `notes`, `memType`, `memStatus`, `lstFeePd` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "address1"
+          },
+          {
+            "type": "number",
+            "name": "memDetsId"
+          },
+          {
+            "type": "text",
+            "name": "fName"
+          },
+          {
+            "type": "text",
+            "name": "lName"
+          },
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "text",
+            "name": "address2"
+          },
+          {
+            "type": "text",
+            "name": "town1"
+          },
+          {
+            "type": "text",
+            "name": "town2"
+          },
+          {
+            "type": "text",
+            "name": "postcode"
+          },
+          {
+            "type": "text",
+            "name": "mobTel"
+          },
+          {
+            "type": "text",
+            "name": "tel"
+          },
+          {
+            "type": "date",
+            "name": "dateJoined"
+          },
+          {
+            "type": "datetime",
+            "name": "createdDate"
+          },
+          {
+            "type": "datetime",
+            "name": "modifiedDate"
+          },
+          {
+            "type": "date",
+            "name": "lastPaidDte"
+          },
+          {
+            "type": "boolean",
+            "name": "active"
+          },
+          {
+            "type": "number",
+            "name": "memNo"
+          },
+          {
+            "type": "number",
+            "name": "updatedBy"
+          },
+          {
+            "type": "text",
+            "name": "notes"
+          },
+          {
+            "type": "number",
+            "name": "memType"
+          },
+          {
+            "type": "number",
+            "name": "memStatus"
+          },
+          {
+            "type": "number",
+            "name": "lstFeePd"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "email_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.email.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "address1_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.address1.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        "name": "address2_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.address2.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        "name": "postcode_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.postcode.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        "name": "mob_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.mobTel.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        "name": "tel_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.tel.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        "name": "notes_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.notes.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "disabled": true,
+        "collapsed": true
+      },
+      {
+        {
+          "name": "dec",
+          "module": "core",
+          "action": "exec",
+          "options": {
+            "exec": "libDecMems",
+            "params": {
+              "email": "{{query.email}}"
+            }
+          },
+          "output": true
+        }
+      }
+    ]
+  }
+}
