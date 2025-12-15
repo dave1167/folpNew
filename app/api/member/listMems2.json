@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_member_details",
+              "column": "memDetsId"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "fName"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "lName"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "dateJoined"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "modifiedDate"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "lastPaidDte"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "tbl_member_details"
+          },
+          "primary": "memDetsId",
+          "joins": [],
+          "query": "select `memDetsId`, `fName`, `lName`, `dateJoined`, `modifiedDate`, `lastPaidDte` from `tbl_member_details`"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "memDetsId"
+        },
+        {
+          "type": "text",
+          "name": "fName"
+        },
+        {
+          "type": "text",
+          "name": "lName"
+        },
+        {
+          "type": "date",
+          "name": "dateJoined"
+        },
+        {
+          "type": "datetime",
+          "name": "modifiedDate"
+        },
+        {
+          "type": "date",
+          "name": "lastPaidDte"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

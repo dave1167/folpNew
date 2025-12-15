@@ -34,5 +34,17 @@ dmx.config({
         "name": "sort"
       }
     ]
+  },
+  "mem_list": {
+    "query": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
   }
 });

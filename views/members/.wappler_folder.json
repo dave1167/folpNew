@@ -6,5 +6,9 @@
   "list_members.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "mem_list.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }

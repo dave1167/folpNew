@@ -17,8 +17,8 @@
       "layout": "lh_menu"
     },
     {
-      "path": "/members/list_members",
-      "page": "members/list_members",
+      "path": "/members/mem_list",
+      "page": "members/mem_list",
       "layout": "lh_menu"
     }
   ]
