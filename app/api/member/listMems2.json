@@ -8,6 +8,10 @@
       {
         "type": "text",
         "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "filter"
       }
     ]
   },
@@ -44,15 +48,86 @@
             {
               "table": "tbl_member_details",
               "column": "lastPaidDte"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "memNo"
             }
           ],
-          "params": [],
+          "params": [
+            {
+              "operator": "contains",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.filter}}",
+              "test": ""
+            },
+            {
+              "operator": "contains",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_GET.filter}}",
+              "test": ""
+            }
+          ],
           "table": {
             "name": "tbl_member_details"
           },
           "primary": "memDetsId",
           "joins": [],
-          "query": "select `memDetsId`, `fName`, `lName`, `dateJoined`, `modifiedDate`, `lastPaidDte` from `tbl_member_details`"
+          "query": "select `memDetsId`, `fName`, `lName`, `dateJoined`, `modifiedDate`, `lastPaidDte`, `memNo` from `tbl_member_details` where `tbl_member_details`.`fName` like ? or `tbl_member_details`.`lName` like ?",
+          "orders": [],
+          "wheres": {
+            "condition": "OR",
+            "rules": [
+              {
+                "id": "tbl_member_details.fName",
+                "field": "tbl_member_details.fName",
+                "type": "string",
+                "operator": "contains",
+                "value": "{{$_GET.filter}}",
+                "data": {
+                  "table": "tbl_member_details",
+                  "column": "fName",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 255,
+                    "primary": false,
+                    "nullable": true,
+                    "name": "fName"
+                  }
+                },
+                "operation": "LIKE",
+                "table": "tbl_member_details"
+              },
+              {
+                "id": "tbl_member_details.lName",
+                "field": "tbl_member_details.lName",
+                "type": "string",
+                "operator": "contains",
+                "value": "{{$_GET.filter}}",
+                "data": {
+                  "table": "tbl_member_details",
+                  "column": "lName",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 255,
+                    "primary": false,
+                    "nullable": true,
+                    "name": "lName"
+                  }
+                },
+                "operation": "LIKE",
+                "table": "tbl_member_details"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
         }
       },
       "output": true,
@@ -80,9 +155,14 @@
         {
           "type": "date",
           "name": "lastPaidDte"
+        },
+        {
+          "type": "number",
+          "name": "memNo"
         }
       ],
-      "outputType": "array"
+      "outputType": "array",
+      "collapsed": true
     }
   }
 }

@@ -1,32 +1,44 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{}}" -->
-<dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir"></dmx-serverconnect>
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{}}" -->
+<dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
 <meta name="ac:route" content="/members/mem_list">
 <dmx-query-manager id="query1"></dmx-query-manager>
-<div class="row">
-    <div class="col">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th class="sorting" dmx-on:click="query1.set('sort','memDetsId');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memDetsId' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memDetsId' && query1.data.dir == 'desc'">Mem dets</th>
-                        <th class="sorting" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' && query1.data.dir == 'desc'">F name</th>
-                        <th class="sorting" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' && query1.data.dir == 'desc'">L name</th>
-                        <th class="sorting" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' && query1.data.dir == 'desc'">Date joined</th>
-                        <th class="sorting" dmx-on:click="query1.set('sort','modifiedDate');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='modifiedDate' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='modifiedDate' && query1.data.dir == 'desc'">Modified date</th>
-                        <th class="sorting" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'desc'">Last paid dte</th>
-                    </tr>
-                </thead>
-                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scMemList.data.query" id="tableRepeat1" dmx-state="query1" dmx-sort="sort" dmx-order="dir">
-                    <tr>
-                        <td dmx-text="memDetsId"></td>
-                        <td dmx-text="fName"></td>
-                        <td dmx-text="lName"></td>
-                        <td dmx-text="dateJoined"></td>
-                        <td dmx-text="modifiedDate"></td>
-                        <td dmx-text="lastPaidDte"></td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="container">
+    <div class="row">
+        <div class="col-1 text-end text-bg-secondary">
+            <i class="fas fa-search fa-lg"></i>
+        </div>
+        <div class="col">
+            <input id="txtSrch" name="txtSrch" type="text" class="form-control mt-2 mb-2 form-control-sm">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="row" class="sorting" dmx-on:click="query1.set('sort','memNo');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memNo' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memNo' && query1.data.dir == 'desc'">Mem No.</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','memDetsId');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memDetsId' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memDetsId' && query1.data.dir == 'desc'">Mem dets</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' && query1.data.dir == 'desc'">First Name</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' && query1.data.dir == 'desc'">Last Name</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' && query1.data.dir == 'desc'">Date joined</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','modifiedDate');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='modifiedDate' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='modifiedDate' && query1.data.dir == 'desc'">Modified date</th>
+                            <th class="sorting" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'desc'">Last paid dte</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scMemList.data.query" id="tableRepeat2" dmx-state="query1" dmx-sort="sort" dmx-order="dir">
+                        <tr>
+                            <td dmx-text="memNo.pad(4)"></td>
+                            <td dmx-hide="memDetsId"></td>
+                            <td dmx-text="fName"></td>
+                            <td dmx-text="lName"></td>
+                            <td dmx-text="dateJoined"></td>
+                            <td dmx-text="modifiedDate"></td>
+                            <td dmx-text="lastPaidDte"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
