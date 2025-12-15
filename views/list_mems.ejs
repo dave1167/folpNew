@@ -12,7 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/getSingleMem" dmx-generator="bootstrap5" dmx-form-type="horizontal">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="horizontal">
 
                     <!-- Name row: first & last -->
                     <div class="row g-3 mb-3">
@@ -148,7 +148,7 @@
                     <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scListMems.data.qryListMems" id="tableRepeat1" dmx-state="query1" dmx-sort="sort" dmx-order="dir">
                         <tr>
                             <td>
-                                <button id="btn1" class="btn" dmx-on:click="scGetSingleMem.load({memdetsid: memDetsId},true);modal1.show()"><i class="fas fa-edit fa-lg"></i></button>
+                                <button id="btn1" class="btn" dmx-on:click="scGetSingleMem.load({memdetsid: memDetsId, memdtsid: memDetsId});modal1.show()"><i class="fas fa-edit fa-lg"></i></button>
                             </td>
                             <td dmx-text="memNo">Cell</td>
                             <td dmx-text="memDetsId"></td>

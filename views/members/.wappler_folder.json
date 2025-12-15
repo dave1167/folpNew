@@ -1,0 +1,10 @@
+{
+  "members_list.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
+  },
+  "list_members.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
+  }
+}

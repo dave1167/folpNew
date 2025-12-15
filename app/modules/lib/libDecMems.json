@@ -15,7 +15,9 @@
         "action": "setvalue",
         "options": {
           "value": "{{$_PARAM.email ? $_PARAM.email.decrypt($_ENV.EKY) : null}}"
-        }
+        },
+        "meta": [],
+        "outputType": "text"
       },
       {
         "name": "resp",

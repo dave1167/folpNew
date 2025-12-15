@@ -24,22 +24,22 @@
             {
               "table": "tbl_member_details",
               "column": "*"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memNo"
             }
           ],
-          "params": [],
           "table": {
             "name": "tbl_member_details"
           },
-          "primary": "memDetsId",
-          "joins": [],
-          "query": "select *, `memNo` from `tbl_member_details`"
+          "orders": [
+            {
+              "table": "tbl_member_details",
+              "column": "{{$_GET.sort || 'memNo'}}",
+              "order": "{{$_GET.dir || 'asc'}}"
+            }
+          ]
         }
       },
       "output": true,
+      "outputType": "array",
       "meta": [
         {
           "type": "number",
@@ -130,8 +130,18 @@
           "name": "lstFeePd"
         }
       ],
-      "outputType": "array",
-      "collapsed": true
+      "globalVars": {
+        "$_GET": [
+          {
+            "name": "sort",
+            "type": "text"
+          },
+          {
+            "name": "dir",
+            "type": "text"
+          }
+        ]
+      }
     }
   }
 }
