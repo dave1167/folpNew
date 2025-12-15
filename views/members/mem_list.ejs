@@ -1,7 +1,82 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{}}" -->
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Modal:{}}" -->
 <dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleMem" url="/api/member/getSingleMem" noload="true"></dmx-serverconnect>
 <meta name="ac:route" content="/members/mem_list">
 <dmx-query-manager id="query1"></dmx-query-manager>
+<div class="modal" id="modEditMem" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_fName" name="fName" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="F name">
+                        <label for="inp_fName">F name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_lName" name="lName" dmx-bind:value="scGetSingleMem.data.query.lName" placeholder="L name">
+                        <label for="inp_lName">L name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_email" name="email" dmx-bind:value="scGetSingleMem.data.query.email" placeholder="Email">
+                        <label for="inp_email">Email</label>
+                    </div>
+                    <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_address1" name="address1" dmx-bind:value="scGetSingleMem.data.query.address1" placeholder="Address1">
+                        <label for="inp_address1">Address1</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_address2" name="address2" dmx-bind:value="scGetSingleMem.data.query.address2" placeholder="Address2">
+                        <label for="inp_address2">Address2</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_town1" name="town1" dmx-bind:value="scGetSingleMem.data.query.town1" placeholder="Town1">
+                        <label for="inp_town1">Town1</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_town2" name="town2" dmx-bind:value="scGetSingleMem.data.query.town2" placeholder="Town2">
+                        <label for="inp_town2">Town2</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_postcode" name="postcode" dmx-bind:value="scGetSingleMem.data.query.postcode" placeholder="Postcode">
+                        <label for="inp_postcode">Postcode</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_mobTel" name="mobTel" dmx-bind:value="scGetSingleMem.data.query.mobTel" placeholder="Mob tel">
+                        <label for="inp_mobTel">Mob tel</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="inp_tel" name="tel" dmx-bind:value="scGetSingleMem.data.query.tel" placeholder="Tel">
+                        <label for="inp_tel">Tel</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="inp_modifiedDate" name="modifiedDate" dmx-bind:value="scGetSingleMem.data.query.modifiedDate" placeholder="Modified date">
+                        <label for="inp_modifiedDate">Modified date</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="inp_lastPaidDte" name="lastPaidDte" dmx-bind:value="scGetSingleMem.data.query.lastPaidDte" placeholder="Last paid dte">
+                        <label for="inp_lastPaidDte">Last paid dte</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" dmx-bind:value="scGetSingleMem.data.query.dateJoined" placeholder="Date joined">
+                        <label for="inp_dateJoined">Date joined</label>
+                    </div>
+                    <div class="form-group mb-3">
+                        <button type="submit" class="btn btn-primary" dmx-bind:value="scGetSingleMem.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-1 text-end text-bg-secondary">
@@ -17,18 +92,21 @@
                 <table class="table table-striped table-bordered table-hover table-sm">
                     <thead>
                         <tr>
-                            <th scope="row" class="sorting" dmx-on:click="query1.set('sort','memNo');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memNo' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memNo' && query1.data.dir == 'desc'">Mem No.</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','memDetsId');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memDetsId' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memDetsId' && query1.data.dir == 'desc'">Mem dets</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' && query1.data.dir == 'desc'">First Name</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' && query1.data.dir == 'desc'">Last Name</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' && query1.data.dir == 'desc'">Date joined</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','modifiedDate');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='modifiedDate' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='modifiedDate' && query1.data.dir == 'desc'">Modified date</th>
-                            <th class="sorting" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' && query1.data.dir == 'desc'">Last paid dte</th>
+                            <th scope="row">Header</th>
+                            <th scope="row" class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','memNo');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memNo' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memNo' &amp;&amp; query1.data.dir == 'desc'">Mem No.</th>
+                            <th class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'desc'">First Name</th>
+                            <th class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'desc'">Last Name</th>
+                            <th class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'desc'">Date joined</th>
+                            <th class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','modifiedDate');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='modifiedDate' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='modifiedDate' &amp;&amp; query1.data.dir == 'desc'">Modified date</th>
+                            <th class="sorting bg-warning-subtle" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'desc'">Last Paid Date</th>
                         </tr>
                     </thead>
                     <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scMemList.data.query" id="tableRepeat2" dmx-state="query1" dmx-sort="sort" dmx-order="dir">
                         <tr>
-                            <td dmx-text="memNo.pad(4)"></td>
+                            <td>
+                                <button id="btn1" class="btn" dmx-on:click="scGetSingleMem.load({memdtsid: memDetsId});modEditMem.show()"><i class="fas fa-user-edit fa-lg"></i></button>
+                            </td>
+                            <td dmx-text="memNo.pad(4)" class="text-center"></td>
                             <td dmx-hide="memDetsId"></td>
                             <td dmx-text="fName"></td>
                             <td dmx-text="lName"></td>

@@ -28,6 +28,54 @@
             {
               "table": "tbl_member_details",
               "column": "memDetsId"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "lName"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "address1"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "address2"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "town1"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "town2"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "postcode"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "mobTel"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "memDetsId"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "tel"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "modifiedDate"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "lastPaidDte"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "dateJoined"
             }
           ],
           "params": [
@@ -71,7 +119,7 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select `fName`, `email`, `memDetsId` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+          "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
         }
       },
       "meta": [
@@ -86,6 +134,50 @@
         {
           "type": "number",
           "name": "memDetsId"
+        },
+        {
+          "type": "text",
+          "name": "lName"
+        },
+        {
+          "type": "text",
+          "name": "address1"
+        },
+        {
+          "type": "text",
+          "name": "address2"
+        },
+        {
+          "type": "text",
+          "name": "town1"
+        },
+        {
+          "type": "text",
+          "name": "town2"
+        },
+        {
+          "type": "text",
+          "name": "postcode"
+        },
+        {
+          "type": "text",
+          "name": "mobTel"
+        },
+        {
+          "type": "text",
+          "name": "tel"
+        },
+        {
+          "type": "datetime",
+          "name": "modifiedDate"
+        },
+        {
+          "type": "date",
+          "name": "lastPaidDte"
+        },
+        {
+          "type": "date",
+          "name": "dateJoined"
         }
       ],
       "outputType": "object",
