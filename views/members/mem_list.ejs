@@ -6,31 +6,39 @@
 <div class="modal" id="modEditMem" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            <div class="modal-header text-white bg-primary">Edit Member</div>
             <div class="modal-body">
                 <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_fName" name="fName" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="F name">
-                        <label for="inp_fName">F name</label>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" id="inp_fName" name="First Name" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="First Name">
+                                <label for="inp_fName">First Name</label>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_lName" name="Last Name" dmx-bind:value="scGetSingleMem.data.query.lName" placeholder="Last Name">
+                                <label for="inp_lName" class="col-form-label-sm">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_email" name="email" dmx-bind:value="scGetSingleMem.data.email_dec" placeholder="Email">
+                                <label for="inp_email" class="col-form-label-sm">Email</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_lName" name="lName" dmx-bind:value="scGetSingleMem.data.query.lName" placeholder="L name">
-                        <label for="inp_lName">L name</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_email" name="email" dmx-bind:value="scGetSingleMem.data.query.email" placeholder="Email">
-                        <label for="inp_email">Email</label>
-                    </div>
+
+
+
                     <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_address1" name="address1" dmx-bind:value="scGetSingleMem.data.query.address1" placeholder="Address1">
+                        <input type="text" class="form-control" id="inp_address1" name="address1" dmx-bind:value="scGetSingleMem.data.address1_dec" placeholder="Address1">
                         <label for="inp_address1">Address1</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_address2" name="address2" dmx-bind:value="scGetSingleMem.data.query.address2" placeholder="Address2">
+                        <input type="text" class="form-control" id="inp_address2" name="address2" dmx-bind:value="scGetSingleMem.data.address2_dec" placeholder="Address2">
                         <label for="inp_address2">Address2</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -42,15 +50,15 @@
                         <label for="inp_town2">Town2</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_postcode" name="postcode" dmx-bind:value="scGetSingleMem.data.query.postcode" placeholder="Postcode">
+                        <input type="text" class="form-control" id="inp_postcode" name="postcode" dmx-bind:value="scGetSingleMem.data.postcode_dec" placeholder="Postcode">
                         <label for="inp_postcode">Postcode</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_mobTel" name="mobTel" dmx-bind:value="scGetSingleMem.data.query.mobTel" placeholder="Mob tel">
+                        <input type="text" class="form-control" id="inp_mobTel" name="mobTel" dmx-bind:value="scGetSingleMem.data.mobile_dec" placeholder="Mob tel">
                         <label for="inp_mobTel">Mob tel</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="inp_tel" name="tel" dmx-bind:value="scGetSingleMem.data.query.tel" placeholder="Tel">
+                        <input type="text" class="form-control" id="inp_tel" name="tel" dmx-bind:value="scGetSingleMem.data.tel_dec" placeholder="Tel">
                         <label for="inp_tel">Tel</label>
                     </div>
                     <div class="form-floating mb-3">

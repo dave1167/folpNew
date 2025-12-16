@@ -8,29 +8,16 @@
     ]
   },
   "exec": {
-    "steps": [
-      {
-        "name": "email_dec",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{$_PARAM.email ? $_PARAM.email.decrypt($_ENV.EKY) : null}}"
-        },
-        "meta": [],
-        "outputType": "text"
+    "steps": {
+      "name": "email_dec",
+      "module": "core",
+      "action": "setvalue",
+      "options": {
+        "value": "{{$_PARAM.email.encrypt($_ENV.EKY)}}"
       },
-      {
-        "name": "resp",
-        "module": "core",
-        "action": "response",
-        "options": {
-          "status": 200,
-          "type": "object",
-          "value": {
-            "email_dec": "{{email_dec}}"
-          }
-        }
-      }
-    ]
+      "meta": [],
+      "outputType": "text",
+      "output": true
+    }
   }
 }

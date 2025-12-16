@@ -5,184 +5,263 @@
         "type": "number",
         "name": "memdtsid"
       }
+    ],
+    "$_PARAM": [
+      {
+        "type": "text",
+        "name": "email"
+      }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "query",
-      "module": "dbconnector",
-      "action": "single",
-      "options": {
-        "connection": "db",
-        "sql": {
-          "type": "SELECT",
-          "columns": [
-            {
-              "table": "tbl_member_details",
-              "column": "fName"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "email"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memDetsId"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "lName"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "address1"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "address2"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "town1"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "town2"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "postcode"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "mobTel"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memDetsId"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "tel"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "modifiedDate"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "lastPaidDte"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "dateJoined"
-            }
-          ],
-          "params": [
-            {
-              "operator": "equal",
-              "type": "expression",
-              "name": ":P1",
-              "value": "{{$_GET.memdtsid}}",
-              "test": ""
-            }
-          ],
-          "table": {
-            "name": "tbl_member_details"
-          },
-          "primary": "memDetsId",
-          "joins": [],
-          "wheres": {
-            "condition": "AND",
-            "rules": [
+    "steps": [
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
               {
-                "id": "tbl_member_details.memDetsId",
-                "field": "tbl_member_details.memDetsId",
-                "type": "double",
-                "operator": "equal",
-                "value": "{{$_GET.memdtsid}}",
-                "data": {
-                  "table": "tbl_member_details",
-                  "column": "memDetsId",
-                  "type": "number",
-                  "columnObj": {
-                    "type": "increments",
-                    "primary": true,
-                    "nullable": false,
-                    "name": "memDetsId"
-                  }
-                },
-                "operation": "=",
-                "table": "tbl_member_details"
+                "table": "tbl_member_details",
+                "column": "fName"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "email"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memDetsId"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address1"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address2"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town1"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town2"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "postcode"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "mobTel"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memDetsId"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "tel"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "modifiedDate"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lastPaidDte"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "dateJoined"
               }
             ],
-            "conditional": null,
-            "valid": true
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.memdtsid}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_member_details"
+            },
+            "primary": "memDetsId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_member_details.memDetsId",
+                  "field": "tbl_member_details.memDetsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.memdtsid}}",
+                  "data": {
+                    "table": "tbl_member_details",
+                    "column": "memDetsId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "memDetsId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_member_details"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+          }
+        },
+        "meta": [
+          {
+            "type": "text",
+            "name": "fName"
           },
-          "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
-        }
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "number",
+            "name": "memDetsId"
+          },
+          {
+            "type": "text",
+            "name": "lName"
+          },
+          {
+            "type": "text",
+            "name": "address1"
+          },
+          {
+            "type": "text",
+            "name": "address2"
+          },
+          {
+            "type": "text",
+            "name": "town1"
+          },
+          {
+            "type": "text",
+            "name": "town2"
+          },
+          {
+            "type": "text",
+            "name": "postcode"
+          },
+          {
+            "type": "text",
+            "name": "mobTel"
+          },
+          {
+            "type": "text",
+            "name": "tel"
+          },
+          {
+            "type": "datetime",
+            "name": "modifiedDate"
+          },
+          {
+            "type": "date",
+            "name": "lastPaidDte"
+          },
+          {
+            "type": "date",
+            "name": "dateJoined"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true,
+        "output": true
       },
-      "meta": [
-        {
-          "type": "text",
-          "name": "fName"
+      {
+        "name": "address1_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.address1.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "text",
-          "name": "email"
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "email_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.email.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "number",
-          "name": "memDetsId"
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "address2_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.address2.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "text",
-          "name": "lName"
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "postcode_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.postcode.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "text",
-          "name": "address1"
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "mobile_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.mobTel.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "text",
-          "name": "address2"
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "tel_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.tel.decrypt($_ENV.EKY)}}"
         },
-        {
-          "type": "text",
-          "name": "town1"
-        },
-        {
-          "type": "text",
-          "name": "town2"
-        },
-        {
-          "type": "text",
-          "name": "postcode"
-        },
-        {
-          "type": "text",
-          "name": "mobTel"
-        },
-        {
-          "type": "text",
-          "name": "tel"
-        },
-        {
-          "type": "datetime",
-          "name": "modifiedDate"
-        },
-        {
-          "type": "date",
-          "name": "lastPaidDte"
-        },
-        {
-          "type": "date",
-          "name": "dateJoined"
-        }
-      ],
-      "outputType": "object",
-      "collapsed": true,
-      "output": true
-    }
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      }
+    ]
   }
 }
