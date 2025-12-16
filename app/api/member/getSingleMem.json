@@ -196,7 +196,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.address1.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.address1 != null && query.address1 != '')?query.address1.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -207,7 +207,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.email.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.email != null && query.email != '')?query.email.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -219,7 +219,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.address2.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.address2 != null && query.address2 != '')?query.address2.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -231,7 +231,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.postcode.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.postcode != null && query.postcode != '')?query.postcode.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -243,7 +243,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.mobTel.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.mobTel != null && query.mobTel != '')?query.mobTel.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -255,7 +255,19 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.tel.decrypt($_ENV.EKY)}}"
+          "value": "{{(query.tel != null && query.tel != '')?query.tel.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "notes_dec",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{(query.notes != null && query.notes != '')?query.notes.decrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
