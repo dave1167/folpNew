@@ -1,17 +1,36 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Modal:{}}" -->
-<dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Modal:{},dmxNotifications:{},dmxBrowser:{}}" -->
+
+
+<dmx-notifications id="notifies1"></dmx-notifications>
+<div is="dmx-browser" id="browser1"></div>
+<dmx-serverconnect id="scGetMemType" url="/api/member/selectMemType"></dmx-serverconnect><dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
 <dmx-serverconnect id="scGetSingleMem" url="/api/member/getSingleMem" noload="true"></dmx-serverconnect>
 <meta name="ac:route" content="/members/mem_list">
 <dmx-query-manager id="query1"></dmx-query-manager>
 <div class="modal" id="modEditMem" is="dmx-bs5-modal" tabindex="-1">
-    <div class="modal-header text-white bg-primary">
-        <h5 class="modal-title">Edit Member</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <div class="modal-header text-white bg-primary">
+                <h5 class="modal-title">Edit Member Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});modEditMem.hide();notifies1.success('Member Details Updated')">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" dmx-bind:value="scGetSingleMem.data.query.dateJoined" placeholder="Date joined" disabled="true" readonly="true">
+                                <label for="inp_dateJoined">Date joined</label>
+                            </div>
+
+                        </div>
+                        <div class="col" dmx-text="scGetSingleMem.data.query.memNo">
+                            <div class="form-floating mb-3" id="memNo">
+                                <input class="form-control" id="inp_memno" name="memNo" dmx-bind:value="scGetSingleMem.data.query.memNo.pad(4)" placeholder="Membership No.">
+                                <label for="inp_memno">Membership No.</label>
+                            </div>
+                        </div>
+                    </div>
                     <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
                     <div class="row">
                         <div class="col-3">
@@ -22,7 +41,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_lName" name="Last Name" dmx-bind:value="scGetSingleMem.data.query.lName" placeholder="Last Name">
+                                <input type="text" class="form-control" id="inp_lName" name="lName" dmx-bind:value="scGetSingleMem.data.query.lName" placeholder="Last Name">
                                 <label for="inp_lName" class="col-form-label-sm">Last Name</label>
                             </div>
                         </div>
@@ -36,28 +55,28 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_address1" name="address1" dmx-bind:value="scGetSingleMem.data.address1_dec" placeholder="Address1">
-                                <label for="inp_address1">Address1</label>
+                                <input type="text" class="form-control" id="inp_address1" name="address1" dmx-bind:value="scGetSingleMem.data.address1_dec" placeholder="Address">
+                                <label for="inp_address1">Address</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_address2" name="address2" dmx-bind:value="scGetSingleMem.data.address2_dec" placeholder="Address2">
-                                <label for="inp_address2">Address2</label>
+                                <input type="text" class="form-control" id="inp_address2" name="address2" dmx-bind:value="scGetSingleMem.data.address2_dec" placeholder="Address 2">
+                                <label for="inp_address2">Address 2</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_town1" name="town1" dmx-bind:value="scGetSingleMem.data.query.town1" placeholder="Town1">
-                                <label for="inp_town1">Town1</label>
+                                <input type="text" class="form-control" id="inp_town1" name="town1" dmx-bind:value="scGetSingleMem.data.query.town1" placeholder="Town">
+                                <label for="inp_town1">Town</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_town2" name="town2" dmx-bind:value="scGetSingleMem.data.query.town2" placeholder="Town2">
-                                <label for="inp_town2">Town2</label>
+                                <input type="text" class="form-control" id="inp_town2" name="town2" dmx-bind:value="scGetSingleMem.data.query.town2" placeholder="Town 2">
+                                <label for="inp_town2">Town 2</label>
                             </div>
                         </div>
                         <div class="col">
@@ -88,18 +107,12 @@
                                 <label for="inp_lastPaidDte">Last paid dte</label>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" dmx-bind:value="scGetSingleMem.data.query.dateJoined" placeholder="Date joined">
-                                <label for="inp_dateJoined">Date joined</label>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <textarea id="notes" class="form-control" name="notes"></textarea>
-                                <label for="inp_dateJoined1" class="col-form-label-sm">Notes</label>
+                                <textarea id="notes" class="form-control" name="notes" dmx-bind:value="scGetSingleMem.data.notes_dec"></textarea>
+                                <label for="inp_memno" class="col-form-label-sm">Notes</label>
                             </div>
                         </div>
                     </div>
@@ -122,6 +135,114 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modAddNewMember" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-body"></div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-light">
+                <h5 class="modal-title">Add New Member</h5>
+                <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/member/addMember" dmx-generator="bootstrap5" dmx-form-type="horizontal">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" id="inp_fname" name="fName" aria-describedby="inp_fname_help" placeholder="Enter First Name"><label for="input2" class="form-label">First Name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" id="inp_lname" name="lname" aria-describedby="inp_lname_help" placeholder="Enter Last Name"><label for="input1" class="form-label">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" id="inp_email" name="email" aria-describedby="inp_email_help" placeholder="Enter Email"><label for="input1" class="form-label">Email<label for="inp_fname" class="col-sm-2 col-form-label">Fname</label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control form-control-sm" id="inp_address3" name="address" aria-describedby="inp_address2_help" placeholder="Enter Address2"><label for="inp_address1" class="form-label col-form-label-sm">Address</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3 text-dark">
+                                <input type="text" class="form-control form-control-sm" id="inp_address2" name="address2" aria-describedby="inp_address2_help" placeholder="Enter Address2">
+                                <label for="inp_address2" class="form-label">Address2</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_town" name="town" aria-describedby="inp_town_help" placeholder="Enter Town"><label for="inp_town" class="form-label">Town</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_town1" name="town1" aria-describedby="inp_town1_help" placeholder="Enter Town1"><label for="inp_town2" class="form-label">Town2</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_postcode" name="postcode" aria-describedby="inp_postcode_help" placeholder="Enter Postcode"><label for="inp_postcode" class="form-label">Postcode</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_mobile" name="mobile" aria-describedby="inp_mobile_help" placeholder="Enter Mobile"><label for="inp_mobile" class="form-label">Mobile</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_tel" name="tel" aria-describedby="inp_tel_help" placeholder="Enter Tel"><label for="inp_tel" class="col-sm-2 col-form-label">Tel</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" aria-describedby="inp_dateJoined_help" placeholder="Enter Date joined"><label for="inp_dateJoined" class="form-label">Date joined</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select id="selMemType" class="form-select" dmx-bind:options="scGetMemType.data.query" optiontext="memDesc" optionvalue="memTypeId">
+                                </select><input type="text" class="form-control" id="inp_hidMemType" name="hidMemType" aria-describedby="inp_hidMemType_help" placeholder="Enter Hid mem type" dmx-bind:value="selMemType.value"><label for="selMemType" class="form-label">Select Membership</label>
+                            </div>
+                            <div class="form-group mb-3">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <textarea id="notes" class="form-control" name="notes"></textarea><label for="inp_notes" class="col-sm-2 col-form-label">Notes</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button type="submit" class="btn btn-primary">Save changes</button><button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Close</button></div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
 
             </div>
         </div>
@@ -130,8 +251,13 @@
 <header></header>
 <div class="container">
     <div class="row">
-        <div class="col-1 text-end text-bg-secondary">
-            <i class="fas fa-search fa-lg"></i>
+        <div class="col">
+            <button id="btn2" class="btn mt-2 ms-2 btn-success" dmx-on:click="modAddNewMember.show()">Add New Member</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1 text-end bg-light-subtle"><i class="fas fa-search fa-lg"></i>
+
         </div>
         <div class="col">
             <input id="txtSrch" name="txtSrch" type="text" class="form-control mt-2 mb-2 form-control-sm">
@@ -148,7 +274,6 @@
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'desc'">First Name</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'desc'">Last Name</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'desc'">Date joined</th>
-                            <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','modifiedDate');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='modifiedDate' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='modifiedDate' &amp;&amp; query1.data.dir == 'desc'">Modified date</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'desc'">Last Paid Date</th>
                         </tr>
                     </thead>
@@ -161,8 +286,7 @@
                             <td dmx-hide="memDetsId"></td>
                             <td dmx-text="fName"></td>
                             <td dmx-text="lName"></td>
-                            <td dmx-text="dateJoined"></td>
-                            <td dmx-text="modifiedDate"></td>
+                            <td dmx-text="dateJoined.formatDate('dd-MM-yyyy')"></td>
                             <td dmx-text="lastPaidDte"></td>
                         </tr>
                     </tbody>

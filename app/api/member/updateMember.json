@@ -92,303 +92,293 @@
     ]
   },
   "exec": {
-    "steps": {
-      "name": "update",
-      "module": "dbupdater",
-      "action": "update",
-      "options": {
-        "connection": "db",
-        "sql": {
-          "type": "update",
-          "values": [
-            {
-              "table": "tbl_member_details",
-              "column": "fName",
-              "type": "text",
-              "value": "{{$_POST.fName}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "lName",
-              "type": "text",
-              "value": "{{$_POST.lName}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "email",
-              "type": "text",
-              "value": "{{$_POST.email}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "address1",
-              "type": "text",
-              "value": "{{$_POST.address1}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "address2",
-              "type": "text",
-              "value": "{{$_POST.address2}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "town1",
-              "type": "text",
-              "value": "{{$_POST.town1}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "town2",
-              "type": "text",
-              "value": "{{$_POST.town2}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "postcode",
-              "type": "text",
-              "value": "{{$_POST.postcode}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "mobTel",
-              "type": "text",
-              "value": "{{$_POST.mobTel}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "tel",
-              "type": "text",
-              "value": "{{$_POST.tel}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "dateJoined",
-              "type": "date",
-              "value": "{{$_POST.dateJoined}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "createdDate",
-              "type": "datetime",
-              "value": "{{$_POST.createdDate}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "modifiedDate",
-              "type": "datetime",
-              "value": "{{$_POST.modifiedDate}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "lastPaidDte",
-              "type": "date",
-              "value": "{{$_POST.lastPaidDte}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "active",
-              "type": "boolean",
-              "value": "{{$_POST.active}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memNo",
-              "type": "number",
-              "value": "{{$_POST.memNo}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "updatedBy",
-              "type": "number",
-              "value": "{{$_POST.updatedBy}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "notes",
-              "type": "text",
-              "value": "{{$_POST.notes}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memType",
-              "type": "number",
-              "value": "{{$_POST.memType}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "memStatus",
-              "type": "number",
-              "value": "{{$_POST.memStatus}}"
-            },
-            {
-              "table": "tbl_member_details",
-              "column": "lstFeePd",
-              "type": "number",
-              "value": "{{$_POST.lstFeePd}}"
-            }
-          ],
-          "table": "tbl_member_details",
-          "wheres": {
-            "condition": "AND",
-            "rules": [
+    "steps": [
+      {
+        "name": "email_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.email != null && $_POST.email != '')?$_POST.email.lowercase().encrypt($_ENV.eky):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "address1_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.address1 != null && $_POST.address1 != '')?$_POST.address1.capitalize().encrypt($_ENV.eky):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "address2_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.address2 != null && $_POST.address2 != '')?$_POST.address2.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "postcode_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.postcode != null && $_POST.postcode != '')?$_POST.postcode.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "mobTel_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.mobTel != null && $_POST.mobTel != '')?$_POST.mobTel.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "tel_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.tel != null && $_POST.tel != '')?$_POST.tel.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "notes_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_POST.notes != null && $_POST.notes != '')?$_POST.notes.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "update",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "update",
+            "values": [
               {
-                "id": "memDetsId",
-                "type": "double",
+                "table": "tbl_member_details",
+                "column": "fName",
+                "type": "text",
+                "value": "{{$_POST.fName}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName",
+                "type": "text",
+                "value": "{{$_POST.lName}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "email",
+                "type": "text",
+                "value": "{{email_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address1",
+                "type": "text",
+                "value": "{{address1_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "address2",
+                "type": "text",
+                "value": "{{address2_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town1",
+                "type": "text",
+                "value": "{{$_POST.town1}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "town2",
+                "type": "text",
+                "value": "{{$_POST.town2}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "postcode",
+                "type": "text",
+                "value": "{{postcode_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "mobTel",
+                "type": "text",
+                "value": "{{mobTel_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "tel",
+                "type": "text",
+                "value": "{{tel_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "modifiedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "updatedBy",
+                "type": "number",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "notes",
+                "type": "text",
+                "value": "{{notes_enc}}"
+              }
+            ],
+            "table": "tbl_member_details",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "memDetsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.memDetsId}}",
+                  "data": {
+                    "column": "memDetsId"
+                  },
+                  "operation": "="
+                }
+              ]
+            },
+            "returning": "memDetsId",
+            "query": "update `tbl_member_details` set `fName` = ?, `lName` = ?, `email` = ?, `address1` = ?, `address2` = ?, `town1` = ?, `town2` = ?, `postcode` = ?, `mobTel` = ?, `tel` = ?, `modifiedDate` = ?, `updatedBy` = ?, `notes` = ? where `memDetsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.fName}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.lName}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{email_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{address1_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{address2_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.town1}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{$_POST.town2}}",
+                "test": ""
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{postcode_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{mobTel_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{tel_enc}}",
+                "test": ""
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P12",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P13",
+                "type": "expression",
+                "value": "{{notes_enc}}",
+                "test": ""
+              },
+              {
                 "operator": "equal",
+                "type": "expression",
+                "name": ":P14",
                 "value": "{{$_POST.memDetsId}}",
-                "data": {
-                  "column": "memDetsId"
-                },
-                "operation": "="
+                "test": ""
               }
             ]
-          },
-          "returning": "memDetsId",
-          "query": "update `tbl_member_details` set `fName` = ?, `lName` = ?, `email` = ?, `address1` = ?, `address2` = ?, `town1` = ?, `town2` = ?, `postcode` = ?, `mobTel` = ?, `tel` = ?, `dateJoined` = ?, `createdDate` = ?, `modifiedDate` = ?, `lastPaidDte` = ?, `active` = ?, `memNo` = ?, `updatedBy` = ?, `notes` = ?, `memType` = ?, `memStatus` = ?, `lstFeePd` = ? where `memDetsId` = ?",
-          "params": [
-            {
-              "name": ":P1",
-              "type": "expression",
-              "value": "{{$_POST.fName}}",
-              "test": ""
-            },
-            {
-              "name": ":P2",
-              "type": "expression",
-              "value": "{{$_POST.lName}}",
-              "test": ""
-            },
-            {
-              "name": ":P3",
-              "type": "expression",
-              "value": "{{$_POST.email}}",
-              "test": ""
-            },
-            {
-              "name": ":P4",
-              "type": "expression",
-              "value": "{{$_POST.address1}}",
-              "test": ""
-            },
-            {
-              "name": ":P5",
-              "type": "expression",
-              "value": "{{$_POST.address2}}",
-              "test": ""
-            },
-            {
-              "name": ":P6",
-              "type": "expression",
-              "value": "{{$_POST.town1}}",
-              "test": ""
-            },
-            {
-              "name": ":P7",
-              "type": "expression",
-              "value": "{{$_POST.town2}}",
-              "test": ""
-            },
-            {
-              "name": ":P8",
-              "type": "expression",
-              "value": "{{$_POST.postcode}}",
-              "test": ""
-            },
-            {
-              "name": ":P9",
-              "type": "expression",
-              "value": "{{$_POST.mobTel}}",
-              "test": ""
-            },
-            {
-              "name": ":P10",
-              "type": "expression",
-              "value": "{{$_POST.tel}}",
-              "test": ""
-            },
-            {
-              "name": ":P11",
-              "type": "expression",
-              "value": "{{$_POST.dateJoined}}",
-              "test": ""
-            },
-            {
-              "name": ":P12",
-              "type": "expression",
-              "value": "{{$_POST.createdDate}}",
-              "test": ""
-            },
-            {
-              "name": ":P13",
-              "type": "expression",
-              "value": "{{$_POST.modifiedDate}}",
-              "test": ""
-            },
-            {
-              "name": ":P14",
-              "type": "expression",
-              "value": "{{$_POST.lastPaidDte}}",
-              "test": ""
-            },
-            {
-              "name": ":P15",
-              "type": "expression",
-              "value": "{{$_POST.active}}",
-              "test": ""
-            },
-            {
-              "name": ":P16",
-              "type": "expression",
-              "value": "{{$_POST.memNo}}",
-              "test": ""
-            },
-            {
-              "name": ":P17",
-              "type": "expression",
-              "value": "{{$_POST.updatedBy}}",
-              "test": ""
-            },
-            {
-              "name": ":P18",
-              "type": "expression",
-              "value": "{{$_POST.notes}}",
-              "test": ""
-            },
-            {
-              "name": ":P19",
-              "type": "expression",
-              "value": "{{$_POST.memType}}",
-              "test": ""
-            },
-            {
-              "name": ":P20",
-              "type": "expression",
-              "value": "{{$_POST.memStatus}}",
-              "test": ""
-            },
-            {
-              "name": ":P21",
-              "type": "expression",
-              "value": "{{$_POST.lstFeePd}}",
-              "test": ""
-            },
-            {
-              "operator": "equal",
-              "type": "expression",
-              "name": ":P22",
-              "value": "{{$_POST.memDetsId}}",
-              "test": ""
-            }
-          ]
-        }
-      },
-      "meta": [
-        {
-          "name": "affected",
-          "type": "number"
-        }
-      ]
-    }
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "collapsed": true
+      }
+    ]
   }
 }

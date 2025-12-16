@@ -83,6 +83,14 @@
               {
                 "table": "tbl_member_details",
                 "column": "dateJoined"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memNo"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "notes"
               }
             ],
             "params": [
@@ -126,7 +134,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined`, `memNo`, `notes` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
           }
         },
         "meta": [
@@ -185,6 +193,14 @@
           {
             "type": "date",
             "name": "dateJoined"
+          },
+          {
+            "type": "number",
+            "name": "memNo"
+          },
+          {
+            "type": "text",
+            "name": "notes"
           }
         ],
         "outputType": "object",

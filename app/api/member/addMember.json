@@ -7,13 +7,13 @@
     "$_POST": [
       {
         "type": "text",
-        "fieldName": "fName",
-        "name": "fName"
+        "fieldName": "fname",
+        "name": "fname"
       },
       {
         "type": "text",
-        "fieldName": "lName",
-        "name": "lName"
+        "fieldName": "lname",
+        "name": "lname"
       },
       {
         "type": "text",
@@ -27,26 +27,32 @@
       },
       {
         "type": "text",
+        "fieldName": "address2",
         "name": "address2"
       },
       {
         "type": "text",
-        "name": "town1"
+        "fieldName": "town",
+        "name": "town"
       },
       {
         "type": "text",
+        "fieldName": "town2",
         "name": "town2"
       },
       {
         "type": "text",
+        "fieldName": "postcode",
         "name": "postcode"
       },
       {
         "type": "text",
-        "name": "mobTel"
+        "fieldName": "mobilee",
+        "name": "mobilee"
       },
       {
         "type": "text",
+        "fieldName": "tel",
         "name": "tel"
       },
       {
@@ -60,49 +66,87 @@
         "name": "dateJoined"
       },
       {
-        "type": "datetime",
-        "name": "createdDate"
+        "type": "text",
+        "fieldName": "hidMemType",
+        "name": "hidMemType"
       },
       {
-        "type": "datetime",
-        "name": "modifiedDate"
+        "type": "text",
+        "fieldName": "selMemType",
+        "name": "selMemType"
       },
       {
-        "type": "date",
-        "name": "lastPaidDte"
+        "type": "text",
+        "fieldName": "notes",
+        "name": "notes"
       },
       {
-        "type": "boolean",
-        "name": "active"
+        "type": "text",
+        "name": "fName"
+      },
+      {
+        "type": "text",
+        "name": "town1"
       },
       {
         "type": "number",
         "name": "memNo"
-      },
-      {
-        "type": "number",
-        "name": "updatedBy"
-      },
-      {
-        "type": "text",
-        "name": "notes"
-      },
-      {
-        "type": "number",
-        "name": "memType"
-      },
-      {
-        "type": "number",
-        "name": "memStatus"
-      },
-      {
-        "type": "number",
-        "name": "lstFeePd"
       }
     ]
   },
   "exec": {
     "steps": [
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_member_details",
+                "column": "memNo",
+                "alias": "lastMemNo",
+                "aggregate": "MAX"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "tbl_member_details"
+            },
+            "primary": "memDetsId",
+            "joins": [],
+            "groupBy": [],
+            "query": "select max(`memNo`) as `lastMemNo` from `tbl_member_details`"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "lastMemNo"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "lastMemNo",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.lastMemNo+1}}"
+        },
+        "meta": [
+          {
+            "name": "lastMemNo",
+            "type": "number"
+          }
+        ],
+        "outputType": "text",
+        "output": true
+      },
       {
         "name": "encrypt",
         "module": "core",
@@ -135,6 +179,12 @@
                 "column": "fName",
                 "type": "text",
                 "value": "{{$_POST.fName}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName",
+                "type": "text",
+                "value": "{{$_POST.lname}}"
               },
               {
                 "table": "tbl_member_details",
@@ -180,12 +230,6 @@
               },
               {
                 "table": "tbl_member_details",
-                "column": "lName",
-                "type": "text",
-                "value": "{{$_POST.lName}}"
-              },
-              {
-                "table": "tbl_member_details",
                 "column": "town1",
                 "type": "text",
                 "value": "{{$_POST.town1}}"
@@ -200,12 +244,18 @@
                 "table": "tbl_member_details",
                 "column": "memNo",
                 "type": "number",
-                "value": "{{$_POST.memNo}}"
+                "value": "{{lastMemNo.lastMemNo}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "createdDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -216,49 +266,49 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{encrypt.email_enc}}",
+                "value": "{{$_POST.lname}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{encrypt.address1_enc}}",
+                "value": "{{encrypt.email_enc}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{encrypt.address2_enc}}",
+                "value": "{{encrypt.address1_enc}}",
                 "test": ""
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{encrypt.postcode_enc}}",
+                "value": "{{encrypt.address2_enc}}",
                 "test": ""
               },
               {
                 "name": ":P6",
                 "type": "expression",
-                "value": "{{encrypt.mobTel_enc}}",
+                "value": "{{encrypt.postcode_enc}}",
                 "test": ""
               },
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{encrypt.tel_enc}}",
+                "value": "{{encrypt.mobTel_enc}}",
                 "test": ""
               },
               {
                 "name": ":P8",
                 "type": "expression",
-                "value": "{{encrypt.notes_enc}}",
+                "value": "{{encrypt.tel_enc}}",
                 "test": ""
               },
               {
                 "name": ":P9",
                 "type": "expression",
-                "value": "{{$_POST.lName}}",
+                "value": "{{encrypt.notes_enc}}",
                 "test": ""
               },
               {
@@ -276,7 +326,13 @@
               {
                 "name": ":P12",
                 "type": "expression",
-                "value": "{{$_POST.memNo}}",
+                "value": "{{lastMemNo.lastMemNo}}",
+                "test": ""
+              },
+              {
+                "name": ":P13",
+                "type": "expression",
+                "value": "{{NOW}}",
                 "test": ""
               }
             ]
