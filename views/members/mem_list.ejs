@@ -16,7 +16,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});modEditMem.hide();notifies1.success('Member Details Updated')">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});serverconnectform1.reset();modEditMem.hide();notifies1.success('Member Details Updated')">
                     <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
                     <div class="row">
                         <div class="col">
@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_fName" name="First Name" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="First Name">
+                                <input type="text" class="form-control form-control-sm" id="inp_fName" name="fName" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="First Name">
 
                                 <label for="inp_fName">First Name</label>
                             </div>
@@ -292,7 +292,7 @@
                             <th scope="row" class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','memNo');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='memNo' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='memNo' &amp;&amp; query1.data.dir == 'desc'">Mem No.</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','fName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='fName' &amp;&amp; query1.data.dir == 'desc'">First Name</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','lName');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lName' &amp;&amp; query1.data.dir == 'desc'">Last Name</th>
-                            <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'desc'">Date joined</th>
+                            <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','dateJoined');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='dateJoined' &amp;&amp; query1.data.dir == 'desc'">Date Joined</th>
                             <th class="sorting bg-warning-subtle text-center" dmx-on:click="query1.set('sort','lastPaidDte');query1.set('dir',query1.data.dir == 'desc' ? 'asc' : 'desc')" dmx-class:sorting_asc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'asc'" dmx-class:sorting_desc="query1.data.sort=='lastPaidDte' &amp;&amp; query1.data.dir == 'desc'">Last Paid Date</th>
                         </tr>
                     </thead>
@@ -306,7 +306,7 @@
                             <td dmx-text="fName"></td>
                             <td dmx-text="lName"></td>
                             <td dmx-text="dateJoined.formatDate('dd-MM-yyyy')"></td>
-                            <td dmx-text="lastPaidDte"></td>
+                            <td dmx-text="lastPaidDte.formatDate('dd-MM-yyyy')"></td>
                         </tr>
                     </tbody>
                 </table>

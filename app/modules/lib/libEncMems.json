@@ -34,44 +34,91 @@
   "exec": {
     "steps": [
       {
+        "name": "email_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.email.lowercase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
         "name": "email_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.email ? $_PARAM.email.encrypt($_ENV.EKY) : null}}"
+          "value": "{{email_low_case?email_low_case.encrypt($_ENV.EKY):null}}"
         },
         "output": true,
         "meta": [],
         "outputType": "text"
+      },
+      {
+        "name": "address_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.address1.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "address1_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.address1 ? $_PARAM.address1.encrypt($_ENV.EKY) : null}}"
+          "value": "{{address_low_case?address_low_case.encrypt($_ENV.EKY):null}}"
         },
         "output": true,
         "meta": [],
         "outputType": "text"
+      },
+      {
+        "name": "address2_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.address2.lowercase().capitalize().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "address2_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.address2 ? $_PARAM.address2.encrypt($_ENV.EKY) : null}}"
+          "value": "{{address2_low_case?address2_low_case.encrypt($_ENV.EKY):null}}"
         },
         "output": true,
         "meta": [],
         "outputType": "text"
       },
       {
+        "name": "pcode_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.postcode.uppercase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
         "name": "postcode_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.postcode ? $_PARAM.postcode.encrypt($_ENV.EKY) : null}}"
+          "value": "{{pcode_low_case?pcode_low_case.encrypt($_ENV.EKY):null}}"
         },
         "output": true,
         "meta": [],

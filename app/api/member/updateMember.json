@@ -148,14 +148,37 @@
   "exec": {
     "steps": [
       {
+        "name": "email_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.email.lowercase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
         "name": "email_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{($_POST.email != null && $_POST.email != '')?$_POST.email.lowercase().encrypt($_ENV.eky):null}}"
+          "value": "{{(email_low_case!= null && email_low_case!= '')?email_low_case.encrypt($_ENV.eky):null}}"
         },
         "meta": [],
         "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "address_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.address1.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true,
         "output": true
       },
       {
@@ -163,29 +186,49 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{($_POST.address1 != null && $_POST.address1 != '')?$_POST.address1.capitalize().encrypt($_ENV.eky):null}}"
+          "value": "{{(address_low_case != null && address_low_case != '')?address_low_case.encrypt($_ENV.eky):null}}"
         },
         "meta": [],
         "outputType": "text",
         "output": true
+      },
+      {
+        "name": "address2_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.address2.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
       },
       {
         "name": "address2_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{($_POST.address2 != null && $_POST.address2 != '')?$_POST.address2.encrypt($_ENV.EKY):null}}"
+          "value": "{{(address2_low_case != null && address2_low_case != '')?address2_low_case.encrypt($_ENV.eky):null}}"
         },
         "meta": [],
         "outputType": "text",
         "output": true
       },
       {
+        "name": "pcode_low_case",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.postcode.uppercase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
         "name": "postcode_enc",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{($_POST.postcode != null && $_POST.postcode != '')?$_POST.postcode.encrypt($_ENV.EKY):null}}"
+          "value": "{{(pcode_low_case != null && pcode_low_case != '')?pcode_low_case.encrypt($_ENV.EKY):null}}"
         },
         "meta": [],
         "outputType": "text",
@@ -237,13 +280,13 @@
                 "table": "tbl_member_details",
                 "column": "fName",
                 "type": "text",
-                "value": "{{$_POST.fName}}"
+                "value": "{{$_POST.fName.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
                 "column": "lName",
                 "type": "text",
-                "value": "{{$_POST.lName}}"
+                "value": "{{$_POST.lName.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
@@ -267,13 +310,13 @@
                 "table": "tbl_member_details",
                 "column": "town1",
                 "type": "text",
-                "value": "{{$_POST.town1}}"
+                "value": "{{$_POST.town1.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
                 "column": "town2",
                 "type": "text",
-                "value": "{{$_POST.town2}}"
+                "value": "{{$_POST.town2.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
@@ -346,13 +389,13 @@
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{$_POST.fName}}",
+                "value": "{{$_POST.fName.lowercase().capitalize()}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.lName}}",
+                "value": "{{$_POST.lName.lowercase().capitalize()}}",
                 "test": ""
               },
               {
@@ -376,13 +419,13 @@
               {
                 "name": ":P6",
                 "type": "expression",
-                "value": "{{$_POST.town1}}",
+                "value": "{{$_POST.town1.lowercase().capitalize()}}",
                 "test": ""
               },
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{$_POST.town2}}",
+                "value": "{{$_POST.town2.lowercase().capitalize()}}",
                 "test": ""
               },
               {
