@@ -251,11 +251,17 @@
                 "column": "createdDate",
                 "type": "datetime",
                 "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "dateJoined",
+                "type": "date",
+                "value": "{{$_POST.dateJoined}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `dateJoined`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -333,6 +339,12 @@
                 "name": ":P13",
                 "type": "expression",
                 "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P14",
+                "type": "expression",
+                "value": "{{$_POST.dateJoined}}",
                 "test": ""
               }
             ]
