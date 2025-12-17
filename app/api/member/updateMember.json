@@ -1,5 +1,9 @@
 {
   "meta": {
+    "options": {
+      "linkedFile": "/views/members/mem_list.ejs",
+      "linkedForm": "serverconnectform1"
+    },
     "$_POST": [
       {
         "type": "text",
@@ -7,42 +11,57 @@
       },
       {
         "type": "text",
+        "fieldName": "lName",
         "name": "lName"
       },
       {
         "type": "text",
+        "fieldName": "email",
         "name": "email"
       },
       {
         "type": "text",
+        "fieldName": "address1",
         "name": "address1"
       },
       {
         "type": "text",
+        "fieldName": "address2",
         "name": "address2"
       },
       {
         "type": "text",
+        "fieldName": "town1",
         "name": "town1"
       },
       {
         "type": "text",
+        "fieldName": "town2",
         "name": "town2"
       },
       {
         "type": "text",
+        "fieldName": "postcode",
         "name": "postcode"
       },
       {
         "type": "text",
+        "fieldName": "mobTel",
         "name": "mobTel"
       },
       {
         "type": "text",
+        "fieldName": "tel",
         "name": "tel"
       },
       {
         "type": "date",
+        "fieldName": "dateJoined",
+        "options": {
+          "rules": {
+            "core:date": {}
+          }
+        },
         "name": "dateJoined"
       },
       {
@@ -55,6 +74,12 @@
       },
       {
         "type": "date",
+        "fieldName": "lastPaidDte",
+        "options": {
+          "rules": {
+            "core:date": {}
+          }
+        },
         "name": "lastPaidDte"
       },
       {
@@ -63,6 +88,12 @@
       },
       {
         "type": "number",
+        "fieldName": "memNo",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
         "name": "memNo"
       },
       {
@@ -71,6 +102,7 @@
       },
       {
         "type": "text",
+        "fieldName": "notes",
         "name": "notes"
       },
       {
@@ -87,7 +119,29 @@
       },
       {
         "type": "number",
+        "fieldName": "memDetsId",
         "name": "memDetsId"
+      },
+      {
+        "type": "text",
+        "fieldName": "First Name",
+        "name": "First Name"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidMemType",
+        "name": "hidMemType"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidStatus",
+        "name": "hidStatus"
+      },
+      {
+        "type": "text",
+        "fieldName": "selMemType1",
+        "multiple": true,
+        "name": "selMemType1"
       }
     ]
   },
@@ -113,8 +167,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "address2_enc",
@@ -125,8 +178,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "postcode_enc",
@@ -137,8 +189,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "mobTel_enc",
@@ -149,8 +200,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "tel_enc",
@@ -161,8 +211,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "notes_enc",
@@ -173,8 +222,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "update",
@@ -262,6 +310,18 @@
                 "column": "notes",
                 "type": "text",
                 "value": "{{notes_enc}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memStatus",
+                "type": "number",
+                "value": "{{$_POST.hidStatus}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memType",
+                "type": "number",
+                "value": "{{$_POST.hidMemType}}"
               }
             ],
             "table": "tbl_member_details",
@@ -281,7 +341,7 @@
               ]
             },
             "returning": "memDetsId",
-            "query": "update `tbl_member_details` set `fName` = ?, `lName` = ?, `email` = ?, `address1` = ?, `address2` = ?, `town1` = ?, `town2` = ?, `postcode` = ?, `mobTel` = ?, `tel` = ?, `modifiedDate` = ?, `updatedBy` = ?, `notes` = ? where `memDetsId` = ?",
+            "query": "update `tbl_member_details` set `fName` = ?, `lName` = ?, `email` = ?, `address1` = ?, `address2` = ?, `town1` = ?, `town2` = ?, `postcode` = ?, `mobTel` = ?, `tel` = ?, `modifiedDate` = ?, `updatedBy` = ?, `notes` = ?, `memStatus` = ?, `memType` = ? where `memDetsId` = ?",
             "params": [
               {
                 "name": ":P1",
@@ -362,9 +422,21 @@
                 "test": ""
               },
               {
+                "name": ":P14",
+                "type": "expression",
+                "value": "{{$_POST.hidStatus}}",
+                "test": ""
+              },
+              {
+                "name": ":P15",
+                "type": "expression",
+                "value": "{{$_POST.hidMemType}}",
+                "test": ""
+              },
+              {
                 "operator": "equal",
                 "type": "expression",
-                "name": ":P14",
+                "name": ":P16",
                 "value": "{{$_POST.memDetsId}}",
                 "test": ""
               }

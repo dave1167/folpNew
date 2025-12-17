@@ -91,11 +91,21 @@
       {
         "type": "number",
         "name": "memNo"
+      },
+      {
+        "type": "number",
+        "name": "lstFeePd"
       }
     ]
   },
   "exec": {
     "steps": [
+      {
+        "name": "",
+        "options": {
+          "comment": "Calculate Last Number"
+        }
+      },
       {
         "name": "qryLstNum",
         "module": "dbconnector",
@@ -146,6 +156,79 @@
         ],
         "outputType": "number",
         "output": true
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "Get Fee Paid"
+        }
+      },
+      {
+        "name": "qryFeePaid",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_mem_type",
+                "column": "fee"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.hidMemType}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_mem_type"
+            },
+            "primary": "memTypeId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_mem_type.memTypeId",
+                  "field": "tbl_mem_type.memTypeId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.hidMemType}}",
+                  "data": {
+                    "table": "tbl_mem_type",
+                    "column": "memTypeId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "memTypeId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `fee` from `tbl_mem_type` where `tbl_mem_type`.`memTypeId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "fee"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
       },
       {
         "name": "encrypt",
@@ -275,11 +358,17 @@
                 "column": "lastPaidDte",
                 "type": "date",
                 "value": "{{$_POST.dateJoined}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstFeePd",
+                "type": "number",
+                "value": "{{qryFeePaid.fee}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `dateJoined`, `email`, `fName`, `lName`, `lastPaidDte`, `memNo`, `memStatus`, `memType`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `dateJoined`, `email`, `fName`, `lName`, `lastPaidDte`, `lstFeePd`, `memNo`, `memStatus`, `memType`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -381,6 +470,12 @@
                 "name": ":P17",
                 "type": "expression",
                 "value": "{{$_POST.dateJoined}}",
+                "test": ""
+              },
+              {
+                "name": ":P18",
+                "type": "expression",
+                "value": "{{qryFeePaid.fee}}",
                 "test": ""
               }
             ]
