@@ -16,6 +16,55 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "userId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "email": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "firstName": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "lastName": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "password": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "active": {
+            "db": {
+              "type": "boolean",
+              "default": "1",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_role_type": {
@@ -24,6 +73,30 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "roleTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "roleDesc": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "roleValue": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          }
         }
       },
       "tbl_roles": {
@@ -32,6 +105,38 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "roleId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "role": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "userId": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "dateModified": {
+            "db": {
+              "type": "datetime",
+              "default": "current_timestamp()",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_log_types": {
@@ -40,6 +145,31 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "logTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "code": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "description": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_mem_type": {
@@ -304,6 +434,44 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "logId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "userId": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "memberId": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "logTypeId": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "createdAt": {
+            "db": {
+              "type": "datetime",
+              "default": "current_timestamp()",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_templates": {
@@ -312,6 +480,157 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "templateId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "name": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "description": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 500,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "category": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "template_html": {
+            "db": {
+              "type": "text",
+              "maxLength": 16777215,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "datetime",
+              "default": "current_timestamp()",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updated_at": {
+            "db": {
+              "type": "datetime",
+              "default": "current_timestamp()",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_Payment_Method": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "payMethodId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "PayMethod": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_Payments": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_members_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "paymentId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "paymentDate": {
+            "db": {
+              "type": "date",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "memId": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "paymentMthd": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "createdBy": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "paidYear": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "amount": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       }
     },

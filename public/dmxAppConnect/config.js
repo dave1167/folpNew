@@ -44,6 +44,14 @@ dmx.config({
       {
         "type": "text",
         "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "sort2"
+      },
+      {
+        "type": "text",
+        "name": "dir2"
       }
     ]
   }

@@ -37,6 +37,23 @@
       "db_password": "%Joanne@01!",
       "db_database": "folp_members_dev",
       "databaseType": "mariadb"
+    },
+    {
+      "name": "Staging",
+      "remoteURL": "https://stage.folpmembers.org",
+      "databaseConnectionType": "custom",
+      "db_host": "159.65.95.252",
+      "db_port": "3306",
+      "db_user": "folpuser",
+      "db_password": "%Joanne@01!",
+      "db_database": "folp_members_dev",
+      "databaseType": "mariadb",
+      "usage": "stage",
+      "access": "sftp",
+      "ftpServer": "159.65.95.252",
+      "ftpUser": "sftpuser",
+      "ftpPassword": "v2:2828e20edcc07e11c3483a5849afc742e8195daa02f4282cf9aa",
+      "ftpRemoteFolder": "/var/www/folp-stage"
     }
   ],
   "activeTarget": "Development",

@@ -4,6 +4,14 @@
       {
         "type": "number",
         "name": "memdtsid"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
       }
     ],
     "$_PARAM": [
@@ -107,7 +115,7 @@
                 "type": "expression",
                 "name": ":P1",
                 "value": "{{$_GET.memdtsid}}",
-                "test": ""
+                "test": "242"
               }
             ],
             "table": {
@@ -220,7 +228,6 @@
           }
         ],
         "outputType": "object",
-        "collapsed": true,
         "output": true
       },
       {
@@ -243,8 +250,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "address2_dec",
@@ -255,8 +261,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "postcode_dec",
@@ -267,8 +272,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "mobile_dec",
@@ -279,8 +283,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "tel_dec",
@@ -291,8 +294,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "notes_dec",
@@ -303,7 +305,91 @@
         },
         "meta": [],
         "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "query1",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_Payments",
+                "column": "paymentDate"
+              },
+              {
+                "table": "tbl_Payments",
+                "column": "paymentMthd"
+              },
+              {
+                "table": "tbl_Payments",
+                "column": "memId"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{query.memDetsId}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_Payments"
+            },
+            "primary": "paymentId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_Payments.memId",
+                  "field": "tbl_Payments.memId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{query.memDetsId}}",
+                  "data": {
+                    "table": "tbl_Payments",
+                    "column": "memId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "integer",
+                      "default": "",
+                      "primary": false,
+                      "nullable": true,
+                      "name": "memId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `paymentDate`, `paymentMthd`, `memId` from `tbl_Payments` where `tbl_Payments`.`memId` = ?"
+          }
+        },
         "output": true,
+        "meta": [
+          {
+            "type": "date",
+            "name": "paymentDate"
+          },
+          {
+            "type": "number",
+            "name": "paymentMthd"
+          },
+          {
+            "type": "number",
+            "name": "memId"
+          }
+        ],
+        "outputType": "array",
+        "disabled": true,
         "collapsed": true
       }
     ]

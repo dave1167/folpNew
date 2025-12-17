@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "number",
+        "name": "memid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "qryPay",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tblPayments",
+              "column": "paymentDate"
+            },
+            {
+              "table": "tblPayments",
+              "column": "paymentId"
+            },
+            {
+              "table": "tblPayments",
+              "column": "memId"
+            },
+            {
+              "table": "tblPayments",
+              "column": "paymentMthd"
+            },
+            {
+              "table": "tbl_Payment_Method",
+              "column": "PayMethod",
+              "alias": "paidVia"
+            },
+            {
+              "table": "tblPayments",
+              "column": "paidYear"
+            },
+            {
+              "table": "tblPayments",
+              "column": "amount"
+            },
+            {
+              "table": "tblPayments",
+              "column": "createdBy"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.memid}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "tbl_Payments",
+            "alias": "tblPayments"
+          },
+          "primary": "paymentId",
+          "joins": [
+            {
+              "table": "tbl_member_details",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_member_details",
+                    "column": "memDetsId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tblPayments",
+                      "column": "memId",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "memDetsId"
+            },
+            {
+              "table": "tbl_Payment_Method",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_Payment_Method",
+                    "column": "payMethodId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tblPayments",
+                      "column": "paymentMthd",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "payMethodId"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tblPayments.memId",
+                "field": "tblPayments.memId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.memid}}",
+                "data": {
+                  "table": "tblPayments",
+                  "column": "memId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "default": "",
+                    "primary": false,
+                    "nullable": true,
+                    "name": "memId"
+                  }
+                },
+                "operation": "=",
+                "table": "tbl_Payments"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select `tblPayments`.`paymentDate`, `tblPayments`.`paymentId`, `tblPayments`.`memId`, `tblPayments`.`paymentMthd`, `tbl_Payment_Method`.`PayMethod` as `paidVia`, `tblPayments`.`paidYear`, `tblPayments`.`amount`, `tblPayments`.`createdBy` from `tbl_Payments` as `tblPayments` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tblPayments`.`memId` inner join `tbl_Payment_Method` on `tbl_Payment_Method`.`payMethodId` = `tblPayments`.`paymentMthd` where `tblPayments`.`memId` = ? order by `tblPayments`.`paymentDate` DESC",
+          "orders": [
+            {
+              "table": "tblPayments",
+              "column": "paymentDate",
+              "direction": "DESC",
+              "recid": 1
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "date",
+          "name": "paymentDate"
+        },
+        {
+          "type": "number",
+          "name": "paymentId"
+        },
+        {
+          "type": "number",
+          "name": "memId"
+        },
+        {
+          "type": "number",
+          "name": "paymentMthd"
+        },
+        {
+          "type": "text",
+          "name": "paidVia"
+        },
+        {
+          "type": "text",
+          "name": "paidYear"
+        },
+        {
+          "type": "number",
+          "name": "amount"
+        },
+        {
+          "type": "number",
+          "name": "createdBy"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}
