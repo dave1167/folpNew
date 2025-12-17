@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_mem_status",
+              "column": "memStatusId"
+            },
+            {
+              "table": "tbl_mem_status",
+              "column": "statusDesc"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "tbl_mem_status"
+          },
+          "primary": "memStatusId",
+          "joins": [],
+          "query": "select `memStatusId`, `statusDesc` from `tbl_mem_status`"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "memStatusId"
+        },
+        {
+          "type": "text",
+          "name": "statusDesc"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}

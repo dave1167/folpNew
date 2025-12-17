@@ -91,6 +91,14 @@
               {
                 "table": "tbl_member_details",
                 "column": "notes"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memType"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memStatus"
               }
             ],
             "params": [
@@ -134,7 +142,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined`, `memNo`, `notes` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined`, `memNo`, `notes`, `memType`, `memStatus` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
           }
         },
         "meta": [
@@ -201,6 +209,14 @@
           {
             "type": "text",
             "name": "notes"
+          },
+          {
+            "type": "number",
+            "name": "memType"
+          },
+          {
+            "type": "number",
+            "name": "memStatus"
           }
         ],
         "outputType": "object",

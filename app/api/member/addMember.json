@@ -97,7 +97,7 @@
   "exec": {
     "steps": [
       {
-        "name": "query",
+        "name": "qryLstNum",
         "module": "dbconnector",
         "action": "single",
         "options": {
@@ -136,7 +136,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.lastMemNo+1}}"
+          "value": "{{qryLstNum.lastMemNo+1}}"
         },
         "meta": [
           {
@@ -144,7 +144,7 @@
             "type": "number"
           }
         ],
-        "outputType": "text",
+        "outputType": "number",
         "output": true
       },
       {
@@ -178,13 +178,13 @@
                 "table": "tbl_member_details",
                 "column": "fName",
                 "type": "text",
-                "value": "{{$_POST.fName}}"
+                "value": "{{$_POST.fName.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
                 "column": "lName",
                 "type": "text",
-                "value": "{{$_POST.lname}}"
+                "value": "{{$_POST.lname.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
@@ -232,19 +232,19 @@
                 "table": "tbl_member_details",
                 "column": "town1",
                 "type": "text",
-                "value": "{{$_POST.town1}}"
+                "value": "{{$_POST.town1.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
                 "column": "town2",
                 "type": "text",
-                "value": "{{$_POST.town2}}"
+                "value": "{{$_POST.town2.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
                 "column": "memNo",
                 "type": "number",
-                "value": "{{lastMemNo.lastMemNo}}"
+                "value": "{{lastMemNo}}"
               },
               {
                 "table": "tbl_member_details",
@@ -257,22 +257,40 @@
                 "column": "dateJoined",
                 "type": "date",
                 "value": "{{$_POST.dateJoined}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memType",
+                "type": "number",
+                "value": "{{$_POST.hidMemType}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memStatus",
+                "type": "number",
+                "value": "{{3}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lastPaidDte",
+                "type": "date",
+                "value": "{{$_POST.dateJoined}}"
               }
             ],
             "table": "tbl_member_details",
             "returning": "memDetsId",
-            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `dateJoined`, `email`, `fName`, `lName`, `memNo`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_member_details` (`address1`, `address2`, `createdDate`, `dateJoined`, `email`, `fName`, `lName`, `lastPaidDte`, `memNo`, `memStatus`, `memType`, `mobTel`, `notes`, `postcode`, `tel`, `town1`, `town2`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{$_POST.fName}}",
+                "value": "{{$_POST.fName.lowercase().capitalize()}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.lname}}",
+                "value": "{{$_POST.lname.lowercase().capitalize()}}",
                 "test": ""
               },
               {
@@ -320,19 +338,19 @@
               {
                 "name": ":P10",
                 "type": "expression",
-                "value": "{{$_POST.town1}}",
+                "value": "{{$_POST.town1.lowercase().capitalize()}}",
                 "test": ""
               },
               {
                 "name": ":P11",
                 "type": "expression",
-                "value": "{{$_POST.town2}}",
+                "value": "{{$_POST.town2.lowercase().capitalize()}}",
                 "test": ""
               },
               {
                 "name": ":P12",
                 "type": "expression",
-                "value": "{{lastMemNo.lastMemNo}}",
+                "value": "{{lastMemNo}}",
                 "test": ""
               },
               {
@@ -343,6 +361,24 @@
               },
               {
                 "name": ":P14",
+                "type": "expression",
+                "value": "{{$_POST.dateJoined}}",
+                "test": ""
+              },
+              {
+                "name": ":P15",
+                "type": "expression",
+                "value": "{{$_POST.hidMemType}}",
+                "test": ""
+              },
+              {
+                "name": ":P16",
+                "type": "expression",
+                "value": "{{3}}",
+                "test": ""
+              },
+              {
+                "name": ":P17",
                 "type": "expression",
                 "value": "{{$_POST.dateJoined}}",
                 "test": ""

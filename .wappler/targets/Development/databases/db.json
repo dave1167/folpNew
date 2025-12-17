@@ -82,6 +82,24 @@
           "schema": "folp_members_dev",
           "collation": "utf8mb4_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "memStatusId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "statusDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "tbl_member_details": {

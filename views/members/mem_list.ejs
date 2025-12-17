@@ -3,7 +3,8 @@
 
 <dmx-notifications id="notifies1"></dmx-notifications>
 <div is="dmx-browser" id="browser1"></div>
-<dmx-serverconnect id="scGetMemType" url="/api/member/selectMemType"></dmx-serverconnect><dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
+<dmx-serverconnect id="scGetMemType" url="/api/member/selectMemType"></dmx-serverconnect>
+<dmx-serverconnect id="scGetStatus" url="/api/member/getStatus"></dmx-serverconnect><dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
 <dmx-serverconnect id="scGetSingleMem" url="/api/member/getSingleMem" noload="true"></dmx-serverconnect>
 <meta name="ac:route" content="/members/mem_list">
 <dmx-query-manager id="query1"></dmx-query-manager>
@@ -16,26 +17,39 @@
             </div>
             <div class="modal-body">
                 <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});modEditMem.hide();notifies1.success('Member Details Updated')">
+                    <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" dmx-bind:value="scGetSingleMem.data.query.dateJoined" placeholder="Date joined" disabled="true" readonly="true">
+                                <input type="number" class="form-control form-control-sm" id="inp_memNo" name="memNo" dmx-bind:value="scGetSingleMem.data.query.memNo.pad(4)" placeholder="Membership No" disabled="true" readonly="true">
+                                <label for="inp_dateJoined1">Membership No</label>
+                            </div>
+
+
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control form-control-sm" id="inp_dateJoined" name="dateJoined" dmx-bind:value="scGetSingleMem.data.query.dateJoined" placeholder="Date joined" disabled="true" readonly="true">
                                 <label for="inp_dateJoined">Date joined</label>
                             </div>
 
                         </div>
-                        <div class="col" dmx-text="scGetSingleMem.data.query.memNo">
-                            <div class="form-floating mb-3" id="memNo">
-                                <input class="form-control" id="inp_memno" name="memNo" dmx-bind:value="scGetSingleMem.data.query.memNo.pad(4)" placeholder="Membership No.">
-                                <label for="inp_memno">Membership No.</label>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control form-control-sm" id="inp_lastPaidDte" name="lastPaidDte" dmx-bind:value="scGetSingleMem.data.query.lastPaidDte" placeholder="Last paid dte" disabled="true" readonly="true">
+                                <label for="inp_dateJoined1">Last Paid</label>
                             </div>
+
+
                         </div>
+
                     </div>
-                    <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
+
                     <div class="row">
                         <div class="col-3">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control form-control-sm" id="inp_fName" name="First Name" dmx-bind:value="scGetSingleMem.data.query.fName" placeholder="First Name">
+
                                 <label for="inp_fName">First Name</label>
                             </div>
                         </div>
@@ -103,8 +117,18 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inp_lastPaidDte" name="lastPaidDte" dmx-bind:value="scGetSingleMem.data.query.lastPaidDte" placeholder="Last paid dte">
-                                <label for="inp_lastPaidDte">Last paid dte</label>
+                                <select id="selMemType1" class="form-select form-select-sm" dmx-bind:options="scGetMemType.data.query" optiontext="memDesc" optionvalue="memTypeId" dmx-bind:value="scGetSingleMem.data.query.memType">
+                                </select>
+                                <input id="hidMemType" name="hidMemType" type="hidden" class="form-control" dmx-bind:value="selMemType1.value">
+                                <label for="input1" class="form-label col-form-label-sm">Membership Type</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select id="selStatus1" class="form-select form-select-sm" dmx-bind:options="scGetStatus.data.query" optiontext="statusDesc" optionvalue="memStatusId" dmx-bind:value="scGetSingleMem.data.query.memStatus">
+                                </select>
+                                <input id="hidStatus1" name="hidStatus" type="hidden" class="form-control" dmx-bind:value="selStatus1.value">
+                                <label for="input1" class="form-label col-form-label-sm">Status</label>
                             </div>
                         </div>
                     </div>
@@ -135,8 +159,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary">Save changes</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
@@ -150,7 +174,7 @@
                 <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/member/addMember" dmx-generator="bootstrap5" dmx-form-type="horizontal">
+                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/member/addMember" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-on:success="modAddNewMember.hide();scMemList.load({});notifies1.success('New Member Added')">
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
@@ -171,13 +195,13 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_address3" name="address1" aria-describedby="inp_address2_help" placeholder="Enter Address"><label for="inp_address1" class="form-label col-form-label-sm">Address</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_address3" name="address1" aria-describedby="inp_address2_help" placeholder="Enter Address"><label for="inp_address1" class="form-label col-form-label-sm">Address Line 1</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3 text-dark">
-                                <input type="text" class="form-control form-control-sm" id="inp_address2" name="address2" aria-describedby="inp_address2_help" placeholder="Enter Address2">
-                                <label for="inp_address2" class="form-label">Address2</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_address2" name="address2" aria-describedby="inp_address2_help" placeholder="Enter Address 2">
+                                <label for="inp_address2" class="form-label">Address Line 2</label>
                             </div>
                         </div>
                     </div>
@@ -189,7 +213,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_town1" name="town1" aria-describedby="inp_town1_help" placeholder="Enter Town1"><label for="inp_town2" class="form-label">Town2</label>
+                                <input type="text" class="form-control" id="inp_town1" name="town1" aria-describedby="inp_town1_help" placeholder="Enter Town 2"><label for="inp_town2" class="form-label">Town 2</label>
                             </div>
                         </div>
 
@@ -207,7 +231,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_tel" name="tel" aria-describedby="inp_tel_help" placeholder="Enter Tel"><label for="inp_tel" class="col-sm-2 col-form-label">Tel</label>
+                                <input type="text" class="form-control" id="inp_tel" name="tel" aria-describedby="inp_tel_help" placeholder="Enter Telephone"><label for="inp_tel" class="col-sm-2 col-form-label">Telelphone</label>
                             </div>
                         </div>
                     </div>
@@ -220,11 +244,7 @@
                         <div class="col">
                             <div class="form-floating mb-3">
                                 <select id="selMemType" class="form-select" dmx-bind:options="scGetMemType.data.query" optiontext="memDesc" optionvalue="memTypeId">
-                                </select><input type="text" class="form-control" id="inp_hidMemType" name="hidMemType" aria-describedby="inp_hidMemType_help" placeholder="Enter Hid mem type" dmx-bind:value="selMemType.value"><label for="selMemType" class="form-label">Select Membership</label>
-                            </div>
-                            <div class="form-group mb-3">
-
-
+                                </select><input type="hidden" class="form-control" id="inp_hidMemType" name="hidMemType" aria-describedby="inp_hidMemType_help" placeholder="Enter Hid mem type" dmx-bind:value="selMemType.value"><label for="selMemType1" class="form-label">Select Membership</label>
                             </div>
                         </div>
                     </div>
@@ -236,7 +256,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"><button type="submit" class="btn btn-primary">Save changes</button><button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Close</button></div>
+                        <div class="col"><button type="submit" class="btn btn-success">Save changes</button><button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Close</button></div>
                     </div>
 
                 </form>
