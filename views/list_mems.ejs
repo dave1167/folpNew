@@ -2,8 +2,8 @@
 
 <meta name="ac:route" content="/list_mems">
 <dmx-query-manager id="query1"></dmx-query-manager>
-<dmx-serverconnect id="scListMems" url="/api/member/listMems"></dmx-serverconnect>
-<dmx-serverconnect id="scGetSingleMem" url="/api/member/getSingleMem" noload="true" dmx-param:memdetsid=""></dmx-serverconnect>
+<dmx-serverconnect id="scListMems" url="/api/members/listMems"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleMem" url="/api/members/getSingleMem" noload="true" dmx-param:memdetsid=""></dmx-serverconnect>
 <div class="modal fade" id="modal1" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -12,7 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="horizontal">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/members/updateMember" dmx-generator="bootstrap5" dmx-form-type="horizontal">
 
                     <!-- Name row: first & last -->
                     <div class="row g-3 mb-3">

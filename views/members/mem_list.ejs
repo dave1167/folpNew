@@ -4,11 +4,11 @@
 
 <dmx-notifications id="notifies1"></dmx-notifications>
 <div is="dmx-browser" id="browser1"></div>
-<dmx-serverconnect id="scGetMemType" url="/api/member/selectMemType"></dmx-serverconnect>
-<dmx-serverconnect id="scGetStatus" url="/api/member/getStatus"></dmx-serverconnect><dmx-serverconnect id="scMemList" url="/api/member/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
-<dmx-serverconnect id="scGetSingleMem" url="/api/member/getSingleMem" noload="true" dmx-on:success="scPayments.load({memid: tableRepeat2[$index].memDetsId})"></dmx-serverconnect>
+<dmx-serverconnect id="scGetMemType" url="/api/members/selectMemType"></dmx-serverconnect>
+<dmx-serverconnect id="scGetStatus" url="/api/members/getStatus"></dmx-serverconnect><dmx-serverconnect id="scMemList" url="/api/members/listMems2" dmx-param:sort="query1.data.sort" dmx-param:dir="query1.data.dir" dmx-param:filter="txtSrch.value"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleMem" url="/api/members/getSingleMem" noload="true" dmx-on:success="scPayments.load({memid: tableRepeat2[$index].memDetsId})"></dmx-serverconnect>
 <meta name="ac:route" content="/members/mem_list">
-<dmx-serverconnect id="scPayments" url="/api/Payments/getMemPayments" dmx-param:memid="scGetSingleMem.data.query.memDetsId"></dmx-serverconnect><dmx-query-manager id="query1"></dmx-query-manager>
+<dmx-serverconnect id="scPayments" url="/api/payments/getMemPayments" dmx-param:memid="scGetSingleMem.data.query.memDetsId"></dmx-serverconnect><dmx-query-manager id="query1"></dmx-query-manager>
 <div class="modal fade" id="modEditMem" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen" role="document">
         <div class="modal-content">
@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-8" id="members">
-                            <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/member/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});serverconnectform1.reset();modEditMem.hide();notifies1.success('Member Details Updated')" dmx-on:done="">
+                            <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/members/updateMember" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-populate="scGetSingleMem.data.query" dmx-on:success="scMemList.load({});serverconnectform1.reset();modEditMem.hide();notifies1.success('Member Details Updated')" dmx-on:done="">
                                 <input type="hidden" name="memDetsId" id="inp_memDetsId" dmx-bind:value="scGetSingleMem.data.query.memDetsId">
                                 <div class="row">
                                     <div class="col">
@@ -203,7 +203,7 @@
                 <button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/member/addMember" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-on:success="modAddNewMember.hide();scMemList.load({});notifies1.success('New Member Added')">
+                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/members/addMember" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-on:success="modAddNewMember.hide();scMemList.load({});notifies1.success('New Member Added')">
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
