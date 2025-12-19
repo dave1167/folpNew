@@ -9,7 +9,7 @@
     {
       "path": "/members/mem_list",
       "page": "members/mem_list",
-      "layout": "lh_menu"
+      "layout": "lh_menu_2"
     },
     {
       "path": "/members/encDecTest",
@@ -24,7 +24,7 @@
     {
       "path": "/users/addUser",
       "page": "users/addUser",
-      "layout": "lh_menu"
+      "layout": "lh_menu_2"
     },
     {
       "path": "/settings/createTemplates",

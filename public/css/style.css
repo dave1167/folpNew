@@ -4,6 +4,30 @@
 
    Follow Bootstrap 5 conventions, use CSS variables where appropriate.
 */
+:root {
+    --offcanvas-width: 150px;
+    --topNavbarHeight: 56px;
+}
+.offcanvas {
+    width: var(--offcanvas-width);
+}
+@media (min-width: 992px) {
+    main {
+        margin-left: var(--offcanvas-width);
+    }
+    .offcanvas {
+        transform: none;
+        visibility: visible !important;
+        top: var(--topNavbarHeight);
+        height: calc(100% - var(--topNavbarHeight));
+    }
+    .offcanvas-backdrop::before {
+        display: none;
+    }
+    .offcanvas-header .btn-close {
+        visibility: hidden;
+    }
+}
 
 /* Keep header visible and above content */
 .app-header {
@@ -123,4 +147,6 @@ main#content {
   .sidebar, .sidebar.open {
     transition: none;
   }
+}
+#lh_menu_2 {
 }

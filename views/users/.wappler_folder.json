@@ -1,6 +1,6 @@
 {
   "addUser.ejs": {
-    "layoutPage": "lh_menu",
+    "layoutPage": "lh_menu_2",
     "description": ""
   }
 }
