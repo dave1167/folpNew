@@ -1,0 +1,77 @@
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="createTemplates" appConnect="local" components="{dmxSummernote:{},dmxSummernoteFileUpload:{}}" jquery_slim_35="cdn" -->
+<meta name="ac:route" content="/settings/createTemplates">
+<div class="container">
+    <form id="form1" is="dmx-serverconnect-form" method="post" action="/api/templates/saveTemplate">
+        <div class="row">
+            <div is="dmx-radio-group" id="group1" class="radio-group"></div>
+            <div class="col-2">
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="form-floating mb-3"> <input type="text" class="form-control" id="inp_desc" name="title" aria-describedby="input1_help" placeholder="Template name">
+                            <label for="inp_desc" class="form-label">Template Title</label>
+                        </div>
+                    </div>
+                    <div class="col w-100">
+                        <input id="hidCat" name="hidCatt1" type="text" class="form-control" dmx-bind:value="input1_group.value">
+                        <div class="form-group mb-3 row">
+                            <div class="col-sm-10">
+                                <div class="form-group mb-3 row" id="input1_group" is="dmx-radio-group">
+                                    <div class="col-sm-10 col-8">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="1" id="input1_1" name="input1">
+                                            <label class="form-check-label" for="input1_1">Document</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="2" id="input1_2" name="input1">
+                                            <label class="form-check-label" for="input1_2">Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <textarea id="tempDesc" class="form-control" name="tempDesc"></textarea>
+                            <label for="inp_title_desc" class="form-label">Description</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col border-1 rounded border-secondary shadow-lg">
+                        <div id="editor1" is="dmx-summernote" dmx-bind:toolbar="[['style',['style']],['font',['bold','underline','clear']],['fontname',['fontname']],['color',['color']],['para',['ul','ol','paragraph']],['table',['table']],['insert',['picture','link']],['view',['fullscreen','codeview','help']]]" height="400" min-height="300" name="editor" theme="bootstrap5" dmx-plugin:file=""></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input id="hidHTML" name="hidHTML" type="hidden" class="form-control" dmx-bind:value="editor1.value">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2">
+                <button id="btn1" class="btn w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?FirstName?&gt;')">First Name</button>
+                <button id="btn2" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?LastName?&gt;')">Last Name</button>
+                <button id="btn3" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?Address?&gt;')">Address</button>
+                <button id="btn4" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?Address2?&gt;')">Address 2</button>
+                <button id="btn5" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?Address2?&gt;')">Town</button>
+                <button id="btn6" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?Address2?&gt;')">Town 2</button>
+                <button id="btn7" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?Address2?&gt;')">Postcode</button>
+                <button id="btn8" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?MemNo?&gt;')">Member No.</button>
+                <button id="btn9" class="btn mt-1 w-100 btn-secondary" dmx-on:click="editor1.insertText('&lt;?MemNo?&gt;')">Today's Date.</button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button id="btn10" class="btn btn-success" type="submit">Save</button>
+                    <button id="btn11" class="btn ms-2 btn-dark">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

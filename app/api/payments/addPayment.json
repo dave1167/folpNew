@@ -77,122 +77,299 @@
         "type": "text",
         "fieldName": "hidSelVal",
         "name": "hidSelVal"
+      },
+      {
+        "type": "number",
+        "name": "memDetsId"
       }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "insert",
-      "module": "dbupdater",
-      "action": "insert",
-      "options": {
-        "connection": "db",
-        "sql": {
-          "type": "insert",
-          "values": [
-            {
-              "table": "tbl_payments",
-              "column": "paymentDate",
-              "type": "date",
-              "value": "{{$_POST.paymentDate}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "memId",
-              "type": "number",
-              "value": "{{$_POST.hidMemId}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "paymentMthd",
-              "type": "number",
-              "value": "{{$_POST.hidSelVal}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "createdBy",
-              "type": "number",
-              "value": "{{$_POST.createdBy}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "paidYear",
-              "type": "text",
-              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "amount",
-              "type": "number",
-              "value": "{{$_POST.amount}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "createdDate",
-              "type": "datetime",
-              "value": "{{NOW}}"
-            }
-          ],
-          "table": "tbl_payments",
-          "returning": "paymentId",
-          "query": "insert into `tbl_payments` (`amount`, `createdBy`, `createdDate`, `memId`, `paidYear`, `paymentDate`, `paymentMthd`) values (?, ?, ?, ?, ?, ?, ?)",
-          "params": [
-            {
-              "name": ":P1",
-              "type": "expression",
-              "value": "{{$_POST.paymentDate}}",
-              "test": ""
-            },
-            {
-              "name": ":P2",
-              "type": "expression",
-              "value": "{{$_POST.hidMemId}}",
-              "test": ""
-            },
-            {
-              "name": ":P3",
-              "type": "expression",
-              "value": "{{$_POST.hidSelVal}}",
-              "test": ""
-            },
-            {
-              "name": ":P4",
-              "type": "expression",
-              "value": "{{$_POST.createdBy}}",
-              "test": ""
-            },
-            {
-              "name": ":P5",
-              "type": "expression",
-              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}",
-              "test": ""
-            },
-            {
-              "name": ":P6",
-              "type": "expression",
-              "value": "{{$_POST.amount}}",
-              "test": ""
-            },
-            {
-              "name": ":P7",
-              "type": "expression",
-              "value": "{{NOW}}",
-              "test": ""
-            }
-          ]
-        }
-      },
-      "meta": [
-        {
-          "name": "identity",
-          "type": "text"
+    "steps": [
+      {
+        "name": "insert",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_payments",
+                "column": "paymentDate",
+                "type": "date",
+                "value": "{{$_POST.paymentDate}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "memId",
+                "type": "number",
+                "value": "{{$_POST.hidMemId}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paymentMthd",
+                "type": "number",
+                "value": "{{$_POST.hidSelVal}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdBy",
+                "type": "number",
+                "value": "{{$_POST.createdBy}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paidYear",
+                "type": "text",
+                "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "amount",
+                "type": "number",
+                "value": "{{$_POST.amount}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              }
+            ],
+            "table": "tbl_payments",
+            "returning": "paymentId",
+            "query": "insert into `tbl_payments` (`amount`, `createdBy`, `createdDate`, `memId`, `paidYear`, `paymentDate`, `paymentMthd`) values (?, ?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.paymentDate}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.hidMemId}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.hidSelVal}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.createdBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.amount}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              }
+            ]
+          }
         },
-        {
-          "name": "affected",
-          "type": "number"
-        }
-      ],
-      "collapsed": true
-    }
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_payments",
+                "column": "paymentDate",
+                "aggregate": "MAX"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "amount"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.hidMemId}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_payments"
+            },
+            "primary": "paymentId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_payments.memId",
+                  "field": "tbl_payments.memId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.hidMemId}}",
+                  "data": {
+                    "table": "tbl_payments",
+                    "column": "memId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "integer",
+                      "default": "",
+                      "primary": false,
+                      "nullable": true,
+                      "name": "memId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_payments"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "orders": [
+              {
+                "table": "tbl_payments",
+                "column": "paymentDate",
+                "direction": "DESC",
+                "recid": 1
+              }
+            ],
+            "query": "select max(`paymentDate`), `amount` from `tbl_payments` where `tbl_payments`.`memId` = ? group by `amount` order by `paymentDate` DESC",
+            "groupBy": [
+              {
+                "table": "tbl_payments",
+                "column": "amount"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "date",
+            "name": "paymentDate"
+          },
+          {
+            "type": "number",
+            "name": "amount"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "lastpay",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query.paymentDate}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "update",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "update",
+            "values": [
+              {
+                "table": "tbl_member_details",
+                "column": "lstFeePd",
+                "type": "number",
+                "value": "{{query.amount}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lastPaidDte",
+                "type": "date",
+                "value": "{{lastpay}}"
+              }
+            ],
+            "table": "tbl_member_details",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "memDetsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.memDetsId}}",
+                  "data": {
+                    "column": "memDetsId"
+                  },
+                  "operation": "="
+                }
+              ]
+            },
+            "returning": "memDetsId",
+            "query": "update `tbl_member_details` set `lstFeePd` = ?, `lastPaidDte` = ? where `memDetsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{query.amount}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{lastpay}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P3",
+                "value": "{{$_POST.memDetsId}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
   }
 }

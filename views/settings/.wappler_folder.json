@@ -1,0 +1,6 @@
+{
+  "createTemplates.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
+  }
+}

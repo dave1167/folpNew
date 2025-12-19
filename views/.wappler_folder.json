@@ -6,5 +6,9 @@
   "list_mems.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "index.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

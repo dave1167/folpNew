@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/users/addUser.ejs",
+      "linkedForm": "serverconnectform1"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "email",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "firstName",
+        "name": "firstName"
+      },
+      {
+        "type": "text",
+        "fieldName": "lastName",
+        "name": "lastName"
+      },
+      {
+        "type": "text",
+        "fieldName": "password",
+        "name": "password"
+      },
+      {
+        "type": "boolean",
+        "name": "active"
+      },
+      {
+        "type": "number",
+        "name": "role"
+      },
+      {
+        "type": "text",
+        "fieldName": "select1",
+        "name": "select1"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidRole",
+        "name": "hidRole"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "hash",
+        "module": "crypto",
+        "action": "passwordHash",
+        "options": {
+          "password": "{{$_POST.password}}",
+          "algo": "argon2id"
+        },
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "insUser",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_users",
+                "column": "email",
+                "type": "text",
+                "value": "{{$_POST.email}}"
+              },
+              {
+                "table": "tbl_users",
+                "column": "firstName",
+                "type": "text",
+                "value": "{{$_POST.firstName}}"
+              },
+              {
+                "table": "tbl_users",
+                "column": "lastName",
+                "type": "text",
+                "value": "{{$_POST.lastName}}"
+              },
+              {
+                "table": "tbl_users",
+                "column": "password",
+                "type": "text",
+                "value": "{{hash}}"
+              },
+              {
+                "table": "tbl_users",
+                "column": "active",
+                "type": "boolean",
+                "value": "{{$_POST.active}}"
+              }
+            ],
+            "table": "tbl_users",
+            "returning": "userId",
+            "query": "insert into `tbl_users` (`active`, `email`, `firstName`, `lastName`, `password`) values (?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.firstName}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.lastName}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{hash}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.active}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "collapsed": true
+      },
+      {
+        "name": "insRole",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_roles",
+                "column": "role",
+                "type": "number",
+                "value": "{{$_POST.hidRole}}"
+              },
+              {
+                "table": "tbl_roles",
+                "column": "userId",
+                "type": "text",
+                "value": "{{insUser.identity}}"
+              },
+              {
+                "table": "tbl_roles",
+                "column": "dateModified",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              }
+            ],
+            "table": "tbl_roles",
+            "returning": "roleId",
+            "query": "insert into `tbl_roles` (`dateModified`, `role`, `userId`) values (?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidRole}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{insUser.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "collapsed": true
+      }
+    ]
+  },
+  "usedModules": {
+    "argon2": "^0.30.2"
+  }
+}

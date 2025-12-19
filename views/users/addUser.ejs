@@ -1,0 +1,36 @@
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="addUser" appConnect="local" -->
+<dmx-serverconnect id="scGetRoles" url="/api/users/getRoles"></dmx-serverconnect>
+<meta name="ac:route" content="/users/addUser">
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/addUser" dmx-generator="bootstrap5" dmx-form-type="floating">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inp_email" name="email" placeholder="Email">
+          <label for="inp_email">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inp_firstName" name="firstName" placeholder="First name">
+          <label for="inp_firstName">First name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inp_lastName" name="lastName" placeholder="Last name">
+          <label for="inp_lastName">Last name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="inp_password" name="password" placeholder="Password">
+          <label for="inp_password">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select id="select1" class="form-select" dmx-bind:options="scGetRoles.data.query" optiontext="roleDesc" optionvalue="roleValue">
+          </select>
+          <input id="hidRole" name="hidRole" type="text" class="form-control" dmx-bind:value="select1.value">
+          <label for="input1" class="form-label">Role</label>
+        </div>
+        <div class="form-group mb-3">
+          <button type="submit" class="btn btn-primary" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,14 @@
-{
-  "name": "identity",
-  "module": "auth",
-  "action": "login",
-  "options": {
-    "provider": "security"
-  },
-  "output": true,
-  "meta": []
-}
+[
+  "SecurityProviders/security",
+  {
+    "name": "identity",
+    "module": "auth",
+    "action": "login",
+    "options": {
+      "provider": "security",
+      "username": "{{$_POST.email}}"
+    },
+    "output": true,
+    "meta": []
+  }
+]
