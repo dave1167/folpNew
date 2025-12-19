@@ -317,15 +317,15 @@
             "type": "SELECT",
             "columns": [
               {
-                "table": "tbl_Payments",
+                "table": "tbl_payments",
                 "column": "paymentDate"
               },
               {
-                "table": "tbl_Payments",
+                "table": "tbl_payments",
                 "column": "paymentMthd"
               },
               {
-                "table": "tbl_Payments",
+                "table": "tbl_payments",
                 "column": "memId"
               }
             ],
@@ -339,7 +339,7 @@
               }
             ],
             "table": {
-              "name": "tbl_Payments"
+              "name": "tbl_payments"
             },
             "primary": "paymentId",
             "joins": [],
@@ -347,13 +347,13 @@
               "condition": "AND",
               "rules": [
                 {
-                  "id": "tbl_Payments.memId",
-                  "field": "tbl_Payments.memId",
+                  "id": "tbl_payments.memId",
+                  "field": "tbl_payments.memId",
                   "type": "double",
                   "operator": "equal",
                   "value": "{{query.memDetsId}}",
                   "data": {
-                    "table": "tbl_Payments",
+                    "table": "tbl_payments",
                     "column": "memId",
                     "type": "number",
                     "columnObj": {

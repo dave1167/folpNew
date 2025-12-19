@@ -7,19 +7,19 @@
       "layout": "main"
     },
     {
-      "path": "/member",
-      "page": "member",
-      "layout": "lh_menu"
-    },
-    {
-      "path": "/list_mems",
-      "page": "list_mems",
-      "layout": "lh_menu"
-    },
-    {
       "path": "/members/mem_list",
       "page": "members/mem_list",
       "layout": "lh_menu"
+    },
+    {
+      "path": "/login/login",
+      "page": "login/login",
+      "layout": "main"
+    },
+    {
+      "path": "/members/encDecTest",
+      "page": "members/encDecTest",
+      "layout": "main"
     }
   ]
 }

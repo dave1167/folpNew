@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/members/encDecTest.ejs",
+      "linkedForm": "form1"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "enc",
+        "name": "enc"
+      },
+      {
+        "type": "text",
+        "fieldName": "Dec",
+        "name": "Dec"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "EncText",
+      "module": "core",
+      "action": "setvalue",
+      "options": {
+        "value": "{{$_POST.enc.decrypt($_ENV.EKY)}}"
+      },
+      "meta": [],
+      "outputType": "text",
+      "output": true,
+      "collapsed": true
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "security",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "secret": "ZyxjpGKhBqRSrcY",
+    "provider": "Database",
+    "connection": "db",
+    "users": {
+      "table": "tbl_users",
+      "identity": "userId",
+      "username": "email",
+      "password": "password"
+    },
+    "permissions": {
+      "Admin": {
+        "table": "tbl_roles",
+        "identity": "userId",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "3"
+          }
+        ]
+      }
+    }
+  },
+  "meta": [
+    {
+      "name": "identity",
+      "type": "text"
+    }
+  ]
+}

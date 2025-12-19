@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_payment_method",
+              "column": "payMethodId"
+            },
+            {
+              "table": "tbl_payment_method",
+              "column": "PayMethod"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "tbl_payment_method"
+          },
+          "primary": "payMethodId",
+          "joins": [],
+          "query": "select `payMethodId`, `PayMethod` from `tbl_payment_method`"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "payMethodId"
+        },
+        {
+          "type": "text",
+          "name": "PayMethod"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}

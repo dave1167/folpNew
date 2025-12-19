@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "memtype"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "qryFee",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_mem_type",
+                "column": "fee",
+                "alias": "currFee"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.memtype}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_mem_type"
+            },
+            "primary": "memTypeId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_mem_type.memTypeId",
+                  "field": "tbl_mem_type.memTypeId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.memtype}}",
+                  "data": {
+                    "table": "tbl_mem_type",
+                    "column": "memTypeId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "memTypeId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `fee` as `currFee` from `tbl_mem_type` where `tbl_mem_type`.`memTypeId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "currFee"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "ftp",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "gbFtp",
+          "value": "{{query.currFee}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      }
+    ]
+  }
+}

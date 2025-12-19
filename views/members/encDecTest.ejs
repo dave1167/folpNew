@@ -1,0 +1,13 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="encDecTest" appConnect="local" -->
+<dmx-serverconnect id="serverconnect1" url="/api/members/testEncDec" noload="true"></dmx-serverconnect>
+<meta name="ac:route" content="/members/encDecTest">
+<div class="row">
+    <div class="col">
+        <form id="form1" is="dmx-serverconnect-form" action="/api/members/testEncDec" dmx-on:success="dec.setValue(form1.data.EncText)" method="post">
+            <p>Input</p>
+            <input id="enc" name="enc" type="text" class="form-control">
+            <input id="dec" name="Dec" type="text" class="form-control mt-5">
+            <button id="btn1" class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>

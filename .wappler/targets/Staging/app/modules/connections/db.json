@@ -9,7 +9,7 @@
       "port": 3306,
       "user": "folpuser",
       "password": "%Joanne@01!",
-      "database": "folp_members_dev"
+      "database": "folp_members_stage"
     }
   }
 }

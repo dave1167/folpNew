@@ -27,11 +27,11 @@
           "columns": [
             {
               "table": "tblPayments",
-              "column": "paymentDate"
+              "column": "paymentId"
             },
             {
               "table": "tblPayments",
-              "column": "paymentId"
+              "column": "paymentDate"
             },
             {
               "table": "tblPayments",
@@ -42,9 +42,8 @@
               "column": "paymentMthd"
             },
             {
-              "table": "tbl_Payment_Method",
-              "column": "PayMethod",
-              "alias": "paidVia"
+              "table": "tblPayments",
+              "column": "createdBy"
             },
             {
               "table": "tblPayments",
@@ -56,7 +55,20 @@
             },
             {
               "table": "tblPayments",
-              "column": "createdBy"
+              "column": "modifedBy"
+            },
+            {
+              "table": "tblPayments",
+              "column": "modifiedDate"
+            },
+            {
+              "table": "tblPayments",
+              "column": "createdDate"
+            },
+            {
+              "table": "tbl_Payment_Method",
+              "column": "PayMethod",
+              "alias": "paidVia"
             }
           ],
           "params": [
@@ -65,40 +77,19 @@
               "type": "expression",
               "name": ":P1",
               "value": "{{$_GET.memid}}",
-              "test": ""
+              "test": "224"
             }
           ],
           "table": {
-            "name": "tbl_Payments",
+            "name": "tbl_payments",
             "alias": "tblPayments"
           },
           "primary": "paymentId",
           "joins": [
             {
-              "table": "tbl_member_details",
+              "table": "tbl_payment_method",
               "column": "*",
-              "type": "INNER",
-              "clauses": {
-                "condition": "AND",
-                "rules": [
-                  {
-                    "table": "tbl_member_details",
-                    "column": "memDetsId",
-                    "operator": "equal",
-                    "operation": "=",
-                    "value": {
-                      "table": "tblPayments",
-                      "column": "memId",
-                      "type": "number"
-                    }
-                  }
-                ]
-              },
-              "primary": "memDetsId"
-            },
-            {
-              "table": "tbl_Payment_Method",
-              "column": "*",
+              "alias": "tbl_Payment_Method",
               "type": "INNER",
               "clauses": {
                 "condition": "AND",
@@ -141,13 +132,13 @@
                   }
                 },
                 "operation": "=",
-                "table": "tbl_Payments"
+                "table": "tbl_payments"
               }
             ],
             "conditional": null,
             "valid": true
           },
-          "query": "select `tblPayments`.`paymentDate`, `tblPayments`.`paymentId`, `tblPayments`.`memId`, `tblPayments`.`paymentMthd`, `tbl_Payment_Method`.`PayMethod` as `paidVia`, `tblPayments`.`paidYear`, `tblPayments`.`amount`, `tblPayments`.`createdBy` from `tbl_Payments` as `tblPayments` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tblPayments`.`memId` inner join `tbl_Payment_Method` on `tbl_Payment_Method`.`payMethodId` = `tblPayments`.`paymentMthd` where `tblPayments`.`memId` = ? order by `tblPayments`.`paymentDate` DESC",
+          "query": "select `tblPayments`.`paymentId`, `tblPayments`.`paymentDate`, `tblPayments`.`memId`, `tblPayments`.`paymentMthd`, `tblPayments`.`createdBy`, `tblPayments`.`paidYear`, `tblPayments`.`amount`, `tblPayments`.`modifedBy`, `tblPayments`.`modifiedDate`, `tblPayments`.`createdDate`, `tbl_Payment_Method`.`PayMethod` as `paidVia` from `tbl_payments` as `tblPayments` inner join `tbl_payment_method` as `tbl_Payment_Method` on `tbl_Payment_Method`.`payMethodId` = `tblPayments`.`paymentMthd` where `tblPayments`.`memId` = ? order by `tblPayments`.`paymentDate` DESC",
           "orders": [
             {
               "table": "tblPayments",
@@ -161,12 +152,12 @@
       "output": true,
       "meta": [
         {
-          "type": "date",
-          "name": "paymentDate"
-        },
-        {
           "type": "number",
           "name": "paymentId"
+        },
+        {
+          "type": "date",
+          "name": "paymentDate"
         },
         {
           "type": "number",
@@ -177,8 +168,8 @@
           "name": "paymentMthd"
         },
         {
-          "type": "text",
-          "name": "paidVia"
+          "type": "number",
+          "name": "createdBy"
         },
         {
           "type": "text",
@@ -190,7 +181,19 @@
         },
         {
           "type": "number",
-          "name": "createdBy"
+          "name": "modifedBy"
+        },
+        {
+          "type": "datetime",
+          "name": "modifiedDate"
+        },
+        {
+          "type": "datetime",
+          "name": "createdDate"
+        },
+        {
+          "type": "text",
+          "name": "paidVia"
         }
       ],
       "outputType": "array",

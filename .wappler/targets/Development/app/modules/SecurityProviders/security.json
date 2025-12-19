@@ -1,0 +1,9 @@
+{
+  "name": "security",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "secret": "ZyxjpGKhBqRSrcY",
+    "provider": "Single"
+  }
+}

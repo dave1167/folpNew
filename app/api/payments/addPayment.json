@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/members/mem_list.ejs",
+      "linkedForm": "serverconnectform3"
+    },
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "memdetsid"
+      },
+      {
+        "type": "text",
+        "name": "memfee"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "date",
+        "fieldName": "paymentDate",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": ""
+            },
+            "core:date": {}
+          }
+        },
+        "name": "paymentDate"
+      },
+      {
+        "type": "number",
+        "name": "memId"
+      },
+      {
+        "type": "number",
+        "name": "paymentMthd"
+      },
+      {
+        "type": "number",
+        "name": "createdBy"
+      },
+      {
+        "type": "text",
+        "name": "paidYear"
+      },
+      {
+        "type": "number",
+        "fieldName": "amount",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "amount"
+      },
+      {
+        "type": "datetime",
+        "name": "createdDate"
+      },
+      {
+        "type": "text",
+        "fieldName": "selPayMthd",
+        "name": "selPayMthd"
+      },
+      {
+        "type": "text",
+        "fieldName": "payNotes",
+        "name": "payNotes"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidMemId",
+        "name": "hidMemId"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSelVal",
+        "name": "hidSelVal"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insert",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "tbl_payments",
+              "column": "paymentDate",
+              "type": "date",
+              "value": "{{$_POST.paymentDate}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "memId",
+              "type": "number",
+              "value": "{{$_POST.hidMemId}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "paymentMthd",
+              "type": "number",
+              "value": "{{$_POST.hidSelVal}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "createdBy",
+              "type": "number",
+              "value": "{{$_POST.createdBy}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "paidYear",
+              "type": "text",
+              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "amount",
+              "type": "number",
+              "value": "{{$_POST.amount}}"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "createdDate",
+              "type": "datetime",
+              "value": "{{NOW}}"
+            }
+          ],
+          "table": "tbl_payments",
+          "returning": "paymentId",
+          "query": "insert into `tbl_payments` (`amount`, `createdBy`, `createdDate`, `memId`, `paidYear`, `paymentDate`, `paymentMthd`) values (?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.paymentDate}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.hidMemId}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.hidSelVal}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.createdBy}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.amount}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{NOW}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ],
+      "collapsed": true
+    }
+  }
+}

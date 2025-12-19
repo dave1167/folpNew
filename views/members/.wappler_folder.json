@@ -10,5 +10,9 @@
   "mem_list.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "encDecTest.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

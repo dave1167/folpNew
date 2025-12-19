@@ -46,13 +46,13 @@
       "db_port": "3306",
       "db_user": "folpuser",
       "db_password": "%Joanne@01!",
-      "db_database": "folp_members_dev",
+      "db_database": "folp_members_stage",
       "databaseType": "mariadb",
       "usage": "stage",
       "access": "sftp",
       "ftpServer": "159.65.95.252",
       "ftpUser": "sftpuser",
-      "ftpPassword": "v2:2828e20edcc07e11c3483a5849afc742e8195daa02f4282cf9aa",
+      "ftpPassword": "v2:7282dd2c4a2f651d5dbfef12adc09bc18390b61333d64a1dd933",
       "ftpRemoteFolder": "/var/www/folp-stage"
     }
   ],
