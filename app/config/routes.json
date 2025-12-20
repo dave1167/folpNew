@@ -9,7 +9,7 @@
     {
       "path": "/members/mem_list",
       "page": "members/mem_list",
-      "layout": "lh_menu_2"
+      "layout": "lh_menu"
     },
     {
       "path": "/members/encDecTest",
