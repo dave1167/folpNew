@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "templateid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_templates",
+              "column": "name"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "description"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "category"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "template_html"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.templateid}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "tbl_templates"
+          },
+          "primary": "templateId",
+          "joins": [],
+          "query": "select `name`, `description`, `category`, `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_templates.templateId",
+                "field": "tbl_templates.templateId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.templateid}}",
+                "data": {
+                  "table": "tbl_templates",
+                  "column": "templateId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "increments",
+                    "primary": true,
+                    "nullable": false,
+                    "name": "templateId"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "name"
+        },
+        {
+          "type": "text",
+          "name": "description"
+        },
+        {
+          "type": "text",
+          "name": "category"
+        },
+        {
+          "type": "text",
+          "name": "template_html"
+        }
+      ],
+      "outputType": "object",
+      "collapsed": true
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/settings/template_list.ejs",
+      "linkedForm": "frmEditTemplate"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "name",
+        "name": "name"
+      },
+      {
+        "type": "text",
+        "name": "description"
+      },
+      {
+        "type": "text",
+        "name": "category"
+      },
+      {
+        "type": "text",
+        "name": "template_html"
+      },
+      {
+        "type": "datetime",
+        "name": "created_at"
+      },
+      {
+        "type": "datetime",
+        "name": "updated_at"
+      },
+      {
+        "type": "number",
+        "name": "createdBy"
+      },
+      {
+        "type": "number",
+        "name": "templateId"
+      },
+      {
+        "type": "text",
+        "fieldName": "tempNotes",
+        "name": "tempNotes"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "update",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "tbl_templates",
+              "column": "name",
+              "type": "text",
+              "value": "{{$_POST.name}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "description",
+              "type": "text",
+              "value": "{{$_POST.description}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "category",
+              "type": "text",
+              "value": "{{$_POST.category}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "template_html",
+              "type": "text",
+              "value": "{{$_POST.template_html}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "created_at",
+              "type": "datetime",
+              "value": "{{$_POST.created_at}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "updated_at",
+              "type": "datetime",
+              "value": "{{$_POST.updated_at}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "createdBy",
+              "type": "number",
+              "value": "{{$_POST.createdBy}}"
+            }
+          ],
+          "table": "tbl_templates",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "templateId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_POST.templateId}}",
+                "data": {
+                  "column": "templateId"
+                },
+                "operation": "="
+              }
+            ]
+          },
+          "returning": "templateId",
+          "query": "update `tbl_templates` set `name` = ?, `description` = ?, `category` = ?, `template_html` = ?, `created_at` = ?, `updated_at` = ?, `createdBy` = ? where `templateId` = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.name}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.description}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.category}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.template_html}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.created_at}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.updated_at}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.createdBy}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P8",
+              "value": "{{$_POST.templateId}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

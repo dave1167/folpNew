@@ -30,6 +30,11 @@
       "path": "/settings/createTemplates",
       "page": "settings/createTemplates",
       "layout": "lh_menu"
+    },
+    {
+      "path": "/settings/template_list",
+      "page": "settings/template_list",
+      "layout": "lh_menu"
     }
   ]
 }

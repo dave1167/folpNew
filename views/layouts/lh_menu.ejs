@@ -84,6 +84,7 @@
   <script src="/dmxAppConnect/dmxSummernote/summernote-lite.min.js" defer></script>
   <script src="/dmxAppConnect/dmxSummernoteFileUpload/summernote-upload.js" defer></script>
   <script src="/dmxAppConnect/dmxBootstrap5Offcanvas/dmxBootstrap5Offcanvas.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
 </head>
 
 <body is="dmx-app">
@@ -120,16 +121,27 @@
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
         </div>
+        <div class="navbar-nav flex-column w-100">
 
-        <ul class="nav nav-pills flex-column">
+          <a class="nav-item nav-link" href="#">Link</a>
 
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/member">Members</a></li>
-          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="/settings">Settings</a><a class="nav-link" href="/settings">Settings</a></li>
-          </li>
+          <!-- Collapse toggle -->
+          <a class="nav-item nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#membersCollapse" role="button" aria-expanded="false" aria-controls="membersCollapse">
+            Members
+            <i class="fas fa-chevron-down small"></i>
+          </a>
 
-        </ul>
+          <!-- Collapsed submenu -->
+          <div class="collapse ps-3" id="membersCollapse">
+            <a class="nav-link" href="#">Add Member</a>
+            <a class="nav-link" href="#">List Members</a>
+            <a class="nav-link" href="#">Payments</a>
+          </div>
+
+          <a class="nav-item nav-link" href="#">Link</a>
+
+        </div>
+
 
       </div>
     </nav>

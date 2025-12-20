@@ -2,5 +2,9 @@
   "createTemplates.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "template_list.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }

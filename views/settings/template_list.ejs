@@ -1,0 +1,84 @@
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="template_list" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxSummernote:{}}" -->
+<dmx-serverconnect id="scGetTemplates" url="/api/templates/listTemplates">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleTemplate" url="/api/templates/getSingleTemplate" noload="true"></dmx-serverconnect>
+<dmx-serverconnect id="scUpdateTemplates" url="/api/templates/updateTemplate" noload="true"></dmx-serverconnect>
+<div class="modal" id="modEditTemplate" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Edit Template</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <form id="frmEditTemplate" method="post" is="dmx-serverconnect-form" action="/api/templates/updateTemplate">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3"> <input type="text" class="form-control" id="inp_name" name="name" aria-describedby="input1_help" placeholder="Template Name" dmx-bind:value="scGetSingleTemplate.data.query.name">
+                                        <label for="inp_name" class="form-label">Template Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea id="tempNotes" class="form-control" name="tempNotes" dmx-bind:value="scGetSingleTemplate.data.query.description"></textarea>
+                                        <label for="inp_desc" class="form-label">Notes</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="editor1" is="dmx-summernote" dmx-bind:toolbar="[['style',['style']],['font',['bold','underline','clear']],['fontname',['fontname']],['color',['color']],['para',['ul','ol','paragraph']],['table',['table']],['insert',['link','picture','video']],['view',['fullscreen','codeview','help']]]" height="300" dmx-bind:value="scGetSingleTemplate.data.query.template_html"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input id="html" name="html" type="text" class="form-control" dmx-bind:value="editor1.value">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button id="btn2" class="btn btn-success">Save</button>
+                                            <button id="btn3" class="btn btn-dark">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/settings/template_list">
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Template</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetTemplates.data.query" id="tableRepeat1">
+                        <tr>
+                            <td dmx-text="templateId"></td>
+                            <td>
+                                <button id="btn1" class="btn" dmx-on:click="scGetSingleTemplate.load({templateid: templateId});modEditTemplate.show()"><i class="fas fa-edit fa-lg"></i></button>
+                            </td>
+                            <td dmx-text="name"></td>
+                            <td dmx-text="category"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
