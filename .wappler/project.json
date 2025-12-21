@@ -31,11 +31,11 @@
       "remoteURL": "http://localhost:3000",
       "targetType": "wappler",
       "databaseConnectionType": "custom",
-      "db_host": "159.65.95.252",
-      "db_port": "3306",
-      "db_user": "folpuser",
-      "db_password": "%Joanne@01!",
-      "db_database": "folp_members_dev",
+      "db_host": "127.0.0.1",
+      "db_port": "3307",
+      "db_user": "root",
+      "db_password": "%Joanne@01",
+      "db_database": "folp_dev",
       "databaseType": "mariadb"
     },
     {
@@ -52,11 +52,43 @@
       "access": "sftp",
       "ftpServer": "159.65.95.252",
       "ftpUser": "sftpuser",
-      "ftpPassword": "v2:7282dd2c4a2f651d5dbfef12adc09bc18390b61333d64a1dd933",
+      "ftpPassword": "v2:c62dbeddd4a75f3adf468ac93021bc782f49c0140d1cbe708c53",
       "ftpRemoteFolder": "/var/www/folp-stage"
     }
   ],
   "activeTarget": "Development",
   "projectType": "web",
-  "extensions": []
+  "extensions": [],
+  "resources": {
+    "providers": {
+      "digitalocean": {
+        "provider-api-key": "dop_v1_e5e19266ec52edb8c6f546b83977b64fdcd827c93252759aaad5b9f773641b04",
+        "ssh-key-id": 52790281,
+        "ssh-key-file": "~/.ssh/id_rsa.pub",
+        "server": {
+          "ubuntu-s-1vcpu-1gb-lon1-01": {
+            "id": 531775183,
+            "status": "running",
+            "access": false,
+            "ip_address": "159.65.95.252",
+            "region": "London 1",
+            "price": 6,
+            "vcpus": 1,
+            "memory": 1024,
+            "disk": 25,
+            "transfer": 1
+          }
+        },
+        "ssh_key": {
+          "id_rsa": {
+            "ssh-key-file": "~/.ssh/id_rsa.pub",
+            "name": "id_rsa",
+            "type": "rsa",
+            "fingerprint": "23:c7:8e:b0:0a:79:76:a0:05:1c:ad:fb:3c:da:21:79",
+            "id": 52790281
+          }
+        }
+      }
+    }
+  }
 }

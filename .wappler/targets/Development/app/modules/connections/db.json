@@ -5,11 +5,11 @@
   "options": {
     "client": "mysql2",
     "connection": {
-      "host": "159.65.95.252",
-      "port": 3306,
-      "user": "folpuser",
-      "password": "%Joanne@01!",
-      "database": "folp_members_dev"
+      "host": "127.0.0.1",
+      "port": 3307,
+      "user": "root",
+      "password": "%Joanne@01",
+      "database": "folp_dev"
     }
   }
 }
