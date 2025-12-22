@@ -273,7 +273,7 @@
           },
           "amount": {
             "db": {
-              "type": "integer",
+              "type": "decimal",
               "default": "",
               "primary": false,
               "nullable": true
@@ -283,7 +283,8 @@
             "db": {
               "type": "integer",
               "primary": false,
-              "nullable": false
+              "nullable": true,
+              "default": ""
             }
           },
           "modifiedDate": {
@@ -404,15 +405,14 @@
           },
           "category": {
             "db": {
-              "type": "string",
+              "type": "integer",
               "default": "",
               "maxLength": 100,
               "primary": false,
               "nullable": true
             },
             "db_edits": {
-              "maxLength": "",
-              "type": "integer"
+              "maxLength": ""
             },
             "status": {
               "modified": true

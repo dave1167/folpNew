@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/members/mem_list.ejs",
+      "linkedForm": "frmEditPayment"
+    },
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "paymentid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_payments",
+              "column": "paymentId"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "paymentDate"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "memId"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "paymentMthd"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "createdBy"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "paidYear"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "amount"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "modifedBy"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "modifiedDate"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "createdDate"
+            },
+            {
+              "table": "tbl_payments",
+              "column": "payNotes"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.paymentid}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "tbl_payments"
+          },
+          "primary": "paymentId",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_payments.paymentId",
+                "field": "tbl_payments.paymentId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.paymentid}}",
+                "data": {
+                  "table": "tbl_payments",
+                  "column": "paymentId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "increments",
+                    "primary": true,
+                    "nullable": false,
+                    "name": "paymentId"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select `paymentId`, `paymentDate`, `memId`, `paymentMthd`, `createdBy`, `paidYear`, `amount`, `modifedBy`, `modifiedDate`, `createdDate`, `payNotes` from `tbl_payments` where `tbl_payments`.`paymentId` = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "paymentId"
+        },
+        {
+          "type": "date",
+          "name": "paymentDate"
+        },
+        {
+          "type": "number",
+          "name": "memId"
+        },
+        {
+          "type": "number",
+          "name": "paymentMthd"
+        },
+        {
+          "type": "number",
+          "name": "createdBy"
+        },
+        {
+          "type": "text",
+          "name": "paidYear"
+        },
+        {
+          "type": "number",
+          "name": "amount"
+        },
+        {
+          "type": "number",
+          "name": "modifedBy"
+        },
+        {
+          "type": "datetime",
+          "name": "modifiedDate"
+        },
+        {
+          "type": "datetime",
+          "name": "createdDate"
+        },
+        {
+          "type": "text",
+          "name": "payNotes"
+        }
+      ],
+      "outputType": "object",
+      "collapsed": true
+    }
+  }
+}

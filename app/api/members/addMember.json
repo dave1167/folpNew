@@ -1,8 +1,8 @@
 {
   "meta": {
     "options": {
-      "linkedFile": "/views/member.ejs",
-      "linkedForm": "serverconnectform1"
+      "linkedFile": "/views/members/mem_list.ejs",
+      "linkedForm": "serverconnectform2"
     },
     "$_POST": [
       {
@@ -73,6 +73,7 @@
       {
         "type": "text",
         "fieldName": "selMemType",
+        "multiple": true,
         "name": "selMemType"
       },
       {
@@ -82,10 +83,12 @@
       },
       {
         "type": "text",
+        "fieldName": "fName",
         "name": "fName"
       },
       {
         "type": "text",
+        "fieldName": "town1",
         "name": "town1"
       },
       {
@@ -95,6 +98,57 @@
       {
         "type": "number",
         "name": "lstFeePd"
+      },
+      {
+        "type": "number",
+        "name": "memId"
+      },
+      {
+        "type": "number",
+        "name": "paymentMthd"
+      },
+      {
+        "type": "number",
+        "name": "createdBy"
+      },
+      {
+        "type": "text",
+        "name": "paidYear"
+      },
+      {
+        "type": "number",
+        "name": "amount"
+      },
+      {
+        "type": "number",
+        "name": "modifedBy"
+      },
+      {
+        "type": "datetime",
+        "name": "modifiedDate"
+      },
+      {
+        "type": "datetime",
+        "name": "createdDate"
+      },
+      {
+        "type": "text",
+        "name": "payNotes"
+      },
+      {
+        "type": "text",
+        "fieldName": "mobile",
+        "name": "mobile"
+      },
+      {
+        "type": "text",
+        "fieldName": "text1",
+        "name": "text1"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidmemid",
+        "name": "hidmemid"
       }
     ]
   },
@@ -493,6 +547,119 @@
         ],
         "output": true,
         "_id": "j1_34",
+        "collapsed": true
+      },
+      {
+        "name": "insertPayment",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_payments",
+                "column": "paymentDate",
+                "type": "date",
+                "value": "{{$_POST.dateJoined}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "memId",
+                "type": "number",
+                "value": "{{insert.identity}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paymentMthd",
+                "type": "number",
+                "value": "{{$_POST.hidmemid}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdBy",
+                "type": "number",
+                "value": "{{$_POST.createdBy}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paidYear",
+                "type": "text",
+                "value": "{{$_POST.dateJoined.formatDate('yyyy', false)}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "amount",
+                "type": "number",
+                "value": "{{qryFeePaid.fee}}"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              }
+            ],
+            "table": "tbl_payments",
+            "returning": "paymentId",
+            "query": "insert into `tbl_payments` (`amount`, `createdBy`, `createdDate`, `memId`, `paidYear`, `paymentDate`, `paymentMthd`) values (?, ?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.dateJoined}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{insert.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.hidmemid}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.createdBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.dateJoined.formatDate('yyyy', false)}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{qryFeePaid.fee}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
         "collapsed": true
       }
     ]
