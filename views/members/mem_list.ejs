@@ -371,53 +371,23 @@
                 <div class="row">
                     <div class="col">
                         <form is="dmx-serverconnect-form" id="serverconnectform4" method="post" action="/api/payments/updatePayment" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-populate="scGetSinglePay.data.query">
-                            <div class="form-group mb-3 row">
-                                <label for="inp_paymentId" class="col-sm-2 col-form-label">Payment</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inp_paymentId" name="paymentId" dmx-bind:value="scGetSinglePay.data.query.paymentId" aria-describedby="inp_paymentId_help" placeholder="Enter Payment">
-                                </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="inp_paymentDate" name="paymentDate" dmx-bind:value="scGetSinglePay.data.query.paymentDate" aria-describedby="inp_paymentDate_help" placeholder="Enter Payment date">
+                                <label for="inp_paymentDate" class="form-label">Payment date</label>
                             </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_paymentDate" class="col-sm-2 col-form-label">Payment date</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="inp_paymentDate" name="paymentDate" dmx-bind:value="scGetSinglePay.data.query.paymentDate" aria-describedby="inp_paymentDate_help" placeholder="Enter Payment date">
-                                </div>
+                            <div class="form-floating mb-3">
+                                <select id="select1" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId" dmx-bind:value="scGetSinglePay.data.query.paymentMthd">
+                                </select>
+                                <input type="number" class="form-control" id="inp_paymentMthd" name="paymentMthd" dmx-bind:value="scGetSinglePay.data.query.paymentMthd" aria-describedby="inp_paymentMthd_help" placeholder="Enter Payment mthd">
+                                <label for="inp_paymentMthd" class="form-label">Payment mthd</label>
                             </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_memId" class="col-sm-2 col-form-label">Mem</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inp_memId" name="memId" dmx-bind:value="scGetSinglePay.data.query.memId" aria-describedby="inp_memId_help" placeholder="Enter Mem">
-                                </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="inp_amount" name="amount" dmx-bind:value="scGetSinglePay.data.query.amount" aria-describedby="inp_amount_help" placeholder="Enter Amount">
+                                <label for="inp_amount" class="form-label">Amount</label>
                             </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_paymentMthd" class="col-sm-2 col-form-label">Payment mthd</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inp_paymentMthd" name="paymentMthd" dmx-bind:value="scGetSinglePay.data.query.paymentMthd" aria-describedby="inp_paymentMthd_help" placeholder="Enter Payment mthd">
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_paidYear" class="col-sm-2 col-form-label">Paid year</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inp_paidYear" name="paidYear" dmx-bind:value="scGetSinglePay.data.query.paidYear" aria-describedby="inp_paidYear_help" placeholder="Enter Paid year">
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_amount" class="col-sm-2 col-form-label">Amount</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inp_amount" name="amount" dmx-bind:value="scGetSinglePay.data.query.amount" aria-describedby="inp_amount_help" placeholder="Enter Amount">
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_modifedBy" class="col-sm-2 col-form-label">Modifed by</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="inp_modifedBy" name="modifedBy" dmx-bind:value="scGetSinglePay.data.query.modifedBy" aria-describedby="inp_modifedBy_help" placeholder="Enter Modifed by">
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 row">
-                                <label for="inp_payNotes" class="col-sm-2 col-form-label">Pay notes</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inp_payNotes" name="payNotes" dmx-bind:value="scGetSinglePay.data.query.payNotes" aria-describedby="inp_payNotes_help" placeholder="Enter Pay notes">
-                                </div>
+                            <div class="form-floating mb-3">
+                                <textarea id="payNotes" class="form-control" name="payNotes" placeholder="Enter value"></textarea>
+                                <label for="inp_payNotes" class="form-label">Pay notes</label>
                             </div>
                             <div class="form-group mb-3 row">
                                 <div class="col-sm-2">&nbsp;</div>
