@@ -181,16 +181,18 @@
                                 <table class="table table-striped table-bordered table-hover table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Payment date</th>
                                             <th>Payment</th>
+                                            <th>Payment Date</th>
                                             <th>Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scPayments.data.qryPay" id="tableRepeat1">
-                                        <tr dmx-on:click="scGetSinglePay.load({paymentid: modEditPayment.serverconnectform4.inp_paymentId.value});modEditPayment.show()">
+                                        <tr dmx-on:click="scGetSinglePay.load({paymentid: paymentId},true);modEditPayment.show()">
+                                            <td dmx-text="paymentId"></td>
                                             <td dmx-text="paymentDate.formatDate('dd-MM-yyyy')"></td>
                                             <td dmx-text="paidVia"></td>
-                                            <td dmx-text="amount.formatCurrency('£', '.', ',', 2)"></td>
+                                            <td dmx-text="amount"></td>
+                                            <td dmx-text="modifiedDate"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -319,6 +321,76 @@
         </div>
     </div>
 </div>
+<div class="modal" id="modEditPayment" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-light bg-primary">
+                <h5 class="modal-title">Edit Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <form is="dmx-serverconnect-form" id="serverconnectform4" method="post" action="" dmx-generator="bootstrap5" dmx-form-type="floating">
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="inp_paymentDate" name="paymentDate" dmx-bind:value="scGetSinglePay.data.qryPayment.paymentDate" placeholder="Payment date">
+                                        <label for="inp_paymentDate">Payment date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <select id="select1" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId" dmx-bind:value="scGetSinglePay.data.qryPayment.paymentMthd">
+                                        </select>
+                                        <input type="hidden" class="form-control" id="inp_memId" name="memId" dmx-bind:value="scGetSinglePay.data.qryPayment.memId" placeholder="Mem"><input type="hidden" class="form-control" id="inp_paymentMthd" name="paymentMthd" dmx-bind:value="scGetSinglePay.data.qryPayment.paymentMthd" placeholder="Payment mthd">
+                                        <label for="inp_paymentMthd">Payment mthd</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="inp_amount" name="amount" dmx-bind:value="scGetSinglePay.data.qryPayment.amount" placeholder="Amount">
+                                        <label for="inp_amount">Amount</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <textarea id="text1" class="form-control"></textarea>
+                                        <label for="inp_payNotes">Pay notes</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-group mb-3">
+                                        <button type="submit" class="btn btn-primary" dmx-bind:value="scGetSinglePay.data.qryPayment.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modAddPayments" is="dmx-bs5-modal" tabindex="-1" nobackdrop="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -338,7 +410,7 @@
                         <select id="selPayMthd" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId">
                         </select>
                         <input id="hidSelVal" name="hidSelVal" type="text" class="form-control" dmx-bind:value="selPayMthd.value">
-                        <label for="inp_paymentMthd">Payment mthd</label>
+                        <label for="hidPaymentMthd">Payment mthd</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="inp_amount" name="amount" placeholder="Amount" dmx-bind:value="scGetFee.data.qryFee.currFee">
@@ -360,52 +432,7 @@
         </div>
     </div>
 </div>
-<div class="modal" id="modEditPayment" is="dmx-bs5-modal" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <form is="dmx-serverconnect-form" id="serverconnectform4" method="post" action="/api/payments/updatePayment" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-populate="scGetSinglePay.data.query">
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inp_paymentDate" name="paymentDate" dmx-bind:value="scGetSinglePay.data.query.paymentDate" aria-describedby="inp_paymentDate_help" placeholder="Enter Payment date">
-                                <label for="inp_paymentDate" class="form-label">Payment date</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <select id="select1" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId" dmx-bind:value="scGetSinglePay.data.query.paymentMthd">
-                                </select>
-                                <input type="number" class="form-control" id="inp_paymentMthd" name="paymentMthd" dmx-bind:value="scGetSinglePay.data.query.paymentMthd" aria-describedby="inp_paymentMthd_help" placeholder="Enter Payment mthd">
-                                <label for="inp_paymentMthd" class="form-label">Payment mthd</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="inp_amount" name="amount" dmx-bind:value="scGetSinglePay.data.query.amount" aria-describedby="inp_amount_help" placeholder="Enter Amount">
-                                <label for="inp_amount" class="form-label">Amount</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea id="payNotes" class="form-control" name="payNotes" placeholder="Enter value"></textarea>
-                                <label for="inp_payNotes" class="form-label">Pay notes</label>
-                            </div>
-                            <div class="form-group mb-3 row">
-                                <div class="col-sm-2">&nbsp;</div>
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary" dmx-bind:value="scGetSinglePay.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <header class="text-center"></header>
 <div class="container">
     <div class="row">

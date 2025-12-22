@@ -2,14 +2,14 @@
   "meta": {
     "$_GET": [
       {
-        "type": "text",
+        "type": "number",
         "name": "paymentid"
       }
     ]
   },
   "exec": {
     "steps": {
-      "name": "query",
+      "name": "qryPayment",
       "module": "dbconnector",
       "action": "single",
       "options": {
@@ -17,10 +17,6 @@
         "sql": {
           "type": "SELECT",
           "columns": [
-            {
-              "table": "tbl_payments",
-              "column": "paymentId"
-            },
             {
               "table": "tbl_payments",
               "column": "paymentDate"
@@ -56,14 +52,49 @@
             {
               "table": "tbl_payments",
               "column": "payNotes"
+            },
+            {
+              "table": "tbl_payment_method",
+              "column": "PayMethod"
             }
           ],
-          "params": [],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.paymentid}}",
+              "test": "8"
+            }
+          ],
           "table": {
             "name": "tbl_payments"
           },
           "primary": "paymentId",
-          "joins": [],
+          "joins": [
+            {
+              "table": "tbl_payment_method",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_payment_method",
+                    "column": "payMethodId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tbl_payments",
+                      "column": "paymentMthd",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "payMethodId"
+            }
+          ],
           "wheres": {
             "condition": "AND",
             "rules": [
@@ -72,7 +103,7 @@
                 "field": "tbl_payments.paymentId",
                 "type": "double",
                 "operator": "equal",
-                "value": 1,
+                "value": "{{$_GET.paymentid}}",
                 "data": {
                   "table": "tbl_payments",
                   "column": "paymentId",
@@ -84,21 +115,18 @@
                     "name": "paymentId"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "tbl_payments"
               }
             ],
             "conditional": null,
             "valid": true
           },
-          "query": "select `paymentId`, `paymentDate`, `memId`, `paymentMthd`, `createdBy`, `paidYear`, `amount`, `modifedBy`, `createdDate`, `payNotes` from `tbl_payments` where `tbl_payments`.`paymentId` = ?"
+          "query": "select `tbl_payments`.`paymentDate`, `tbl_payments`.`memId`, `tbl_payments`.`paymentMthd`, `tbl_payments`.`createdBy`, `tbl_payments`.`paidYear`, `tbl_payments`.`amount`, `tbl_payments`.`modifedBy`, `tbl_payments`.`createdDate`, `tbl_payments`.`payNotes`, `tbl_payment_method`.`PayMethod` from `tbl_payments` inner join `tbl_payment_method` on `tbl_payment_method`.`payMethodId` = `tbl_payments`.`paymentMthd` where `tbl_payments`.`paymentId` = ?"
         }
       },
       "output": true,
       "meta": [
-        {
-          "type": "number",
-          "name": "paymentId"
-        },
         {
           "type": "date",
           "name": "paymentDate"
@@ -134,9 +162,14 @@
         {
           "type": "text",
           "name": "payNotes"
+        },
+        {
+          "type": "text",
+          "name": "PayMethod"
         }
       ],
-      "outputType": "object"
+      "outputType": "object",
+      "collapsed": true
     }
   }
 }
