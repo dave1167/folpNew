@@ -127,7 +127,7 @@
                                             <select id="selMemType1" class="form-select form-select-sm" dmx-bind:options="scGetMemType.data.query" optiontext="memDesc" optionvalue="memTypeId" dmx-bind:value="scGetSingleMem.data.query.memType">
                                             </select>
                                             <input id="hidMemType" name="hidMemType" type="hidden" class="form-control" dmx-bind:value="selMemType1.value">
-                                            <label for="input1" class="form-label col-form-label-sm">Membership Type</label>
+                                            <label for="hidPayMeth" class="form-label col-form-label-sm">Membership Type</label>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -135,7 +135,7 @@
                                             <select id="selStatus1" class="form-select form-select-sm" dmx-bind:options="scGetStatus.data.query" optiontext="statusDesc" optionvalue="memStatusId" dmx-bind:value="scGetSingleMem.data.query.memStatus">
                                             </select>
                                             <input id="hidStatus1" name="hidStatus" type="hidden" class="form-control" dmx-bind:value="selStatus1.value">
-                                            <label for="input1" class="form-label col-form-label-sm">Status</label>
+                                            <label for="hidPayMeth" class="form-label col-form-label-sm">Status</label>
                                         </div>
                                     </div>
                                 </div>
@@ -222,12 +222,12 @@
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_lname" name="lname" aria-describedby="inp_lname_help" placeholder="Enter Last Name"><label for="input1" class="form-label">Last Name</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_lname" name="lname" aria-describedby="inp_lname_help" placeholder="Enter Last Name"><label for="hidPayMeth" class="form-label">Last Name</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_email" name="email" aria-describedby="inp_email_help" placeholder="Enter Email"><label for="input1" class="form-label">Email<label for="inp_fname" class="col-sm-2 col-form-label">Fname</label></label>
+                                <input type="text" class="form-control form-control-sm" id="inp_email" name="email" aria-describedby="inp_email_help" placeholder="Enter Email"><label for="hidPayMeth" class="form-label">Email<label for="inp_fname" class="col-sm-2 col-form-label">Fname</label></label>
                             </div>
                         </div>
                     </div>
@@ -287,6 +287,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select id="selPayMeth" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId">
+                                </select> <input type="number" class="form-control" id="hidPayMeth" name="hidPayMeth" aria-describedby="input1_help" placeholder="Enter some text" dmx-bind:value="selPayMeth.value">
+                                <label for="hidPayMeth" class="form-label">Some text</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
