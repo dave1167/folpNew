@@ -10,5 +10,9 @@
   "settings.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "settings2.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }

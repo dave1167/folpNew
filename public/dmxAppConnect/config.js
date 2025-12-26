@@ -73,5 +73,40 @@ dmx.config({
       ],
       "outputType": "array"
     }
+  },
+  "settings2": {
+    "data_view1": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "settingsId"
+        },
+        {
+          "type": "text",
+          "name": "settingKey"
+        },
+        {
+          "type": "object",
+          "name": "settingJson"
+        },
+        {
+          "type": "text",
+          "name": "section"
+        },
+        {
+          "type": "text",
+          "name": "description"
+        },
+        {
+          "type": "text",
+          "name": "updatedBy"
+        },
+        {
+          "type": "datetime",
+          "name": "updatedDate"
+        }
+      ],
+      "outputType": "array"
+    }
   }
 });

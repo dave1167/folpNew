@@ -1,49 +1,104 @@
-{
-  "name": "settings",
-  "module": "dbconnector",
-  "action": "select",
-  "options": {
-    "connection": "db",
-    "sql": {
-      "type": "SELECT",
-      "query": "select `settingsId`, `settingKey`, `settingJson` from `tbl_settings`",
-      "columns": [
-        {
-          "table": "tbl_settings",
-          "column": "settingsId"
+[
+  {
+    "name": "settings",
+    "module": "dbconnector",
+    "action": "select",
+    "options": {
+      "connection": "db",
+      "sql": {
+        "type": "SELECT",
+        "distinct": false,
+        "columns": [
+          {
+            "table": "tbl_settings",
+            "column": "settingsId"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "settingKey"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "settingJson"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "section"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "description"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "updatedBy"
+          },
+          {
+            "table": "tbl_settings",
+            "column": "updatedDate"
+          }
+        ],
+        "table": {
+          "name": "tbl_settings"
         },
-        {
-          "table": "tbl_settings",
-          "column": "settingKey"
-        },
-        {
-          "table": "tbl_settings",
-          "column": "settingJson"
-        }
-      ],
-      "params": [],
-      "table": {
-        "name": "tbl_settings"
+        "orders": [
+          {
+            "table": "tbl_settings",
+            "column": "settingKey",
+            "direction": "ASC",
+            "recid": 1
+          }
+        ],
+        "params": [],
+        "primary": "settingsId",
+        "joins": [],
+        "query": "select `settingsId`, `settingKey`, `settingJson`, `section`, `description`, `updatedBy`, `updatedDate` from `tbl_settings` order by `settingKey` ASC"
+      }
+    },
+    "output": true,
+    "outputType": "array",
+    "meta": [
+      {
+        "type": "number",
+        "name": "settingsId"
       },
-      "primary": "settingsId",
-      "joins": []
-    }
+      {
+        "type": "text",
+        "name": "settingKey"
+      },
+      {
+        "type": "object",
+        "name": "settingJson"
+      },
+      {
+        "type": "text",
+        "name": "section"
+      },
+      {
+        "type": "text",
+        "name": "description"
+      },
+      {
+        "type": "text",
+        "name": "updatedBy"
+      },
+      {
+        "type": "datetime",
+        "name": "updatedDate"
+      }
+    ],
+    "collapsed": true
   },
-  "output": true,
-  "outputType": "array",
-  "meta": [
-    {
-      "type": "number",
-      "name": "settingsId"
+  {
+    "name": "sendResponse",
+    "module": "core",
+    "action": "response",
+    "options": {
+      "status": 200,
+      "data": {
+        "settings": "{{settings}}"
+      }
     },
-    {
-      "type": "text",
-      "name": "settingKey"
-    },
-    {
-      "type": "object",
-      "name": "settingJson"
-    }
-  ],
-  "collapsed": true
-}
+    "outputType": "object"
+  }
+]

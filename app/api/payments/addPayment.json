@@ -12,6 +12,10 @@
       {
         "type": "text",
         "name": "memfee"
+      },
+      {
+        "type": "text",
+        "name": "memtype"
       }
     ],
     "$_POST": [
@@ -86,6 +90,73 @@
   },
   "exec": {
     "steps": [
+      {
+        "name": "qryGetMemType",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_mem_type",
+                "column": "fee",
+                "alias": "feeToPay"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.memtype}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_mem_type"
+            },
+            "primary": "memTypeId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_mem_type.memTypeId",
+                  "field": "tbl_mem_type.memTypeId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.memtype}}",
+                  "data": {
+                    "table": "tbl_mem_type",
+                    "column": "memTypeId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "memTypeId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `fee` as `feeToPay` from `tbl_mem_type` where `tbl_mem_type`.`memTypeId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "feeToPay"
+          }
+        ],
+        "outputType": "object"
+      },
       {
         "name": "insert",
         "module": "dbupdater",
@@ -196,8 +267,7 @@
             "name": "affected",
             "type": "number"
           }
-        ],
-        "collapsed": true
+        ]
       },
       {
         "name": "qryFindLstPy",
@@ -274,8 +344,7 @@
             "name": "findLastPay"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "lastpay",
@@ -372,8 +441,7 @@
             "type": "number"
           }
         ],
-        "output": true,
-        "collapsed": true
+        "output": true
       }
     ]
   }
