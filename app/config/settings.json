@@ -1,0 +1,20 @@
+{
+    "app": {
+        "name": "FOLP Membership System",
+        "version": "1.2.0"
+    },
+    "contacts": {
+        "membershipSecretary": {
+            "name": "Membership Secretary",
+            "email": "membership@lowtherpavilion.co.uk"
+        }
+    },
+    "communications": {
+        "emailTemplates": {
+            "welcome": "TPL_WELCOME_01",
+            "renewal": "TPL_RENEWAL_01",
+            "reminder": "TPL_REMINDER_01"
+        },
+        "letterOnlyTemplate": "TPL_LETTER_01"
+    }
+}

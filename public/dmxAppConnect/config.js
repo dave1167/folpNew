@@ -54,5 +54,24 @@ dmx.config({
         "name": "dir2"
       }
     ]
+  },
+  "settings": {
+    "membership_view": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "settingsId"
+        },
+        {
+          "type": "text",
+          "name": "settingKey"
+        },
+        {
+          "type": "object",
+          "name": "settingJson"
+        }
+      ],
+      "outputType": "array"
+    }
   }
 });

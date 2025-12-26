@@ -150,3 +150,11 @@ main#content {
 }
 #lh_menu_2 {
 }
+
+/* Settings page specific styles */
+.settings-table td { vertical-align: middle; }
+.settings-code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; font-size: .85rem; white-space: pre-wrap; word-break: break-word; max-height: 220px; overflow: auto; }
+
+@media (max-width: 575.98px) {
+  .settings-code { font-size: .75rem; }
+}

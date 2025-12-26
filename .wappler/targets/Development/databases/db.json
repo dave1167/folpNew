@@ -10,6 +10,32 @@
   },
   "schema": {
     "tables": {
+      "tbl_mem_status": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "memStatusId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "statusDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
       "tbl_log_types": {
         "db": {
           "engine": "InnoDB",
@@ -123,7 +149,7 @@
           }
         }
       },
-      "tbl_mem_status": {
+      "tbl_role_type": {
         "db": {
           "engine": "InnoDB",
           "schema": "folp_dev",
@@ -131,20 +157,26 @@
           "system_versioned": false
         },
         "columns": {
-          "memStatusId": {
+          "roleTypeId": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "statusDesc": {
+          "roleDesc": {
             "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
+              "type": "text",
+              "maxLength": 65535,
               "primary": false,
-              "nullable": true
+              "nullable": false
+            }
+          },
+          "roleValue": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
             }
           }
         }
@@ -273,7 +305,7 @@
           },
           "amount": {
             "db": {
-              "type": "integer",
+              "type": "decimal",
               "default": "",
               "primary": false,
               "nullable": true
@@ -283,7 +315,8 @@
             "db": {
               "type": "integer",
               "primary": false,
-              "nullable": false
+              "nullable": true,
+              "default": ""
             }
           },
           "modifiedDate": {
@@ -404,15 +437,14 @@
           },
           "category": {
             "db": {
-              "type": "string",
+              "type": "integer",
               "default": "",
               "maxLength": 100,
               "primary": false,
               "nullable": true
             },
             "db_edits": {
-              "maxLength": "",
-              "type": "integer"
+              "maxLength": ""
             },
             "status": {
               "modified": true
@@ -646,39 +678,67 @@
               "primary": false,
               "nullable": true
             }
+          },
+          "lstPayMethod": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
           }
         }
       },
-      "tbl_role_type": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
+      "tbl_settings": {
         "columns": {
-          "roleTypeId": {
+          "settingsId": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "roleDesc": {
+          "settingKey": {
             "db": {
-              "type": "text",
-              "maxLength": 65535,
+              "type": "string",
+              "default": "",
+              "maxLength": 50,
               "primary": false,
-              "nullable": false
+              "nullable": true
             }
           },
-          "roleValue": {
+          "settingJson": {
             "db": {
-              "type": "integer",
+              "type": "json",
+              "default": "",
+              "maxLength": 4294967295,
               "primary": false,
-              "nullable": false
+              "nullable": true
+            }
+          },
+          "updatedBy": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedDate": {
+            "db": {
+              "type": "timestamp",
+              "default": "",
+              "primary": false,
+              "nullable": true
             }
           }
+        },
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
         }
       }
     },

@@ -196,10 +196,11 @@
             "name": "affected",
             "type": "number"
           }
-        ]
+        ],
+        "collapsed": true
       },
       {
-        "name": "query",
+        "name": "qryFindLstPy",
         "module": "dbconnector",
         "action": "single",
         "options": {
@@ -210,11 +211,8 @@
               {
                 "table": "tbl_payments",
                 "column": "paymentDate",
-                "aggregate": "MAX"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "amount"
+                "aggregate": "MAX",
+                "alias": "findLastPay"
               }
             ],
             "params": [
@@ -223,7 +221,7 @@
                 "type": "expression",
                 "name": ":P1",
                 "value": "{{$_POST.hidMemId}}",
-                "test": ""
+                "test": "223"
               }
             ],
             "table": {
@@ -252,8 +250,7 @@
                       "name": "memId"
                     }
                   },
-                  "operation": "=",
-                  "table": "tbl_payments"
+                  "operation": "="
                 }
               ],
               "conditional": null,
@@ -267,34 +264,25 @@
                 "recid": 1
               }
             ],
-            "query": "select max(`paymentDate`), `amount` from `tbl_payments` where `tbl_payments`.`memId` = ? group by `amount` order by `paymentDate` DESC",
-            "groupBy": [
-              {
-                "table": "tbl_payments",
-                "column": "amount"
-              }
-            ]
+            "query": "select max(`paymentDate`) as `findLastPay` from `tbl_payments` where `tbl_payments`.`memId` = ? order by `paymentDate` DESC",
+            "groupBy": []
           }
         },
-        "output": true,
         "meta": [
           {
             "type": "date",
-            "name": "paymentDate"
-          },
-          {
-            "type": "number",
-            "name": "amount"
+            "name": "findLastPay"
           }
         ],
-        "outputType": "object"
+        "outputType": "object",
+        "collapsed": true
       },
       {
         "name": "lastpay",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query.paymentDate}}"
+          "value": "{{qryFindLstPy.findLastPay}}"
         },
         "meta": [],
         "outputType": "text",
@@ -311,15 +299,21 @@
             "values": [
               {
                 "table": "tbl_member_details",
-                "column": "lstFeePd",
-                "type": "number",
-                "value": "{{query.amount}}"
-              },
-              {
-                "table": "tbl_member_details",
                 "column": "lastPaidDte",
                 "type": "date",
                 "value": "{{lastpay}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstFeePd",
+                "type": "number",
+                "value": "{{$_POST.amount}}"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstPayMethod",
+                "type": "number",
+                "value": "{{$_POST.hidSelVal}}"
               }
             ],
             "table": "tbl_member_details",
@@ -328,36 +322,45 @@
               "rules": [
                 {
                   "id": "memDetsId",
+                  "field": "memDetsId",
                   "type": "double",
                   "operator": "equal",
-                  "value": "{{$_POST.memDetsId}}",
+                  "value": "{{$_POST.hidMemId}}",
                   "data": {
                     "column": "memDetsId"
                   },
                   "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
             "returning": "memDetsId",
-            "query": "update `tbl_member_details` set `lstFeePd` = ?, `lastPaidDte` = ? where `memDetsId` = ?",
+            "query": "update `tbl_member_details` set `lastPaidDte` = ?, `lstFeePd` = ?, `lstPayMethod` = ? where `memDetsId` = ?",
             "params": [
               {
                 "name": ":P1",
-                "type": "expression",
-                "value": "{{query.amount}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
                 "type": "expression",
                 "value": "{{lastpay}}",
                 "test": ""
               },
               {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.amount}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.hidSelVal}}",
+                "test": ""
+              },
+              {
                 "operator": "equal",
                 "type": "expression",
-                "name": ":P3",
-                "value": "{{$_POST.memDetsId}}",
+                "name": ":P4",
+                "value": "{{$_POST.hidMemId}}",
                 "test": ""
               }
             ]
@@ -368,7 +371,9 @@
             "name": "affected",
             "type": "number"
           }
-        ]
+        ],
+        "output": true,
+        "collapsed": true
       }
     ]
   }

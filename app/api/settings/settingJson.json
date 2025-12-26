@@ -1,0 +1,398 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {}
+        },
+        "name": "settingKey"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Setting key is required"
+            }
+          }
+        },
+        "name": "settingKey"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Setting JSON is required"
+            }
+          }
+        },
+        "name": "settingJson"
+      },
+      {
+        "type": "text",
+        "name": "updatedBy"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "module": "core",
+      "action": "trycatch",
+      "options": {
+        "try": {
+          "steps": {
+            "module": "core",
+            "action": "condition",
+            "options": {
+              "if": "{{$_POST.settingKey}}",
+              "then": {
+                "steps": [
+                  {
+                    "name": "existing",
+                    "module": "dbconnector",
+                    "action": "single",
+                    "options": {
+                      "connection": "db",
+                      "sql": {
+                        "type": "SELECT",
+                        "columns": [
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingsId"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingKey"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingJson"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "updatedBy"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "updatedDate"
+                          }
+                        ],
+                        "table": {
+                          "name": "tbl_settings"
+                        },
+                        "wheres": {
+                          "condition": "AND",
+                          "rules": [
+                            {
+                              "id": "tbl_settings.settingKey",
+                              "data": {
+                                "table": "tbl_settings",
+                                "column": "settingKey"
+                              },
+                              "operator": "equal",
+                              "operation": "=",
+                              "value": "{{$_POST.settingKey}}"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "output": true,
+                    "outputType": "object",
+                    "meta": [
+                      {
+                        "type": "number",
+                        "name": "settingsId"
+                      },
+                      {
+                        "type": "text",
+                        "name": "settingKey"
+                      },
+                      {
+                        "type": "object",
+                        "name": "settingJson"
+                      },
+                      {
+                        "type": "text",
+                        "name": "updatedBy"
+                      },
+                      {
+                        "type": "datetime",
+                        "name": "updatedDate"
+                      }
+                    ]
+                  },
+                  {
+                    "module": "core",
+                    "action": "condition",
+                    "options": {
+                      "if": "{{existing && existing.settingsId}}",
+                      "then": {
+                        "steps": [
+                          {
+                            "name": "update",
+                            "module": "dbupdater",
+                            "action": "update",
+                            "options": {
+                              "connection": "db",
+                              "sql": {
+                                "type": "UPDATE",
+                                "table": "tbl_settings",
+                                "values": [
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "settingJson",
+                                    "type": "text",
+                                    "value": "{{$_POST.settingJson}}"
+                                  },
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "updatedBy",
+                                    "type": "text",
+                                    "value": "{{$_POST.updatedBy}}"
+                                  },
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "updatedDate",
+                                    "type": "text",
+                                    "value": "{{NOW}}"
+                                  }
+                                ],
+                                "wheres": {
+                                  "condition": "AND",
+                                  "rules": [
+                                    {
+                                      "id": "settingsId",
+                                      "type": "double",
+                                      "operator": "equal",
+                                      "value": "{{existing.settingsId}}",
+                                      "data": {
+                                        "column": "settingsId"
+                                      },
+                                      "operation": "="
+                                    }
+                                  ]
+                                },
+                                "returning": "settingsId"
+                              }
+                            },
+                            "output": true,
+                            "outputType": "object",
+                            "meta": [
+                              {
+                                "name": "affected",
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "result",
+                            "module": "core",
+                            "action": "setvalue",
+                            "options": {
+                              "value": {
+                                "action": "updated",
+                                "settingsId": "{{update.id || update.settingsId || existing.settingsId}}"
+                              }
+                            },
+                            "output": true,
+                            "outputType": "object",
+                            "meta": []
+                          }
+                        ]
+                      },
+                      "else": {
+                        "steps": [
+                          {
+                            "name": "insert",
+                            "module": "dbupdater",
+                            "action": "insert",
+                            "options": {
+                              "connection": "db",
+                              "sql": {
+                                "type": "INSERT",
+                                "table": "tbl_settings",
+                                "values": [
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "settingKey",
+                                    "type": "text",
+                                    "value": "{{$_POST.settingKey}}"
+                                  },
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "settingJson",
+                                    "type": "text",
+                                    "value": "{{$_POST.settingJson}}"
+                                  },
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "updatedBy",
+                                    "type": "text",
+                                    "value": "{{$_POST.updatedBy}}"
+                                  },
+                                  {
+                                    "table": "tbl_settings",
+                                    "column": "updatedDate",
+                                    "type": "text",
+                                    "value": "{{NOW}}"
+                                  }
+                                ],
+                                "returning": "settingsId"
+                              }
+                            },
+                            "output": true,
+                            "outputType": "object",
+                            "meta": [
+                              {
+                                "name": "identity",
+                                "type": "text"
+                              },
+                              {
+                                "name": "affected",
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "result",
+                            "module": "core",
+                            "action": "setvalue",
+                            "options": {
+                              "value": {
+                                "action": "inserted",
+                                "settingsId": "{{insert.id || insert.settingsId}}"
+                              }
+                            },
+                            "output": true,
+                            "outputType": "object",
+                            "meta": []
+                          }
+                        ]
+                      }
+                    },
+                    "outputType": "boolean"
+                  }
+                ]
+              },
+              "else": {
+                "steps": [
+                  {
+                    "name": "get",
+                    "module": "dbconnector",
+                    "action": "single",
+                    "options": {
+                      "connection": "db",
+                      "sql": {
+                        "type": "SELECT",
+                        "columns": [
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingsId"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingKey"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "settingJson"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "updatedBy"
+                          },
+                          {
+                            "table": "tbl_settings",
+                            "column": "updatedDate"
+                          }
+                        ],
+                        "table": {
+                          "name": "tbl_settings"
+                        },
+                        "wheres": {
+                          "condition": "AND",
+                          "rules": [
+                            {
+                              "id": "tbl_settings.settingKey",
+                              "data": {
+                                "table": "tbl_settings",
+                                "column": "settingKey"
+                              },
+                              "operator": "equal",
+                              "operation": "=",
+                              "value": "{{$_GET.settingKey}}"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "output": true,
+                    "outputType": "object",
+                    "meta": [
+                      {
+                        "type": "number",
+                        "name": "settingsId"
+                      },
+                      {
+                        "type": "text",
+                        "name": "settingKey"
+                      },
+                      {
+                        "type": "object",
+                        "name": "settingJson"
+                      },
+                      {
+                        "type": "text",
+                        "name": "updatedBy"
+                      },
+                      {
+                        "type": "datetime",
+                        "name": "updatedDate"
+                      }
+                    ]
+                  },
+                  {
+                    "module": "core",
+                    "action": "condition",
+                    "options": {
+                      "if": "{{!get}}",
+                      "then": {
+                        "steps": {
+                          "name": "notFound",
+                          "module": "core",
+                          "action": "response",
+                          "options": {
+                            "status": 404,
+                            "data": "Setting not found"
+                          }
+                        }
+                      }
+                    },
+                    "outputType": "boolean"
+                  }
+                ]
+              }
+            },
+            "outputType": "boolean"
+          }
+        },
+        "catch": {
+          "steps": {
+            "name": "error",
+            "module": "core",
+            "action": "response",
+            "options": {
+              "status": 500,
+              "data": "Database error: {{$_ERROR}}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,8 +1,18 @@
 {
   "meta": {
+    "options": {
+      "linkedFile": "/views/members/mem_list.ejs",
+      "linkedForm": "serverconnectform4"
+    },
     "$_POST": [
       {
         "type": "date",
+        "fieldName": "paymentDate",
+        "options": {
+          "rules": {
+            "core:date": {}
+          }
+        },
         "name": "paymentDate"
       },
       {
@@ -11,6 +21,7 @@
       },
       {
         "type": "number",
+        "fieldName": "paymentMthd",
         "name": "paymentMthd"
       },
       {
@@ -23,6 +34,12 @@
       },
       {
         "type": "number",
+        "fieldName": "amount",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
         "name": "amount"
       },
       {
@@ -35,11 +52,47 @@
       },
       {
         "type": "text",
+        "fieldName": "payNotes",
         "name": "payNotes"
       },
       {
         "type": "number",
         "name": "paymentId"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidMemId",
+        "name": "hidMemId"
+      },
+      {
+        "type": "number",
+        "fieldName": "hidPayId",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "hidPayId"
+      },
+      {
+        "type": "text",
+        "fieldName": "select1",
+        "name": "select1"
+      },
+      {
+        "type": "number",
+        "fieldName": "hidPayMthd",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "hidPayMthd"
+      },
+      {
+        "type": "text",
+        "fieldName": "selPayMtd",
+        "name": "selPayMtd"
       }
     ]
   },
@@ -61,27 +114,15 @@
             },
             {
               "table": "tbl_payments",
-              "column": "memId",
-              "type": "number",
-              "value": "{{$_POST.memId}}"
-            },
-            {
-              "table": "tbl_payments",
               "column": "paymentMthd",
               "type": "number",
-              "value": "{{$_POST.paymentMthd}}"
-            },
-            {
-              "table": "tbl_payments",
-              "column": "createdBy",
-              "type": "number",
-              "value": "{{$_POST.createdBy}}"
+              "value": "{{$_POST.hidPayMthd}}"
             },
             {
               "table": "tbl_payments",
               "column": "paidYear",
               "type": "text",
-              "value": "{{$_POST.paidYear}}"
+              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}"
             },
             {
               "table": "tbl_payments",
@@ -99,13 +140,13 @@
               "table": "tbl_payments",
               "column": "modifiedDate",
               "type": "datetime",
-              "value": "{{$_POST.modifiedDate}}"
+              "value": "{{NOW}}"
             },
             {
               "table": "tbl_payments",
               "column": "payNotes",
               "type": "text",
-              "value": "{{$_POST.payNotes}}"
+              "value": "{{$_POST.payNotes.encrypt($_ENV.EKY)}}"
             }
           ],
           "table": "tbl_payments",
@@ -114,18 +155,21 @@
             "rules": [
               {
                 "id": "paymentId",
+                "field": "paymentId",
                 "type": "double",
                 "operator": "equal",
-                "value": "{{$_POST.paymentId}}",
+                "value": "{{$_POST.hidPayId}}",
                 "data": {
                   "column": "paymentId"
                 },
                 "operation": "="
               }
-            ]
+            ],
+            "conditional": null,
+            "valid": true
           },
           "returning": "paymentId",
-          "query": "update `tbl_payments` set `paymentDate` = ?, `memId` = ?, `paymentMthd` = ?, `createdBy` = ?, `paidYear` = ?, `amount` = ?, `modifedBy` = ?, `modifiedDate` = ?, `payNotes` = ? where `paymentId` = ?",
+          "query": "update `tbl_payments` set `paymentDate` = ?, `paymentMthd` = ?, `paidYear` = ?, `amount` = ?, `modifedBy` = ?, `modifiedDate` = ?, `payNotes` = ? where `paymentId` = ?",
           "params": [
             {
               "name": ":P1",
@@ -136,56 +180,44 @@
             {
               "name": ":P2",
               "type": "expression",
-              "value": "{{$_POST.memId}}",
+              "value": "{{$_POST.hidPayMthd}}",
               "test": ""
             },
             {
               "name": ":P3",
               "type": "expression",
-              "value": "{{$_POST.paymentMthd}}",
+              "value": "{{$_POST.paymentDate.formatDate('yyyy', false)}}",
               "test": ""
             },
             {
               "name": ":P4",
               "type": "expression",
-              "value": "{{$_POST.createdBy}}",
+              "value": "{{$_POST.amount}}",
               "test": ""
             },
             {
               "name": ":P5",
               "type": "expression",
-              "value": "{{$_POST.paidYear}}",
+              "value": "{{$_POST.modifedBy}}",
               "test": ""
             },
             {
               "name": ":P6",
               "type": "expression",
-              "value": "{{$_POST.amount}}",
+              "value": "{{NOW}}",
               "test": ""
             },
             {
               "name": ":P7",
               "type": "expression",
-              "value": "{{$_POST.modifedBy}}",
-              "test": ""
-            },
-            {
-              "name": ":P8",
-              "type": "expression",
-              "value": "{{$_POST.modifiedDate}}",
-              "test": ""
-            },
-            {
-              "name": ":P9",
-              "type": "expression",
-              "value": "{{$_POST.payNotes}}",
+              "value": "{{$_POST.payNotes.encrypt($_ENV.EKY)}}",
               "test": ""
             },
             {
               "operator": "equal",
               "type": "expression",
-              "name": ":P10",
-              "value": "{{$_POST.paymentId}}",
+              "name": ":P8",
+              "value": "{{$_POST.hidPayId}}",
               "test": ""
             }
           ]
@@ -196,7 +228,9 @@
           "name": "affected",
           "type": "number"
         }
-      ]
+      ],
+      "output": true,
+      "collapsed": true
     }
   }
 }

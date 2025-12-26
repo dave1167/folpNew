@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "key"
+      },
+      {
+        "type": "text",
+        "name": "value"
+      },
+      {
+        "type": "text",
+        "name": "section"
+      },
+      {
+        "type": "text",
+        "name": "description"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "save",
+        "module": "dbupdater",
+        "action": "custom",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "query": "INSERT INTO tbl_settings (`key`,`value`,`section`,`description`) VALUES ('{{$_POST.key}}','{{$_POST.value}}','{{$_POST.section}}','{{$_POST.description}}') ON DUPLICATE KEY UPDATE `value` = VALUES(`value`), `section` = VALUES(`section`), `description` = VALUES(`description`)"
+          }
+        },
+        "output": true
+      },
+      {
+        "name": "response",
+        "module": "core",
+        "action": "response",
+        "options": {
+          "status": 200,
+          "data": {
+            "success": true,
+            "saved": "{{save}}"
+          }
+        }
+      }
+    ]
+  }
+}

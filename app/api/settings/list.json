@@ -1,0 +1,49 @@
+{
+  "name": "settings",
+  "module": "dbconnector",
+  "action": "select",
+  "options": {
+    "connection": "db",
+    "sql": {
+      "type": "SELECT",
+      "query": "select `settingsId`, `settingKey`, `settingJson` from `tbl_settings`",
+      "columns": [
+        {
+          "table": "tbl_settings",
+          "column": "settingsId"
+        },
+        {
+          "table": "tbl_settings",
+          "column": "settingKey"
+        },
+        {
+          "table": "tbl_settings",
+          "column": "settingJson"
+        }
+      ],
+      "params": [],
+      "table": {
+        "name": "tbl_settings"
+      },
+      "primary": "settingsId",
+      "joins": []
+    }
+  },
+  "output": true,
+  "outputType": "array",
+  "meta": [
+    {
+      "type": "number",
+      "name": "settingsId"
+    },
+    {
+      "type": "text",
+      "name": "settingKey"
+    },
+    {
+      "type": "object",
+      "name": "settingJson"
+    }
+  ],
+  "collapsed": true
+}
