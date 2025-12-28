@@ -46,7 +46,7 @@
             },
             {
               "table": "tbl_settings",
-              "column": "section"
+              "column": "sectionId"
             },
             {
               "table": "tbl_settings",
@@ -110,7 +110,7 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select `key`, `section`, `updatedBy`, `updatedDate`, `description`, `value`, `settingsId` from `tbl_settings` where `tbl_settings`.`settingsId` = ?",
+          "query": "select `key`, `sectionId`, `updatedBy`, `updatedDate`, `description`, `value`, `settingsId` from `tbl_settings` where `tbl_settings`.`settingsId` = ?",
           "orders": []
         }
       },
@@ -121,8 +121,8 @@
           "name": "key"
         },
         {
-          "type": "text",
-          "name": "section"
+          "type": "number",
+          "name": "sectionId"
         },
         {
           "type": "text",

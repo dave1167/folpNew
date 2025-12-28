@@ -1,8 +1,15 @@
 <!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="settings2" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxDataTraversal:{},dmxBootstrap5Modal:{},dmxValidator:{}}" -->
 <meta name="ac:route" content="/settings/settings2">
-<dmx-serverconnect id="scList" url="/api/settings/listSettings" dmx-param:sectionid="sectionName.value"></dmx-serverconnect>
+
+<!-- current section (drives the filter) -->
+<dmx-value id="vSectionId" dmx-bind:value="1"></dmx-value>
+
+<!-- list settings filtered by current section -->
+<dmx-serverconnect id="scList" url="/api/settings/listSettings" dmx-param:sectionid="{{vSectionId.value.toNumber()}}">
+</dmx-serverconnect>
+
 <dmx-serverconnect id="scSave" url="/api/settings/save" noload="true"></dmx-serverconnect>
-<dmx-serverconnect id="scGetSingleSettings" url="/api/settings/getSingleSetting" noload="true"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleSettings" url="/api/settings/getSingleSetting" noload="true" dmx-param:settingsid="tableRepeatEmail[$index].settingsId"></dmx-serverconnect>
 
 <div class="modal fade" id="modeditSettings" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -12,77 +19,200 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form is="dmx-serverconnect-form" id="scFormEditEmail" method="post" action="/api/settings/save" dmx-generator="bootstrap5" dmx-form-type="floating">
+                    <div class="row gx-3">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_key" name="key" dmx-bind:value="scGetSingleSettings.data.query.key" placeholder="Setting">
+                                <input id="txtSettingsId" name="txtSettingsId" type="number" class="form-control" dmx-bind:value="scGetSingleSettings.data.query.settingsId">
+                                <label for="inp_key">Setting</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-3">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_value" name="value" dmx-bind:value="scGetSingleSettings.data.query.value" placeholder="Value">
+                                <label for="inp_value">Value</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-3">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="inp_description" name="description" dmx-bind:value="scGetSingleSettings.data.query.description" placeholder="Description">
+                                <label for="inp_description">Description</label>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row gx-3">
+                        <div class="col">
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn btn-primary ms-2" dmx-bind:value="scGetSingleSettings.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button><button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+
             </div>
         </div>
     </div>
 </div>
+
 <div class="container">
     <div class="row">
         <div class="col">
+
             <ul class="nav nav-tabs" id="navTabs1_tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_2" aria-selected="false">Version</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_1" aria-selected="true">Email</a>
+                    <a class="nav-link active bg-primary-subtle" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true" dmx-on:click="vSectionId.setValue(1); scList.load()">
+                        Version
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false">Messages</a>
+                    <a class="nav-link bg-primary-subtle" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false" dmx-on:click="vSectionId.setValue(2); scList.load()">
+                        Email
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link bg-primary-subtle" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false" dmx-on:click="vSectionId.setValue(3); scList.load()">Document Templates</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-primary-subtle" id="navTabs1_4_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false" dmx-on:click="vSectionId.setValue(4); scList.load()">Email Templates</a>
                 </li>
             </ul>
+
             <div class="tab-content" id="navTabs1_content">
+
+                <!-- VERSION -->
                 <div class="tab-pane fade show active" id="navTabs1_1" role="tabpanel">
                     <div class="row">
                         <div class="col">
 
-                        </div>
-                    </div>
+                            <!-- optional: show current section id (hidden) -->
+                            <input id="sectionName" name="sectionName" type="number" class="form-control d-none" dmx-bind:value="vSectionId.value">
 
-                    <div class="row">
-                        <div class="col">
-                            <input id="sectionName" name="sectionName" type="number" class="form-control" dmx-bind:value="1">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Key</th>
+                                            <th>Setting</th>
                                             <th>Value</th>
                                         </tr>
                                     </thead>
+
                                     <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeat2">
                                         <tr>
                                             <td dmx-text="key"></td>
                                             <td dmx-text="value"></td>
                                         </tr>
                                     </tbody>
+
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>
+
+                <!-- EMAIL -->
                 <div class="tab-pane fade" id="navTabs1_2" role="tabpanel">
                     <div class="row">
                         <div class="col">
-                            <input id="sectionName1" name="sectionName" type="text" class="form-control">
+
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Setting</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeatEmail">
+                                        <tr>
+                                            <td dmx-hide="settingsId"></td>
+                                            <td dmx-text="key.titlecase()"></td>
+                                            <td dmx-text="value"></td>
+                                            <td>
+                                                <button id="btn1" class="btn btn-primary" dmx-on:click="scGetSingleSettings.load({settingsid: settingsId});modeditSettings.show()"><i class="fas fa-edit"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
                         </div>
                     </div>
+                </div>
+
+                <!-- MESSAGES -->
+                <div class="tab-pane fade" id="navTabs1_3" role="tabpanel">
                     <div class="row">
                         <div class="col">
+
+                            <input id="sectionName2" name="sectionName2" type="number" class="form-control d-none" dmx-bind:value="vSectionId.value">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Setting</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeatMessages">
+                                        <tr>
+                                            <td dmx-text="key"></td>
+                                            <td dmx-text="value"></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
                         </div>
                     </div>
+                </div>
+                <div class="tab-pane fade" id="navTabs1_4" role="tabpanel">
+                    <div class="row">
+                        <div class="col">
 
+                            <input id="sectionName3" name="sectionName3" type="number" class="form-control d-none" dmx-bind:value="vSectionId.value">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Setting</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeatMessages1">
+                                        <tr>
+                                            <td dmx-text="key"></td>
+                                            <td dmx-text="value"></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="navTabs1_3" role="tabpanel">
-                    <p>Est quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex. Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu veniam. Eiusmod minim exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse irure officia elit do ipsum ullamco Lorem. Ullamco ut ad minim do mollit labore ipsum laboris ipsum commodo sunt tempor enim incididunt. Commodo quis sunt dolore aliquip aute tempor irure magna enim minim reprehenderit. Ullamco consectetur culpa veniam sint cillum aliqua incididunt velit ullamco sunt ullamco quis quis commodo voluptate. Mollit nulla nostrud adipisicing aliqua cupidatat aliqua pariatur mollit voluptate voluptate consequat non.</p>
-                </div>
             </div>
+
         </div>
     </div>
 </div>

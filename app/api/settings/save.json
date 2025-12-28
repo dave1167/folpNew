@@ -2,7 +2,7 @@
   "meta": {
     "options": {
       "linkedFile": "/views/settings/settings2.ejs",
-      "linkedForm": "serverconnectform1"
+      "linkedForm": "scFormEditEmail"
     },
     "$_POST": [
       {
@@ -41,147 +41,128 @@
         "type": "text",
         "fieldName": "text1",
         "name": "text1"
+      },
+      {
+        "type": "number",
+        "fieldName": "txtSettingsId",
+        "options": {
+          "rules": {}
+        },
+        "name": "txtSettingsId"
       }
     ]
   },
   "exec": {
-    "steps": [
-      {
-        "name": "update",
-        "module": "dbupdater",
-        "action": "update",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "update",
-            "values": [
+    "steps": {
+      "name": "update",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "tbl_settings",
+              "column": "updatedBy",
+              "type": "text",
+              "value": "{{$_POST.updatedBy}}"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "updatedDate",
+              "type": "datetime",
+              "value": "{{NOW}}"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "key",
+              "type": "text",
+              "value": "{{$_POST.key}}"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "value",
+              "type": "text",
+              "value": "{{$_POST.value}}"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "description",
+              "type": "text",
+              "value": "{{$_POST.description}}"
+            }
+          ],
+          "table": "tbl_settings",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
               {
-                "table": "tbl_settings",
-                "column": "updatedBy",
-                "type": "text",
-                "value": "{{$_POST.updatedBy}}"
-              },
-              {
-                "table": "tbl_settings",
-                "column": "updatedDate",
-                "type": "datetime",
-                "value": "{{NOW}}"
-              },
-              {
-                "table": "tbl_settings",
-                "column": "key",
-                "type": "text",
-                "value": "{{$_POST.key}}"
-              },
-              {
-                "table": "tbl_settings",
-                "column": "value",
-                "type": "text",
-                "value": "{{$_POST.value}}"
-              },
-              {
-                "table": "tbl_settings",
-                "column": "description",
-                "type": "text",
-                "value": "{{$_POST.description}}"
-              },
-              {
-                "table": "tbl_settings",
-                "column": "section",
-                "type": "text",
-                "value": "{{$_POST.section}}"
+                "id": "settingsId",
+                "field": "settingsId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_POST.txtSettingsId}}",
+                "data": {
+                  "column": "settingsId"
+                },
+                "operation": "="
               }
             ],
-            "table": "tbl_settings",
-            "wheres": {
-              "condition": "AND",
-              "rules": [
-                {
-                  "id": "settingsId",
-                  "field": "settingsId",
-                  "type": "double",
-                  "operator": "equal",
-                  "value": "{{$_POST.settingsId}}",
-                  "data": {
-                    "column": "settingsId"
-                  },
-                  "operation": "="
-                }
-              ],
-              "conditional": null,
-              "valid": true
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "settingsId",
+          "query": "update `tbl_settings` set `updatedBy` = ?, `updatedDate` = ?, `key` = ?, `value` = ?, `description` = ? where `settingsId` = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.updatedBy}}",
+              "test": ""
             },
-            "returning": "settingsId",
-            "query": "update `tbl_settings` set `updatedBy` = ?, `updatedDate` = ?, `key` = ?, `value` = ?, `description` = ?, `section` = ? where `settingsId` = ?",
-            "params": [
-              {
-                "name": ":P1",
-                "type": "expression",
-                "value": "{{$_POST.updatedBy}}",
-                "test": ""
-              },
-              {
-                "name": ":P2",
-                "type": "expression",
-                "value": "{{NOW}}",
-                "test": ""
-              },
-              {
-                "name": ":P3",
-                "type": "expression",
-                "value": "{{$_POST.key}}",
-                "test": ""
-              },
-              {
-                "name": ":P4",
-                "type": "expression",
-                "value": "{{$_POST.value}}",
-                "test": ""
-              },
-              {
-                "name": ":P5",
-                "type": "expression",
-                "value": "{{$_POST.description}}",
-                "test": ""
-              },
-              {
-                "name": ":P6",
-                "type": "expression",
-                "value": "{{$_POST.section}}",
-                "test": ""
-              },
-              {
-                "operator": "equal",
-                "type": "expression",
-                "name": ":P7",
-                "value": "{{$_POST.settingsId}}",
-                "test": ""
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ],
-        "collapsed": true,
-        "output": true
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{NOW}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.key}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.value}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.description}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P6",
+              "value": "{{$_POST.txtSettingsId}}",
+              "test": ""
+            }
+          ]
+        }
       },
-      {
-        "name": "response",
-        "module": "core",
-        "action": "response",
-        "options": {
-          "status": 200,
-          "data": {
-            "success": true,
-            "saved": "{{save}}"
-          }
-        },
-        "disabled": true
-      }
-    ]
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ],
+      "collapsed": true,
+      "output": true
+    }
   }
 }
