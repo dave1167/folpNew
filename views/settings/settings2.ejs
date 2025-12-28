@@ -1,16 +1,37 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="settings2" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxDataTraversal:{}}" -->
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="settings2" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Navigation:{},dmxDataTraversal:{},dmxBootstrap5Modal:{},dmxValidator:{}}" -->
 <meta name="ac:route" content="/settings/settings2">
-<dmx-serverconnect id="scList" url="/api/settings/list"></dmx-serverconnect>
+<dmx-serverconnect id="scList" url="/api/settings/listSettings" dmx-param:sectionid="sectionName.value"></dmx-serverconnect>
+<dmx-serverconnect id="scSave" url="/api/settings/save" noload="true"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleSettings" url="/api/settings/getSingleSetting" noload="true"></dmx-serverconnect>
+
+<div class="modal fade" id="modeditSettings" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col">
             <ul class="nav nav-tabs" id="navTabs1_tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true">Home</a>
+                    <a class="nav-link" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_2" aria-selected="false">Version</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false">Profile</a>
+                    <a class="nav-link active" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_1" aria-selected="true">Email</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false">Messages</a>
                 </li>
@@ -19,51 +40,49 @@
                 <div class="tab-pane fade show active" id="navTabs1_1" role="tabpanel">
                     <div class="row">
                         <div class="col">
-                            <dmx-data-view id="data_view1" dmx-bind:data="scList.data.settings" filter="section.contains('Member')">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered table-hover table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Settings</th>
-                                                        <th>Setting key</th>
-                                                        <th>Setting json</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.settings" id="tableRepeat2">
-                                                    <tr>
-                                                        <td dmx-text="settingsId"></td>
-                                                        <td> "Name"</td>
-                                                        <td dmx-text="data[0].settingJson.membershipSecretary.name "></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Email</td>
-                                                        <td dmx-text="data[0].settingJson.membershipSecretary.email"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </dmx-data-view>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input id="sectionName" name="sectionName" type="number" class="form-control" dmx-bind:value="1">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Key</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeat2">
+                                        <tr>
+                                            <td dmx-text="key"></td>
+                                            <td dmx-text="value"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="navTabs1_2" role="tabpanel">
+                    <div class="row">
+                        <div class="col">
+                            <input id="sectionName1" name="sectionName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                         </div>
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="navTabs1_2" role="tabpanel">
-                    <p>Ad pariatur nostrud pariatur exercitation ipsum ipsum culpa mollit commodo mollit ex. Aute sunt incididunt amet commodo est sint nisi deserunt pariatur do. Aliquip ex eiusmod voluptate exercitation cillum id incididunt elit sunt. Qui minim sit magna Lorem id et dolore velit Lorem amet exercitation duis deserunt. Anim id labore elit adipisicing ut in id occaecat pariatur ut ullamco ea tempor duis.</p>
-                </div>
+
                 <div class="tab-pane fade" id="navTabs1_3" role="tabpanel">
                     <p>Est quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex. Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu veniam. Eiusmod minim exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse irure officia elit do ipsum ullamco Lorem. Ullamco ut ad minim do mollit labore ipsum laboris ipsum commodo sunt tempor enim incididunt. Commodo quis sunt dolore aliquip aute tempor irure magna enim minim reprehenderit. Ullamco consectetur culpa veniam sint cillum aliqua incididunt velit ullamco sunt ullamco quis quis commodo voluptate. Mollit nulla nostrud adipisicing aliqua cupidatat aliqua pariatur mollit voluptate voluptate consequat non.</p>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-
         </div>
     </div>
 </div>

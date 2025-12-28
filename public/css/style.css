@@ -158,3 +158,10 @@ main#content {
 @media (max-width: 575.98px) {
   .settings-code { font-size: .75rem; }
 }
+
+/* Modal / edit form tweaks for settings editor */
+#editModal .settings-code { max-height: 300px; overflow: auto; }
+#editModal .modal-body { padding: 1rem; }
+@media (max-width: 575.98px) {
+  #editModal .modal-dialog { margin: 0 0.5rem; }
+}

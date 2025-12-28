@@ -37,11 +37,6 @@
       "layout": "lh_menu"
     },
     {
-      "path": "/settings/settings",
-      "page": "settings/settings",
-      "layout": "lh_menu"
-    },
-    {
       "path": "/settings/settings2",
       "page": "settings/settings2",
       "layout": "lh_menu"
