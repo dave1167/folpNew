@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "number",
+        "name": "sectionid"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_settings",
+              "column": "settingsId"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "key"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "updatedBy"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "updatedDate"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "description"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "value"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "fixedId"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.sectionid}}",
+              "test": "2"
+            }
+          ],
+          "table": {
+            "name": "tbl_settings"
+          },
+          "primary": "settingsId",
+          "joins": [],
+          "query": "select `settingsId`, `key`, `updatedBy`, `updatedDate`, `description`, `value`, `fixedId` from `tbl_settings` where `tbl_settings`.`sectionId` = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_settings.sectionId",
+                "field": "tbl_settings.sectionId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.sectionid}}",
+                "data": {
+                  "table": "tbl_settings",
+                  "column": "sectionId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "default": "",
+                    "primary": false,
+                    "nullable": true,
+                    "name": "sectionId"
+                  }
+                },
+                "operation": "=",
+                "table": "tbl_settings"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "settingsId"
+        },
+        {
+          "type": "text",
+          "name": "key"
+        },
+        {
+          "type": "text",
+          "name": "updatedBy"
+        },
+        {
+          "type": "datetime",
+          "name": "updatedDate"
+        },
+        {
+          "type": "text",
+          "name": "description"
+        },
+        {
+          "type": "text",
+          "name": "value"
+        },
+        {
+          "type": "text",
+          "name": "fixedId"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}

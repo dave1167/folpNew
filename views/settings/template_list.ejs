@@ -1,4 +1,4 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="template_list" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxSummernote:{}}" -->
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="template_list" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxSummernote:{},dmxFormatter:{}}" -->
 <dmx-serverconnect id="scGetTemplates" url="/api/templates/listTemplates">
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -10,6 +10,8 @@
 <div class="modal" id="modEditTemplate" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+
+
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title">Edit Template</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -17,32 +19,41 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
-                        <form id="frmEditTemplate" method="post" is="dmx-serverconnect-form" action="/api/templates/updateTemplate">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3"> <input type="text" class="form-control" id="inp_name" name="name" aria-describedby="input1_help" placeholder="Template Name" dmx-bind:value="scGetSingleTemplate.data.query.name">
-                                        <label for="inp_name" class="form-label">Template Name</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <textarea id="tempNotes" class="form-control" name="tempNotes" dmx-bind:value="scGetSingleTemplate.data.query.description"></textarea>
-                                        <label for="inp_desc" class="form-label">Notes</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="editor1" is="dmx-summernote" dmx-bind:toolbar="[['style',['style']],['font',['bold','underline','clear']],['fontname',['fontname']],['color',['color']],['para',['ul','ol','paragraph']],['table',['table']],['insert',['link','picture','video']],['view',['fullscreen','codeview','help']]]" height="300" dmx-bind:value="scGetSingleTemplate.data.query.template_html"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input id="html" name="html" type="hidden" class="form-control" dmx-bind:value="editor1.value">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <button id="btn2" class="btn btn-success">Save</button>
-                                            <button id="btn3" class="btn btn-dark">Cancel</button>
-                                        </div>
-                                    </div>
+                        <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/templates/updateTemplate" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-populate="scGetSingleTemplate.data.query">
+                            <div class="form-group mb-3 row">
+                                <label for="inp_name" class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inp_name" name="name" dmx-bind:value="scGetSingleTemplate.data.query.name" aria-describedby="inp_name_help" placeholder="Enter Name">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="inp_description" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inp_description" name="description" dmx-bind:value="scGetSingleTemplate.data.query.description" aria-describedby="inp_description_help" placeholder="Enter Description">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="inp_category" class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inp_category" name="category" dmx-bind:value="scGetSingleTemplate.data.query.category" aria-describedby="inp_category_help" placeholder="Enter Category">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="inp_template_html" class="col-sm-2 col-form-label">Template html</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inp_template_html" name="template_html" dmx-bind:value="scGetSingleTemplate.data.query.template_html" aria-describedby="inp_template_html_help" placeholder="Enter Template html">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="inp_templateId" class="col-sm-2 col-form-label">Template</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inp_templateId" name="templateId" dmx-bind:value="scGetSingleTemplate.data.query.templateId" aria-describedby="inp_templateId_help" placeholder="Enter Template">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <div class="col-sm-2">&nbsp;</div>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary" dmx-bind:value="scGetSingleTemplate.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
                                 </div>
                             </div>
                         </form>

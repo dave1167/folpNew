@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {}
+        },
+        "name": "settingsid"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {}
+        },
+        "name": "settingKey"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {}
+        },
+        "name": "settingJson"
+      },
+      {
+        "type": "text",
+        "name": "updatedBy"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_settings",
+              "column": "key"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "sectionId"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "updatedBy"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "updatedDate"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "description"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "value"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "settingsId"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.settingsid}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "tbl_settings"
+          },
+          "primary": "settingsId",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_settings.settingsId",
+                "field": "tbl_settings.settingsId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.settingsid}}",
+                "data": {
+                  "table": "tbl_settings",
+                  "column": "settingsId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "increments",
+                    "primary": true,
+                    "nullable": false,
+                    "name": "settingsId"
+                  }
+                },
+                "operation": "=",
+                "table": "tbl_settings"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select `key`, `sectionId`, `updatedBy`, `updatedDate`, `description`, `value`, `settingsId` from `tbl_settings` where `tbl_settings`.`settingsId` = ?",
+          "orders": []
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "key"
+        },
+        {
+          "type": "number",
+          "name": "sectionId"
+        },
+        {
+          "type": "text",
+          "name": "updatedBy"
+        },
+        {
+          "type": "datetime",
+          "name": "updatedDate"
+        },
+        {
+          "type": "text",
+          "name": "description"
+        },
+        {
+          "type": "text",
+          "name": "value"
+        },
+        {
+          "type": "number",
+          "name": "settingsId"
+        }
+      ],
+      "outputType": "object",
+      "collapsed": true
+    }
+  }
+}

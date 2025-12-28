@@ -42,6 +42,16 @@
         "type": "text",
         "fieldName": "tempNotes",
         "name": "tempNotes"
+      },
+      {
+        "type": "text",
+        "fieldName": "tempId",
+        "name": "tempId"
+      },
+      {
+        "type": "text",
+        "fieldName": "html",
+        "name": "html"
       }
     ]
   },
@@ -96,6 +106,12 @@
               "column": "createdBy",
               "type": "number",
               "value": "{{$_POST.createdBy}}"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "templateId",
+              "type": "number",
+              "value": "{{$_POST.templateId}}"
             }
           ],
           "table": "tbl_templates",
@@ -104,18 +120,21 @@
             "rules": [
               {
                 "id": "templateId",
+                "field": "templateId",
                 "type": "double",
                 "operator": "equal",
-                "value": "{{$_POST.templateId}}",
+                "value": "{{$_POST.tempId.toNumber()}}",
                 "data": {
                   "column": "templateId"
                 },
                 "operation": "="
               }
-            ]
+            ],
+            "conditional": null,
+            "valid": true
           },
           "returning": "templateId",
-          "query": "update `tbl_templates` set `name` = ?, `description` = ?, `category` = ?, `template_html` = ?, `created_at` = ?, `updated_at` = ?, `createdBy` = ? where `templateId` = ?",
+          "query": "update `tbl_templates` set `name` = ?, `description` = ?, `category` = ?, `template_html` = ?, `created_at` = ?, `updated_at` = ?, `createdBy` = ?, `templateId` = ? where `templateId` = ?",
           "params": [
             {
               "name": ":P1",
@@ -160,10 +179,16 @@
               "test": ""
             },
             {
+              "name": ":P8",
+              "type": "expression",
+              "value": "{{$_POST.templateId}}",
+              "test": ""
+            },
+            {
               "operator": "equal",
               "type": "expression",
-              "name": ":P8",
-              "value": "{{$_POST.templateId}}",
+              "name": ":P9",
+              "value": "{{$_POST.tempId.toNumber()}}",
               "test": ""
             }
           ]
@@ -174,7 +199,9 @@
           "name": "affected",
           "type": "number"
         }
-      ]
+      ],
+      "output": true,
+      "collapsed": true
     }
   }
 }

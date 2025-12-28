@@ -1,49 +1,53 @@
-/* Project stylesheet - layout adjustments for left-hand menu layout
-   Ensures the main content sits alongside the sidebar on large screens
-   and the sidebar becomes an off-canvas panel on small screens.
+/* =========================================================
+   Project stylesheet - left-hand menu layout
+   ========================================================= */
 
-   Follow Bootstrap 5 conventions, use CSS variables where appropriate.
-*/
 :root {
-    --offcanvas-width: 150px;
-    --topNavbarHeight: 56px;
-}
-.offcanvas {
-    width: var(--offcanvas-width);
-}
-@media (min-width: 992px) {
-    main {
-        margin-left: var(--offcanvas-width);
-    }
-    .offcanvas {
-        transform: none;
-        visibility: visible !important;
-        top: var(--topNavbarHeight);
-        height: calc(100% - var(--topNavbarHeight));
-    }
-    .offcanvas-backdrop::before {
-        display: none;
-    }
-    .offcanvas-header .btn-close {
-        visibility: hidden;
-    }
+  --offcanvas-width: 150px;
+  --topNavbarHeight: 56px;
 }
 
-/* Keep header visible and above content */
+/* ---------------- Offcanvas ---------------- */
+.offcanvas {
+  width: var(--offcanvas-width);
+}
+
+@media (min-width: 992px) {
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+
+  .offcanvas {
+    transform: none;
+    visibility: visible !important;
+    top: var(--topNavbarHeight);
+    height: calc(100% - var(--topNavbarHeight));
+  }
+
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+
+  .offcanvas-header .btn-close {
+    visibility: hidden;
+  }
+}
+
+/* ---------------- Header ---------------- */
 .app-header {
   position: sticky;
   top: 0;
-  z-index: 1030; /* above sidebar on mobile */
+  z-index: 1030;
 }
 
-/* Layout root defaults to column (mobile-first) */
+/* ---------------- Layout ---------------- */
 .layout-root {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 
-/* Sidebar base styles (mobile off-canvas behavior) */
+/* ---------------- Sidebar ---------------- */
 .sidebar {
   background: var(--bs-body-bg);
   width: 260px;
@@ -51,7 +55,6 @@
   box-shadow: 0 0 0.5rem rgba(0,0,0,0.05);
   border-right: 1px solid var(--bs-border-color, #e9ecef);
   transition: transform .25s ease, visibility .25s ease;
-  /* Start hidden off-screen on small devices */
   transform: translateX(-100%);
   position: fixed;
   top: 0;
@@ -59,10 +62,9 @@
   height: 100vh;
   overflow: auto;
   visibility: hidden;
-  z-index: 1040; /* above page content but below header (header z-index:1030 sticky) */
+  z-index: 1040;
 }
 
-/* When open (controlled by App Connect toggle) show the off-canvas */
 .sidebar.open {
   transform: translateX(0);
   visibility: visible;
@@ -73,56 +75,54 @@
   padding-top: calc(0.5rem + var(--bs-navbar-padding-y, 0));
 }
 
-/* Nav links visual tweaks */
+/* Sidebar nav links */
 .sidebar .nav-link {
   color: var(--bs-body-color);
 }
+
+/* Sidebar active (unchanged from your design) */
 .sidebar .nav-link.active {
   background-color: var(--bs-primary-bg, rgba(13,110,253,0.08));
   color: var(--bs-primary);
 }
 
-/* Main content area - full width on small screens */
+/* ---------------- Main ---------------- */
 main#content {
   width: 100%;
   box-sizing: border-box;
-  min-height: calc(100vh - 56px); /* fallback for header height */
+  min-height: calc(100vh - 56px);
 }
 
-/* On large screens show sidebar and main side-by-side */
 @media (min-width: 992px) {
   .layout-root {
     flex-direction: row;
     align-items: flex-start;
   }
 
-  /* Make sidebar static in the flow */
   .sidebar {
     position: static;
     transform: none;
     visibility: visible;
     height: auto;
-    flex: 0 0 260px; /* fixed width column */
+    flex: 0 0 260px;
     width: 260px;
   }
 
-  /* Ensure the inner sidebar scroll area fits inside viewport below header */
   .sidebar .sidebar-inner {
     position: sticky;
-    top: 0; /* header is outside of this flow so keep at top of viewport */
-    height: calc(100vh - 0px);
+    top: 0;
+    height: 100vh;
     overflow: auto;
     padding-top: 1rem;
   }
 
-  /* Main should take remaining space */
   main#content {
     flex: 1 1 auto;
     min-height: calc(100vh - 56px);
   }
 }
 
-/* Overlay to dim page when sidebar open on small screens (optional) */
+/* ---------------- Sidebar backdrop ---------------- */
 .sidebar.open + .sidebar-backdrop,
 .sidebar-backdrop {
   display: none;
@@ -139,14 +139,71 @@ main#content {
   }
 }
 
-/* Small UI polish */
+/* ---------------- UI polish ---------------- */
 .menu-toggle { z-index: 1050; }
 
-/* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .sidebar, .sidebar.open {
+  .sidebar,
+  .sidebar.open {
     transition: none;
   }
 }
-#lh_menu_2 {
+
+/* ---------------- Settings page ---------------- */
+.settings-table td { vertical-align: middle; }
+
+.settings-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  font-size: .85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow: auto;
+}
+
+@media (max-width: 575.98px) {
+  .settings-code { font-size: .75rem; }
+}
+
+/* Modal tweaks */
+#editModal .settings-code { max-height: 300px; }
+#editModal .modal-body { padding: 1rem; }
+
+@media (max-width: 575.98px) {
+  #editModal .modal-dialog { margin: 0 0.5rem; }
+}
+
+/* =========================================================
+   SETTINGS NAV TABS (navTabs1)
+   ========================================================= */
+
+/* Base transition */
+#navTabs1_tabs .nav-link {
+  transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
+}
+
+/* NON-active tabs keep subtle look */
+#navTabs1_tabs .nav-link:not(.active) {
+  background-color: var(--bs-primary-bg-subtle);
+}
+
+/* ACTIVE tab — FORCE dark blue + yellow */
+#navTabs1_tabs.nav-tabs .nav-link.active,
+#navTabs1_tabs.nav-tabs .nav-link[aria-selected="true"] {
+  background-color: #0b2a5b !important;
+  color: #ffeb3b !important;
+  border-color: #0b2a5b !important;
+  box-shadow: 0 0 0.375rem rgba(11, 42, 91, 0.35);
+}
+
+/* Correct Bootstrap tab border */
+#navTabs1_tabs.nav-tabs .nav-link.active {
+  border-bottom-color: transparent !important;
+}
+
+/* Prevent hover overriding active */
+#navTabs1_tabs.nav-tabs .nav-link.active:hover,
+#navTabs1_tabs.nav-tabs .nav-link.active:focus {
+  background-color: #0b2a5b !important;
+  color: #ffeb3b !important;
 }

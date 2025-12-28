@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "paymentid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "qryPayment",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_payments",
+                "column": "paymentDate"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "memId"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paymentMthd"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdBy"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paidYear"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "amount"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "modifedBy"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "createdDate"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "payNotes"
+              },
+              {
+                "table": "tbl_payment_method",
+                "column": "PayMethod"
+              },
+              {
+                "table": "tbl_payments",
+                "column": "paymentId"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.paymentid}}",
+                "test": "8"
+              }
+            ],
+            "table": {
+              "name": "tbl_payments"
+            },
+            "primary": "paymentId",
+            "joins": [
+              {
+                "table": "tbl_payment_method",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_payment_method",
+                      "column": "payMethodId",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "tbl_payments",
+                        "column": "paymentMthd",
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "primary": "payMethodId"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_payments.paymentId",
+                  "field": "tbl_payments.paymentId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.paymentid}}",
+                  "data": {
+                    "table": "tbl_payments",
+                    "column": "paymentId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "paymentId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_payments"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `tbl_payments`.`paymentDate`, `tbl_payments`.`memId`, `tbl_payments`.`paymentMthd`, `tbl_payments`.`createdBy`, `tbl_payments`.`paidYear`, `tbl_payments`.`amount`, `tbl_payments`.`modifedBy`, `tbl_payments`.`createdDate`, `tbl_payments`.`payNotes`, `tbl_payment_method`.`PayMethod`, `tbl_payments`.`paymentId` from `tbl_payments` inner join `tbl_payment_method` on `tbl_payment_method`.`payMethodId` = `tbl_payments`.`paymentMthd` where `tbl_payments`.`paymentId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "date",
+            "name": "paymentDate"
+          },
+          {
+            "type": "number",
+            "name": "memId"
+          },
+          {
+            "type": "number",
+            "name": "paymentMthd"
+          },
+          {
+            "type": "number",
+            "name": "createdBy"
+          },
+          {
+            "type": "text",
+            "name": "paidYear"
+          },
+          {
+            "type": "number",
+            "name": "amount"
+          },
+          {
+            "type": "number",
+            "name": "modifedBy"
+          },
+          {
+            "type": "datetime",
+            "name": "createdDate"
+          },
+          {
+            "type": "text",
+            "name": "payNotes"
+          },
+          {
+            "type": "text",
+            "name": "PayMethod"
+          },
+          {
+            "type": "number",
+            "name": "paymentId"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "decNotes",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{qryPayment.payNotes.decrypt($_ENV.EKY)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      }
+    ]
+  }
+}

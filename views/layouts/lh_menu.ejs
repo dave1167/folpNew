@@ -85,6 +85,7 @@
   <script src="/dmxAppConnect/dmxSummernoteFileUpload/summernote-upload.js" defer></script>
   <script src="/dmxAppConnect/dmxBootstrap5Offcanvas/dmxBootstrap5Offcanvas.js" defer></script>
   <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Tooltips/dmxBootstrap5Tooltips.js" defer></script>
 </head>
 
 <body is="dmx-app">
@@ -123,7 +124,7 @@
         </div>
         <div class="navbar-nav flex-column w-100">
 
-          <a class="nav-item nav-link" href="#">Link</a>
+
 
           <!-- Collapse toggle -->
           <a class="nav-item nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#membersCollapse" role="button" aria-expanded="false" aria-controls="membersCollapse">
@@ -132,16 +133,11 @@
           </a>
 
           <!-- Collapsed submenu -->
-          <div class="collapse ps-3" id="membersCollapse">
+          <div class="collapse ps-3 show" id="membersCollapse">
             <a class="nav-link" href="#">Add Member</a>
-            <a class="nav-link" href="#">List Members</a>
+            <a class="nav-link" href="members/mem_list.ejs">List Members</a>
             <a class="nav-link" href="#">Payments</a>
-          </div>
-          <div class="collapse ps-3" id="settingsCollapse">
-            <a class="nav-link" href="#"></a>
-            <a class="nav-link" href="#">List Members</a>
-            <a class="nav-link" href="#">Payments</a>
-          </div>
+          </div><a class="nav-item nav-link" href="/settings/settings2">Settings</a>
 
 
         </div>

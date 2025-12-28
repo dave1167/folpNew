@@ -1,0 +1,12 @@
+{
+  "site_name": "FOLP Membership",
+  "logo": "/images/logo.png",
+  "support_email": "support@yourdomain.com",
+  "maintenance_mode": false,
+  "features": {
+    "registration": true,
+    "payments": false,
+    "two_factor": false
+  },
+  "default_language": "en"
+}

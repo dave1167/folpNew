@@ -107,6 +107,18 @@
               {
                 "table": "tbl_member_details",
                 "column": "memStatus"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstPayMethod"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lstFeePd"
+              },
+              {
+                "table": "tbl_mem_type",
+                "column": "fee"
               }
             ],
             "params": [
@@ -115,14 +127,37 @@
                 "type": "expression",
                 "name": ":P1",
                 "value": "{{$_GET.memdtsid}}",
-                "test": "242"
+                "test": "222"
               }
             ],
             "table": {
               "name": "tbl_member_details"
             },
             "primary": "memDetsId",
-            "joins": [],
+            "joins": [
+              {
+                "table": "tbl_mem_type",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_mem_type",
+                      "column": "memTypeId",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "tbl_member_details",
+                        "column": "memType",
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "primary": "memTypeId"
+              }
+            ],
             "wheres": {
               "condition": "AND",
               "rules": [
@@ -150,7 +185,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select `fName`, `email`, `memDetsId`, `lName`, `address1`, `address2`, `town1`, `town2`, `postcode`, `mobTel`, `memDetsId`, `tel`, `modifiedDate`, `lastPaidDte`, `dateJoined`, `memNo`, `notes`, `memType`, `memStatus` from `tbl_member_details` where `tbl_member_details`.`memDetsId` = ?"
+            "query": "select `tbl_member_details`.`fName`, `tbl_member_details`.`email`, `tbl_member_details`.`memDetsId`, `tbl_member_details`.`lName`, `tbl_member_details`.`address1`, `tbl_member_details`.`address2`, `tbl_member_details`.`town1`, `tbl_member_details`.`town2`, `tbl_member_details`.`postcode`, `tbl_member_details`.`mobTel`, `tbl_member_details`.`memDetsId`, `tbl_member_details`.`tel`, `tbl_member_details`.`modifiedDate`, `tbl_member_details`.`lastPaidDte`, `tbl_member_details`.`dateJoined`, `tbl_member_details`.`memNo`, `tbl_member_details`.`notes`, `tbl_member_details`.`memType`, `tbl_member_details`.`memStatus`, `tbl_member_details`.`lstPayMethod`, `tbl_member_details`.`lstFeePd`, `tbl_mem_type`.`fee` from `tbl_member_details` inner join `tbl_mem_type` on `tbl_mem_type`.`memTypeId` = `tbl_member_details`.`memType` where `tbl_member_details`.`memDetsId` = ?"
           }
         },
         "meta": [
@@ -225,10 +260,23 @@
           {
             "type": "number",
             "name": "memStatus"
+          },
+          {
+            "type": "number",
+            "name": "lstPayMethod"
+          },
+          {
+            "type": "number",
+            "name": "lstFeePd"
+          },
+          {
+            "type": "number",
+            "name": "fee"
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "address1_dec",

@@ -215,6 +215,63 @@
           }
         }
       },
+      "tbl_users": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "userId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "email": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "firstName": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "lastName": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "password": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "active": {
+            "db": {
+              "type": "boolean",
+              "default": "1",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
       "tbl_payments": {
         "db": {
           "engine": "InnoDB",
@@ -273,7 +330,7 @@
           },
           "amount": {
             "db": {
-              "type": "integer",
+              "type": "decimal",
               "default": "",
               "primary": false,
               "nullable": true
@@ -283,7 +340,8 @@
             "db": {
               "type": "integer",
               "primary": false,
-              "nullable": false
+              "nullable": true,
+              "default": ""
             }
           },
           "modifiedDate": {
@@ -307,63 +365,6 @@
               "type": "text",
               "default": "",
               "maxLength": 65535,
-              "primary": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "tbl_users": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "userId": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "email": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "firstName": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "lastName": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "password": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "active": {
-            "db": {
-              "type": "boolean",
-              "default": "1",
               "primary": false,
               "nullable": true
             }
@@ -404,15 +405,14 @@
           },
           "category": {
             "db": {
-              "type": "string",
+              "type": "integer",
               "default": "",
               "maxLength": 100,
               "primary": false,
               "nullable": true
             },
             "db_edits": {
-              "maxLength": "",
-              "type": "integer"
+              "maxLength": ""
             },
             "status": {
               "modified": true
@@ -449,6 +449,38 @@
               "default": "",
               "primary": false,
               "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_role_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "roleTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "roleDesc": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "roleValue": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
             }
           }
         }
@@ -646,39 +678,119 @@
               "primary": false,
               "nullable": true
             }
+          },
+          "lstPayMethod": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
           }
         }
       },
-      "tbl_role_type": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
+      "tbl_section_type": {
         "columns": {
-          "roleTypeId": {
+          "sectionTypeId": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "roleDesc": {
+          "sectionDesc": {
             "db": {
-              "type": "text",
-              "maxLength": 65535,
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
               "primary": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
+        }
+      },
+      "tbl_settings": {
+        "columns": {
+          "settingsId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
               "nullable": false
             }
           },
-          "roleValue": {
+          "key": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 50,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedBy": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedDate": {
+            "db": {
+              "type": "timestamp",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "sectionId": {
             "db": {
               "type": "integer",
+              "default": "",
               "primary": false,
-              "nullable": false
+              "nullable": true
+            }
+          },
+          "description": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "value": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "fixedId": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
             }
           }
+        },
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
         }
       }
     },

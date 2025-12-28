@@ -2,7 +2,7 @@
   "meta": {
     "$_GET": [
       {
-        "type": "text",
+        "type": "number",
         "name": "templateid"
       }
     ]
@@ -32,6 +32,10 @@
             {
               "table": "tbl_templates",
               "column": "template_html"
+            },
+            {
+              "table": "tbl_templates",
+              "column": "templateId"
             }
           ],
           "params": [
@@ -40,7 +44,7 @@
               "type": "expression",
               "name": ":P1",
               "value": "{{$_GET.templateid}}",
-              "test": ""
+              "test": "16"
             }
           ],
           "table": {
@@ -48,7 +52,7 @@
           },
           "primary": "templateId",
           "joins": [],
-          "query": "select `name`, `description`, `category`, `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?",
+          "query": "select `name`, `description`, `category`, `template_html`, `templateId` from `tbl_templates` where `tbl_templates`.`templateId` = ?",
           "wheres": {
             "condition": "AND",
             "rules": [
@@ -69,13 +73,15 @@
                     "name": "templateId"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "tbl_templates"
               }
             ],
             "conditional": null,
             "valid": true
           }
-        }
+        },
+        "test": true
       },
       "output": true,
       "meta": [
@@ -88,12 +94,16 @@
           "name": "description"
         },
         {
-          "type": "text",
+          "type": "number",
           "name": "category"
         },
         {
           "type": "text",
           "name": "template_html"
+        },
+        {
+          "type": "number",
+          "name": "templateId"
         }
       ],
       "outputType": "object",
