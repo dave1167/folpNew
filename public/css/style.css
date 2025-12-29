@@ -57,9 +57,9 @@
   transition: transform .25s ease, visibility .25s ease;
   transform: translateX(-100%);
   position: fixed;
-  top: 0;
+  top: var(--topNavbarHeight); /* Always under the navbar */
   left: 0;
-  height: 100vh;
+  height: calc(100vh - var(--topNavbarHeight));
   overflow: auto;
   visibility: hidden;
   z-index: 1040;
@@ -100,12 +100,13 @@ main#content {
   }
 
   .sidebar {
-    position: static;
-    transform: none;
-    visibility: visible;
-    height: auto;
+    position: sticky;
+    top: var(--topNavbarHeight); /* Stick under navbar on large screens too */
+    height: calc(100vh - var(--topNavbarHeight));
     flex: 0 0 260px;
     width: 260px;
+    left: 0;
+    z-index: 1020;
   }
 
   .sidebar .sidebar-inner {
@@ -120,6 +121,11 @@ main#content {
     flex: 1 1 auto;
     min-height: calc(100vh - 56px);
   }
+}
+
+/* Sidebar parent nav - always allow multiple collapse open */
+.sidebar .collapse {
+  /* remove accordion style, allow multiple menus open */
 }
 
 /* ---------------- Sidebar backdrop ---------------- */
