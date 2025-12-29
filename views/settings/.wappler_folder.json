@@ -14,5 +14,17 @@
   "settings2.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "template_list2.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
+  },
+  "template_list_all.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
+  },
+  "templates.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }
