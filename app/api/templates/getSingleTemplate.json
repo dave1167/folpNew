@@ -19,6 +19,10 @@
           "columns": [
             {
               "table": "tbl_templates",
+              "column": "templateId"
+            },
+            {
+              "table": "tbl_templates",
               "column": "name"
             },
             {
@@ -40,7 +44,7 @@
               "type": "expression",
               "name": ":P1",
               "value": "{{$_GET.templateid}}",
-              "test": ""
+              "test": "16"
             }
           ],
           "table": {
@@ -48,7 +52,7 @@
           },
           "primary": "templateId",
           "joins": [],
-          "query": "select `name`, `description`, `category`, `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?",
+          "query": "select `templateId`, `name`, `description`, `category`, `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?",
           "wheres": {
             "condition": "AND",
             "rules": [
@@ -77,8 +81,11 @@
           }
         }
       },
-      "output": true,
       "meta": [
+        {
+          "type": "number",
+          "name": "templateId"
+        },
         {
           "type": "text",
           "name": "name"
@@ -88,7 +95,7 @@
           "name": "description"
         },
         {
-          "type": "text",
+          "type": "number",
           "name": "category"
         },
         {
@@ -97,7 +104,8 @@
         }
       ],
       "outputType": "object",
-      "collapsed": true
+      "collapsed": true,
+      "output": true
     }
   }
 }

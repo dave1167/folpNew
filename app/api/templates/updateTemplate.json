@@ -2,7 +2,7 @@
   "meta": {
     "options": {
       "linkedFile": "/views/settings/template_list.ejs",
-      "linkedForm": "frmEditTemplate"
+      "linkedForm": "serverconnectform1"
     },
     "$_POST": [
       {
@@ -12,10 +12,15 @@
       },
       {
         "type": "text",
+        "fieldName": "description",
         "name": "description"
       },
       {
         "type": "text",
+        "fieldName": "category",
+        "options": {
+          "rules": {}
+        },
         "name": "category"
       },
       {
@@ -36,12 +41,28 @@
       },
       {
         "type": "number",
+        "name": "tempId"
+      },
+      {
+        "type": "number",
+        "fieldName": "templateId",
+        "options": {
+          "rules": {}
+        },
         "name": "templateId"
       },
       {
         "type": "text",
-        "fieldName": "tempNotes",
-        "name": "tempNotes"
+        "fieldName": "hid_template_html",
+        "name": "hid_template_html"
+      },
+      {
+        "type": "number",
+        "fieldName": "hidTemplateId",
+        "options": {
+          "rules": {}
+        },
+        "name": "hidTemplateId"
       }
     ]
   },
@@ -77,19 +98,13 @@
               "table": "tbl_templates",
               "column": "template_html",
               "type": "text",
-              "value": "{{$_POST.template_html}}"
-            },
-            {
-              "table": "tbl_templates",
-              "column": "created_at",
-              "type": "datetime",
-              "value": "{{$_POST.created_at}}"
+              "value": "{{$_POST.hid_template_html}}"
             },
             {
               "table": "tbl_templates",
               "column": "updated_at",
               "type": "datetime",
-              "value": "{{$_POST.updated_at}}"
+              "value": "{{NOW}}"
             },
             {
               "table": "tbl_templates",
@@ -104,18 +119,21 @@
             "rules": [
               {
                 "id": "templateId",
+                "field": "templateId",
                 "type": "double",
                 "operator": "equal",
-                "value": "{{$_POST.templateId}}",
+                "value": "{{$_POST.hidTemplateId}}",
                 "data": {
                   "column": "templateId"
                 },
                 "operation": "="
               }
-            ]
+            ],
+            "conditional": null,
+            "valid": true
           },
           "returning": "templateId",
-          "query": "update `tbl_templates` set `name` = ?, `description` = ?, `category` = ?, `template_html` = ?, `created_at` = ?, `updated_at` = ?, `createdBy` = ? where `templateId` = ?",
+          "query": "update `tbl_templates` set `name` = ?, `description` = ?, `category` = ?, `template_html` = ?, `updated_at` = ?, `createdBy` = ? where `templateId` = ?",
           "params": [
             {
               "name": ":P1",
@@ -138,23 +156,17 @@
             {
               "name": ":P4",
               "type": "expression",
-              "value": "{{$_POST.template_html}}",
+              "value": "{{$_POST.hid_template_html}}",
               "test": ""
             },
             {
               "name": ":P5",
               "type": "expression",
-              "value": "{{$_POST.created_at}}",
+              "value": "{{NOW}}",
               "test": ""
             },
             {
               "name": ":P6",
-              "type": "expression",
-              "value": "{{$_POST.updated_at}}",
-              "test": ""
-            },
-            {
-              "name": ":P7",
               "type": "expression",
               "value": "{{$_POST.createdBy}}",
               "test": ""
@@ -162,8 +174,8 @@
             {
               "operator": "equal",
               "type": "expression",
-              "name": ":P8",
-              "value": "{{$_POST.templateId}}",
+              "name": ":P7",
+              "value": "{{$_POST.hidTemplateId}}",
               "test": ""
             }
           ]
@@ -174,7 +186,9 @@
           "name": "affected",
           "type": "number"
         }
-      ]
+      ],
+      "output": true,
+      "collapsed": true
     }
   }
 }
