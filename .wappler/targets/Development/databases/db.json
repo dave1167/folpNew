@@ -10,6 +10,32 @@
   },
   "schema": {
     "tables": {
+      "tbl_mem_status": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "memStatusId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "statusDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
       "tbl_log_types": {
         "db": {
           "engine": "InnoDB",
@@ -123,7 +149,7 @@
           }
         }
       },
-      "tbl_mem_status": {
+      "tbl_role_type": {
         "db": {
           "engine": "InnoDB",
           "schema": "folp_dev",
@@ -131,20 +157,26 @@
           "system_versioned": false
         },
         "columns": {
-          "memStatusId": {
+          "roleTypeId": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "statusDesc": {
+          "roleDesc": {
             "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
+              "type": "text",
+              "maxLength": 65535,
               "primary": false,
-              "nullable": true
+              "nullable": false
+            }
+          },
+          "roleValue": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
             }
           }
         }
@@ -449,38 +481,6 @@
               "default": "",
               "primary": false,
               "nullable": true
-            }
-          }
-        }
-      },
-      "tbl_role_type": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "roleTypeId": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "roleDesc": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "roleValue": {
-            "db": {
-              "type": "integer",
-              "primary": false,
-              "nullable": false
             }
           }
         }
@@ -791,6 +791,97 @@
           "schema": "folp_dev",
           "collation": "utf8mb4_uca1400_ai_ci",
           "system_versioned": false
+        }
+      },
+      "tbl_comms_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "commDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "commTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          }
+        }
+      },
+      "tbl_communications": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "commId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "type": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "templateId": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedBy": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "updatedDate": {
+            "db": {
+              "type": "date",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "memId": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       }
     },

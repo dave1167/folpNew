@@ -1,0 +1,336 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/settings2.ejs",
+      "linkedForm": "form_settings2"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "selectDoc1",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc1"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectDoc2",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc2"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectDoc3",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc3"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectDoc4",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc4"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectDoc5",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc5"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectDoc6",
+        "options": {
+          "rules": {}
+        },
+        "name": "selectDoc6"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "update_setting_4",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc1}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 4,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.selectDoc1}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "update_setting_5",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc2}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 5,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId"
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true
+      },
+      {
+        "name": "update_setting_6",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc3}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 6,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId"
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true
+      },
+      {
+        "name": "update_setting_7",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc4}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 7,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId"
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true
+      },
+      {
+        "name": "update_setting_8",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc5}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 8,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId"
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true
+      },
+      {
+        "name": "update_setting_9",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "UPDATE",
+            "table": "tbl_settings",
+            "values": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "type": "text",
+                "value": "{{$_POST.selectDoc6}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "settingsId",
+                  "type": "number",
+                  "operator": "equal",
+                  "operation": "=",
+                  "value": 9,
+                  "data": {
+                    "column": "settingsId"
+                  }
+                }
+              ]
+            },
+            "returning": "settingsId"
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "outputType": "object",
+        "output": true
+      }
+    ]
+  }
+}
