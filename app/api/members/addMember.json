@@ -165,6 +165,26 @@
           "rules": {}
         },
         "name": "hidPayMeth"
+      },
+      {
+        "type": "number",
+        "name": "status"
+      },
+      {
+        "type": "number",
+        "name": "templateId"
+      },
+      {
+        "type": "number",
+        "name": "updatedBy"
+      },
+      {
+        "type": "date",
+        "name": "updatedDate"
+      },
+      {
+        "type": "number",
+        "name": "memId"
       }
     ]
   },
@@ -209,8 +229,7 @@
             "name": "lastMemNo"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "lastMemNo",
@@ -298,8 +317,7 @@
             "name": "fee"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "encrypt",
@@ -563,8 +581,7 @@
           }
         ],
         "output": true,
-        "_id": "j1_34",
-        "collapsed": true
+        "_id": "j1_34"
       },
       {
         "name": "insertPayment",
@@ -674,6 +691,106 @@
                 "name": ":P8",
                 "type": "expression",
                 "value": "{{$_POST.payNotes}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insertComms",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_communications",
+                "column": "type",
+                "type": "number",
+                "value": "{{2}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "status",
+                "type": "number",
+                "value": "{{1}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "templateId",
+                "type": "number",
+                "value": "{{16}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "updatedBy",
+                "type": "number",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "updatedDate",
+                "type": "date",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "memId",
+                "type": "number",
+                "value": "{{insert.identity}}"
+              }
+            ],
+            "table": "tbl_communications",
+            "returning": "commId",
+            "query": "insert into `tbl_communications` (`memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{2}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{1}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{16}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{insert.identity}}",
                 "test": ""
               }
             ]

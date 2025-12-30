@@ -10,32 +10,6 @@
   },
   "schema": {
     "tables": {
-      "tbl_mem_status": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "memStatusId": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "statusDesc": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          }
-        }
-      },
       "tbl_log_types": {
         "db": {
           "engine": "InnoDB",
@@ -63,6 +37,40 @@
               "type": "text",
               "default": "",
               "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_mem_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "memTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "memDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "fee": {
+            "db": {
+              "type": "integer",
+              "default": "",
               "primary": false,
               "nullable": true
             }
@@ -115,7 +123,7 @@
           }
         }
       },
-      "tbl_mem_type": {
+      "tbl_mem_status": {
         "db": {
           "engine": "InnoDB",
           "schema": "folp_dev",
@@ -123,60 +131,20 @@
           "system_versioned": false
         },
         "columns": {
-          "memTypeId": {
+          "memStatusId": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "memDesc": {
+          "statusDesc": {
             "db": {
               "type": "string",
               "default": "",
               "maxLength": 255,
               "primary": false,
               "nullable": true
-            }
-          },
-          "fee": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "tbl_role_type": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "folp_dev",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "roleTypeId": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "roleDesc": {
-            "db": {
-              "type": "text",
-              "maxLength": 65535,
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "roleValue": {
-            "db": {
-              "type": "integer",
-              "primary": false,
-              "nullable": false
             }
           }
         }
@@ -481,6 +449,38 @@
               "default": "",
               "primary": false,
               "nullable": true
+            }
+          }
+        }
+      },
+      "tbl_role_type": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "roleTypeId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "roleDesc": {
+            "db": {
+              "type": "text",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "roleValue": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "nullable": false
             }
           }
         }
@@ -882,6 +882,32 @@
               "nullable": true
             }
           }
+        }
+      },
+      "tbl_comms_status": {
+        "columns": {
+          "commId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "commDesc": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        },
+        "db": {
+          "engine": "InnoDB",
+          "schema": "folp_dev",
+          "collation": "utf8mb4_uca1400_ai_ci",
+          "system_versioned": false
         }
       }
     },

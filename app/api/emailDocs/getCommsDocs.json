@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_comms_type",
+              "column": "commDesc"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "fName"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "lName"
+            },
+            {
+              "table": "tbl_comms_status",
+              "column": "commDesc",
+              "alias": "statusdesc"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "updatedDate"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "tbl_communications"
+          },
+          "primary": "commId",
+          "joins": [
+            {
+              "table": "tbl_comms_type",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_comms_type",
+                    "column": "commTypeId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tbl_communications",
+                      "column": "type",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "commTypeId"
+            },
+            {
+              "table": "tbl_member_details",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_member_details",
+                    "column": "memDetsId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tbl_communications",
+                      "column": "memId",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "memDetsId"
+            },
+            {
+              "table": "tbl_comms_status",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "tbl_comms_status",
+                    "column": "commId",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "tbl_communications",
+                      "column": "commId",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "commId"
+            }
+          ],
+          "query": "select `tbl_comms_type`.`commDesc`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commDesc` as `statusdesc`, `tbl_communications`.`updatedDate` from `tbl_communications` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commId` = `tbl_communications`.`commId`"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "commDesc"
+        },
+        {
+          "type": "text",
+          "name": "fName"
+        },
+        {
+          "type": "text",
+          "name": "lName"
+        },
+        {
+          "type": "text",
+          "name": "statusdesc"
+        },
+        {
+          "type": "date",
+          "name": "updatedDate"
+        }
+      ],
+      "outputType": "array",
+      "collapsed": true
+    }
+  }
+}

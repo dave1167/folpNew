@@ -45,6 +45,11 @@
       "path": "/settings/templates",
       "page": "settings/templates",
       "layout": "lh_menu"
+    },
+    {
+      "path": "/emails/comms_docs",
+      "page": "emails/comms_docs",
+      "layout": "lh_menu"
     }
   ]
 }

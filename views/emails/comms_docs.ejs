@@ -1,0 +1,40 @@
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="comms_docs" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{}}" -->
+<meta name="ac:route" content="/emails/comms_docs">
+<dmx-serverconnect id="scGetCommsDocs" url="/api/emailDocs/getCommsDocs"></dmx-serverconnect>
+<div class="container">
+  <div class="row">
+    <div class="col bg-primary">
+      <h6 class="text-light">Document Queue</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-break w-100">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Date Created</th>
+              <th>Type</th>
+              <th>Members Name</th>
+              <th scope="row">Status</th>
+            </tr>
+          </thead>
+          <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetCommsDocs.data.query" id="tableRepeat2">
+            <tr>
+              <td dmx-text="updatedDate.formatDate('dd-MM-yyyy')"></td>
+              <td dmx-text="commDesc"></td>
+              <td dmx-text="fName+' '+lName"></td>
+              <td dmx-text="statusdesc"></td>
+              <td>
+                <button id="btn1" class="btn btn-primary"><i class="fas fa-edit fa-lg"></i></button>
+              </td>
+              <td>
+                <button id="btn2" class="btn btn-success"><i class="fas fa-paper-plane fa-lg"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
