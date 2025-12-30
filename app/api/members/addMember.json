@@ -185,6 +185,10 @@
       {
         "type": "number",
         "name": "memId"
+      },
+      {
+        "type": "text",
+        "name": "html"
       }
     ]
   },
@@ -708,6 +712,153 @@
         ]
       },
       {
+        "name": "qryGetHtml",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "alias": "thisone"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{4}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.settingsId",
+                  "field": "tbl_settings.settingsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{4}}",
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "settingsId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "settingsId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_settings"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `value` as `thisone` from `tbl_settings` where `tbl_settings`.`settingsId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "thisone"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "valno1",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{qryGetHtml.thisone}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "qryGetRawHtml",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_templates",
+                "column": "template_html"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{qryGetHtml.thisone.toNumber()}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_templates"
+            },
+            "primary": "templateId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_templates.templateId",
+                  "field": "tbl_templates.templateId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{qryGetHtml.thisone.toNumber()}}",
+                  "data": {
+                    "table": "tbl_templates",
+                    "column": "templateId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "templateId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "template_html"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
         "name": "insertComms",
         "module": "dbupdater",
         "action": "insert",
@@ -751,11 +902,17 @@
                 "column": "memId",
                 "type": "number",
                 "value": "{{insert.identity}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "html",
+                "type": "text",
+                "value": "{{qryGetRawHtml.template_html}}"
               }
             ],
             "table": "tbl_communications",
             "returning": "commId",
-            "query": "insert into `tbl_communications` (`memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_communications` (`html`, `memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -791,6 +948,12 @@
                 "name": ":P6",
                 "type": "expression",
                 "value": "{{insert.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{qryGetRawHtml.template_html}}",
                 "test": ""
               }
             ]
