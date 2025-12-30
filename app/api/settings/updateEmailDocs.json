@@ -1,8 +1,8 @@
 {
   "meta": {
     "options": {
-      "linkedFile": "/views/settings2.ejs",
-      "linkedForm": "form_settings2"
+      "linkedFile": "/views/settings/settings2.ejs",
+      "linkedForm": "frmSelectTemplates"
     },
     "$_POST": [
       {
@@ -52,6 +52,91 @@
           "rules": {}
         },
         "name": "selectDoc6"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel1",
+        "name": "hidSel1"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel2",
+        "name": "hidSel2"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel3",
+        "name": "hidSel3"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel6",
+        "name": "hidSel6"
+      },
+      {
+        "type": "text",
+        "fieldName": "WelcomeEmailTemplate",
+        "name": "WelcomeEmailTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "RenewalEmailTemplate",
+        "name": "RenewalEmailTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "ReminderEmailTemplate",
+        "name": "ReminderEmailTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "WelcomeDocumentTemplate",
+        "name": "WelcomeDocumentTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "RenewalDocumentTemplate",
+        "name": "RenewalDocumentTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "ReminderDocumentTemplate",
+        "name": "ReminderDocumentTemplate"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel4",
+        "name": "hidSel4"
+      },
+      {
+        "type": "text",
+        "fieldName": "hidSel5",
+        "name": "hidSel5"
+      },
+      {
+        "type": "text",
+        "fieldName": "key",
+        "name": "key"
+      },
+      {
+        "type": "number",
+        "fieldName": "txtSettingsId",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "txtSettingsId"
+      },
+      {
+        "type": "text",
+        "fieldName": "value",
+        "name": "value"
+      },
+      {
+        "type": "text",
+        "fieldName": "description",
+        "name": "description"
       }
     ]
   },
@@ -71,7 +156,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc1}}"
+                "value": "{{$_POST.hidSel1}}"
               }
             ],
             "wheres": {
@@ -95,7 +180,7 @@
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{$_POST.selectDoc1}}",
+                "value": "{{$_POST.hidSel1}}",
                 "test": ""
               }
             ]
@@ -125,7 +210,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc2}}"
+                "value": "{{$_POST.hidSel2}}"
               }
             ],
             "wheres": {
@@ -133,17 +218,29 @@
               "rules": [
                 {
                   "id": "settingsId",
-                  "type": "number",
+                  "field": "settingsId",
+                  "type": "double",
                   "operator": "equal",
-                  "operation": "=",
                   "value": 5,
                   "data": {
                     "column": "settingsId"
-                  }
+                  },
+                  "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
-            "returning": "settingsId"
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidSel2}}",
+                "test": ""
+              }
+            ]
           }
         },
         "meta": [
@@ -153,7 +250,8 @@
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "update_setting_6",
@@ -169,7 +267,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc3}}"
+                "value": "{{$_POST.hidSel3}}"
               }
             ],
             "wheres": {
@@ -177,17 +275,29 @@
               "rules": [
                 {
                   "id": "settingsId",
-                  "type": "number",
+                  "field": "settingsId",
+                  "type": "double",
                   "operator": "equal",
-                  "operation": "=",
                   "value": 6,
                   "data": {
                     "column": "settingsId"
-                  }
+                  },
+                  "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
-            "returning": "settingsId"
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidSel3}}",
+                "test": ""
+              }
+            ]
           }
         },
         "meta": [
@@ -197,7 +307,8 @@
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "update_setting_7",
@@ -213,7 +324,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc4}}"
+                "value": "{{$_POST.hidSel4}}"
               }
             ],
             "wheres": {
@@ -221,17 +332,29 @@
               "rules": [
                 {
                   "id": "settingsId",
-                  "type": "number",
+                  "field": "settingsId",
+                  "type": "double",
                   "operator": "equal",
-                  "operation": "=",
                   "value": 7,
                   "data": {
                     "column": "settingsId"
-                  }
+                  },
+                  "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
-            "returning": "settingsId"
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidSel4}}",
+                "test": ""
+              }
+            ]
           }
         },
         "meta": [
@@ -241,7 +364,8 @@
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "update_setting_8",
@@ -257,7 +381,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc5}}"
+                "value": "{{$_POST.hidSel5}}"
               }
             ],
             "wheres": {
@@ -265,17 +389,29 @@
               "rules": [
                 {
                   "id": "settingsId",
-                  "type": "number",
+                  "field": "settingsId",
+                  "type": "double",
                   "operator": "equal",
-                  "operation": "=",
                   "value": 8,
                   "data": {
                     "column": "settingsId"
-                  }
+                  },
+                  "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
-            "returning": "settingsId"
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidSel5}}",
+                "test": ""
+              }
+            ]
           }
         },
         "meta": [
@@ -285,7 +421,8 @@
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "update_setting_9",
@@ -301,7 +438,7 @@
                 "table": "tbl_settings",
                 "column": "value",
                 "type": "text",
-                "value": "{{$_POST.selectDoc6}}"
+                "value": "{{$_POST.hidSel6}}"
               }
             ],
             "wheres": {
@@ -309,17 +446,29 @@
               "rules": [
                 {
                   "id": "settingsId",
-                  "type": "number",
+                  "field": "settingsId",
+                  "type": "double",
                   "operator": "equal",
-                  "operation": "=",
                   "value": 9,
                   "data": {
                     "column": "settingsId"
-                  }
+                  },
+                  "operation": "="
                 }
-              ]
+              ],
+              "conditional": null,
+              "valid": true
             },
-            "returning": "settingsId"
+            "returning": "settingsId",
+            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.hidSel6}}",
+                "test": ""
+              }
+            ]
           }
         },
         "meta": [
@@ -329,7 +478,8 @@
           }
         ],
         "outputType": "object",
-        "output": true
+        "output": true,
+        "collapsed": true
       }
     ]
   }

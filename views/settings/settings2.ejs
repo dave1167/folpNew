@@ -129,15 +129,19 @@
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc1" class="form-label col-form-label-sm">Welcome Email Template</label>
-                                                    <select id="selectDoc1" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'WelcomeEmailTemplate').first().value"></select>
+                                                    <select id="selectDoc1" name="WelcomeEmailTemplate" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'WelcomeEmailTemplate').first().value"></select>
+                                                    <input id="hidSel1" name="hidSel1" class="form-control" dmx-bind:value="selectDoc1.value">
+
+
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc2" class="form-label col-form-label-sm">Renewal Email Template</label>
-                                                    <select id="selectDoc2" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'RenewalEmailTemplate').first().value"></select>
+                                                    <select id="selectDoc2" name="RenewalEmailTemplate" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'RenewalEmailTemplate').first().value"></select><input id="hidSel2" name="hidSel2" class="form-control" dmx-bind:value="selectDoc2.value">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc3" class="form-label col-form-label-sm">Reminder Email Template</label>
-                                                    <select id="selectDoc3" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'ReminderEmailTemplate').first().value"></select>
+                                                    <select id="selectDoc3" name="ReminderEmailTemplate" class="form-select form-select-sm" dmx-bind:options="scGetEmailTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'ReminderEmailTemplate').first().value"></select><input id="hidSel3" name="hidSel3" class="form-control" dmx-bind:value="selectDoc3.value">
+
                                                 </div>
                                             </div>
                                             <div class="col-6 align-self-stretch bg-info-subtle p-3">
@@ -146,20 +150,22 @@
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc4" class="form-label col-form-label-sm">Welcome Document Template</label>
-                                                    <select id="selectDoc4" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'WelcomeDocumentTemplate').first().value"></select>
+                                                    <select id="selectDoc4" name="WelcomeDocumentTemplate" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'WelcomeDocumentTemplate').first().value"></select><input id="hidSel4" name="hidSel4" class="form-control" dmx-bind:value="selectDoc4.value">
+
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc5" class="form-label col-form-label-sm">Renewal Document Template</label>
-                                                    <select id="selectDoc5" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'RenewalDocumentTemplate').first().value"></select>
+                                                    <select id="selectDoc5" name="RenewalDocumentTemplate" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'RenewalDocumentTemplate').first().value"></select><input id="hidSel5" name="hidSel5" class="form-control" dmx-bind:value="selectDoc5.value">
+
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="selectDoc6" class="form-label col-form-label-sm">Reminder Document Template</label>
-                                                    <select id="selectDoc6" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'ReminderDocumentTemplate').first().value"></select>
+                                                    <select id="selectDoc6" name="ReminderDocumentTemplate" class="form-select form-select-sm" dmx-bind:options="scGetDocTemps.data.query" optiontext="name" optionvalue="templateId" dmx-bind:value="scList.data.query.where('key', 'ReminderDocumentTemplate').first().value"></select><input id="hidSel6" name="hidSel6" class="form-control" dmx-bind:value="selectDoc6.value">
                                                 </div>
                                             </div>
                                             <div class="row w-100 mt-3">
                                                 <div class="col text-end">
-                                                    <button id="btn1" class="btn btn-primary" dmx-on:click="scUpdateDocs.load({})" type="submit">Save</button>
+                                                    <button id="btn1" class="btn btn-primary" type="submit">Save</button>
                                                 </div>
                                             </div>
                                         </div>
