@@ -137,6 +137,10 @@
         "type": "text",
         "fieldName": "description",
         "name": "description"
+      },
+      {
+        "type": "text",
+        "name": "updatedBy"
       }
     ]
   },
@@ -157,6 +161,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel1}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
               }
             ],
             "wheres": {
@@ -175,12 +191,24 @@
               ]
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedBy` = ?, `updatedDate` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel1}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{NOW}}",
                 "test": ""
               }
             ]
@@ -211,6 +239,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel2}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
               }
             ],
             "wheres": {
@@ -232,12 +272,24 @@
               "valid": true
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedBy` = ?, `updatedDate` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel2}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{NOW}}",
                 "test": ""
               }
             ]
@@ -268,6 +320,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel3}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
               }
             ],
             "wheres": {
@@ -289,12 +353,24 @@
               "valid": true
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedDate` = ?, `updatedBy` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel3}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
                 "test": ""
               }
             ]
@@ -325,6 +401,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel4}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
               }
             ],
             "wheres": {
@@ -346,12 +434,24 @@
               "valid": true
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedBy` = ?, `updatedDate` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel4}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{NOW}}",
                 "test": ""
               }
             ]
@@ -382,6 +482,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel5}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
               }
             ],
             "wheres": {
@@ -403,12 +515,24 @@
               "valid": true
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedDate` = ?, `updatedBy` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel5}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
                 "test": ""
               }
             ]
@@ -439,6 +563,18 @@
                 "column": "value",
                 "type": "text",
                 "value": "{{$_POST.hidSel6}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedDate",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "updatedBy",
+                "type": "text",
+                "value": "{{$_POST.updatedBy}}"
               }
             ],
             "wheres": {
@@ -460,12 +596,24 @@
               "valid": true
             },
             "returning": "settingsId",
-            "query": "update `tbl_settings` set `value` = ? where `settingsId` = ?",
+            "query": "update `tbl_settings` set `value` = ?, `updatedDate` = ?, `updatedBy` = ? where `settingsId` = ?",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
                 "value": "{{$_POST.hidSel6}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
                 "test": ""
               }
             ]
