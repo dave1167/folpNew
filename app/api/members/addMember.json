@@ -877,7 +877,7 @@
                 "table": "tbl_communications",
                 "column": "status",
                 "type": "number",
-                "value": "{{1}}"
+                "value": "1"
               },
               {
                 "table": "tbl_communications",
@@ -923,35 +923,29 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{1}}",
+                "value": "{{16}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{16}}",
+                "value": "{{$_POST.updatedBy}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{$_POST.updatedBy}}",
+                "value": "{{NOW}}",
                 "test": ""
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{NOW}}",
-                "test": ""
-              },
-              {
-                "name": ":P6",
-                "type": "expression",
                 "value": "{{insert.identity}}",
                 "test": ""
               },
               {
-                "name": ":P7",
+                "name": ":P6",
                 "type": "expression",
                 "value": "{{qryGetRawHtml.template_html}}",
                 "test": ""
