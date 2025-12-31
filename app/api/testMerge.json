@@ -1,0 +1,46 @@
+[
+  {
+    "name": "htmlIn",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "<?FirstName?> <?LastName?><?AddressBlock?><?Address?><?Address2?><?Town1?><?Town2?><?Pcode?><?MemNo?><?CurrDate?&gt"
+    },
+    "meta": [],
+    "outputType": "text",
+    "output": true,
+    "collapsed": true
+  },
+  {
+    "name": "htmlOut",
+    "module": "core",
+    "action": "exec",
+    "options": {
+      "exec": "libMergePlaceholders",
+      "params": {
+        "htmlIn": "{{htmlIn}}",
+        "FirstName": "Dave",
+        "LastName": "Rowe",
+        "Address": "2 Anywhere",
+        "Address2": "Wootn",
+        "Town1": "Whilaway",
+        "Town2": "Wimston",
+        "Pcode": "WA3 4ER",
+        "memNo": "0035",
+        "currDate": "{{NOW}}"
+      }
+    },
+    "output": true
+  },
+  {
+    "name": "htmlOut",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "{{htmlOut}}"
+    },
+    "meta": [],
+    "output": true,
+    "outputType": "text"
+  }
+]

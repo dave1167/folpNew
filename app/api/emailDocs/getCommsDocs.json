@@ -102,6 +102,14 @@
                 "column": "commDesc"
               },
               {
+                "table": "tbl_communications",
+                "column": "updatedDate"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "html"
+              },
+              {
                 "table": "tbl_member_details",
                 "column": "fName"
               },
@@ -110,13 +118,12 @@
                 "column": "lName"
               },
               {
-                "table": "tbl_comms_status",
-                "column": "commDesc",
-                "alias": "statusdesc"
+                "table": "tbl_member_details",
+                "column": "memNo"
               },
               {
-                "table": "tbl_communications",
-                "column": "updatedDate"
+                "table": "tbl_comms_status",
+                "column": "commDesc"
               }
             ],
             "params": [],
@@ -183,7 +190,7 @@
                       "operation": "=",
                       "value": {
                         "table": "tbl_communications",
-                        "column": "commId",
+                        "column": "status",
                         "type": "number"
                       }
                     }
@@ -192,7 +199,7 @@
                 "primary": "commId"
               }
             ],
-            "query": "select `tbl_comms_type`.`commDesc`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commDesc` as `statusdesc`, `tbl_communications`.`updatedDate` from `tbl_communications` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commId` = `tbl_communications`.`commId`"
+            "query": "select `tbl_comms_type`.`commDesc`, `tbl_communications`.`updatedDate`, `tbl_communications`.`html`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_member_details`.`memNo`, `tbl_comms_status`.`commDesc` from `tbl_communications` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commId` = `tbl_communications`.`status`"
           }
         },
         "output": true,
@@ -200,6 +207,14 @@
           {
             "type": "text",
             "name": "commDesc"
+          },
+          {
+            "type": "date",
+            "name": "updatedDate"
+          },
+          {
+            "type": "text",
+            "name": "html"
           },
           {
             "type": "text",
@@ -210,12 +225,8 @@
             "name": "lName"
           },
           {
-            "type": "text",
-            "name": "statusdesc"
-          },
-          {
-            "type": "date",
-            "name": "updatedDate"
+            "type": "number",
+            "name": "memNo"
           }
         ],
         "outputType": "array",

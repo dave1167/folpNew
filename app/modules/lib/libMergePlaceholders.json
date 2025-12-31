@@ -60,56 +60,61 @@
         "outputType": "text"
       },
       {
-        "name": "AddresBlock",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{AddressBlock+(Address && Address.trim() ? '<div>' + Address + '</div>' : '')}}"
-        },
-        "meta": [],
-        "outputType": "text"
-      },
-      {
         "name": "AddressBlock",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{AddressBlock+(Address2 && Address2.trim() ? '<div>' + Address2 + '</div>' : '')}}"
-        },
-        "meta": [],
-        "outputType": "text"
-      },
-      {
-        "name": "AddressBlock",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{AddressBlock+(Town1 && Town1.trim() ? '<div>' + Town1 + '</div>' : '')}}"
-        },
-        "meta": [],
-        "outputType": "text"
-      },
-      {
-        "name": "AddressBlock",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{AddressBlock+(Town2 && Town2.trim() ? '<div>' + Town2 + '</div>' : '')}}"
+          "value": "{{AddressBlock+($_PARAM.Address && $_PARAM.Address.trim() ? '<div>' + $_PARAM.Address.trim() + '</div>' : '')}}"
         },
         "meta": [],
         "outputType": "text",
-        "collapsed": true
+        "output": true
       },
       {
         "name": "AddressBlock",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{AddressBlock+(Pcode && Pcode.trim() ? '<div><strong>' + Pcode + '</strong></div>' : '')}}"
+          "value": "{{AddressBlock+($_PARAM.Address2 && $_PARAM.Address2.trim() ? '<div>' + $_PARAM.Address2.trim() + '</div>' : '')}}"
         },
         "meta": [],
         "outputType": "text",
-        "collapsed": true
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Town1 && $_PARAM.Town1.trim() ? '<div>' + $_PARAM.Town1.trim() + '</div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Town2 && $_PARAM.Town2.trim() ? '<div>' + $_PARAM.Town2.trim() + '</div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true,
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Pcode && $_PARAM.Pcode.trim() ? '<div><strong>' + $_PARAM.Pcode.trim() + '</strong></div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true,
+        "output": true
       },
       {
         "name": "",
@@ -141,107 +146,119 @@
           "value": "{{$_PARAM.htmlIn}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.FirstName.replace('<?FirstName?>', $_PARAM.FirstName)}}"
+          "value": "{{htmlOut.replace('<?FirstName?>', $_PARAM.FirstName)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.LastName.replace('<?LastName?>', $_PARAM.LastName)}}"
+          "value": "{{htmlOut.replace('<?LastName?>', $_PARAM.LastName)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.Address.replace('<?Address?>', $_PARAM.Address)}}"
+          "value": "{{htmlOut.replace('<?Address?>', $_PARAM.Address)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.Address2.replace('<?Address2?>', $_PARAM.Address2)}}"
+          "value": "{{htmlOut.replace('<?Address2?>', $_PARAM.Address2)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.Town1.replace('<?Town1?>', $_PARAM.Town1)}}"
+          "value": "{{htmlOut.replace('<?Town1?>', $_PARAM.Town1)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.Town2.replace('<?Town2?>', $_PARAM.Town2)}}"
+          "value": "{{htmlOut.replace('<?Town2?>', $_PARAM.Town2)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.Pcode.replace('<?Pcode?>', $_PARAM.Pcode)}}"
+          "value": "{{htmlOut.replace('<?Pcode?>', $_PARAM.Pcode)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.memNo.replace('<?MemNo?>', $_PARAM.memNo)}}"
+          "value": "{{htmlOut.replace('<?MemNo?>', $_PARAM.memNo)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{currDate.replace('<?CurrDate?>', currDate)}}"
+          "value": "{{htmlOut.replace('<?CurrDate?>', currDate)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{AddressBlock.replace('<?AddressBlock?>', AddressBlock)}}"
+          "value": "{{htmlOut.replace('<?AddressBlock?>', AddressBlock)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       }
     ]
   }
