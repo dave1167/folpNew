@@ -1,0 +1,38 @@
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="all_comms_docs" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{}}" -->
+<meta name="ac:route" content="/emails/all_comms_docs">
+<dmx-serverconnect id="scGetAllCommsDocs" url="/api/emailDocs/getCommsDocs"></dmx-serverconnect>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Membership No.</th>
+                                    <th>Documentr Type</th>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Mem no</th>
+                                </tr>
+                            </thead>
+                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetAllCommsDocs.data.qryAllCommsDocs" id="tableRepeat1">
+                                <tr>
+                                    <td dmx-text="memNo.pad(4)"></td>
+                                    <td dmx-text="commDesc"></td>
+                                    <td dmx-text="updatedDate.formatDate('dd-MM-yyyy')"></td>
+                                    <td dmx-text="fName+' '+lName"></td>
+                                    <td dmx-text="commStatus+' '"></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

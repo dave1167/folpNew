@@ -47,8 +47,8 @@
       "layout": "lh_menu"
     },
     {
-      "path": "/emails/comms_docs",
-      "page": "emails/comms_docs",
+      "path": "/emails/all_comms_docs",
+      "page": "emails/all_comms_docs",
       "layout": "lh_menu"
     }
   ]

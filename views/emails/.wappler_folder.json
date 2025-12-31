@@ -2,5 +2,9 @@
   "comms_docs.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "all_comms_docs.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }
