@@ -255,8 +255,7 @@
         "name": "",
         "options": {
           "comment": "Get Fee Paid"
-        },
-        "disabled": true
+        }
       },
       {
         "name": "qryFeePaid",
@@ -586,8 +585,7 @@
           }
         ],
         "output": true,
-        "_id": "j1_34",
-        "collapsed": true
+        "_id": "j1_34"
       },
       {
         "name": "insertPayment",
@@ -861,20 +859,6 @@
         "collapsed": true
       },
       {
-        "name": "",
-        "module": "core",
-        "action": "exec",
-        "options": {
-          "exec": "libMergePlaceholders",
-          "params": {
-            "htmlIn": "{{qryGetRawHtml.template_html}}",
-            "FirstName": "{{$_POST.fname}}",
-            "LastName": "{{$_POST.lname}}"
-          }
-        },
-        "output": true
-      },
-      {
         "name": "insertComms",
         "module": "dbupdater",
         "action": "insert",
@@ -979,8 +963,7 @@
             "type": "number"
           }
         ],
-        "collapsed": true,
-        "output": true
+        "collapsed": true
       }
     ]
   }

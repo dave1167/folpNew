@@ -1,3 +1,9 @@
 {
-  "exec": {}
+  "name": "",
+  "module": "core",
+  "action": "exec",
+  "options": {
+    "exec": "libDecMems"
+  },
+  "output": true
 }
