@@ -1,737 +1,263 @@
 {
   "meta": {
-    "options": {
-      "linkedFile": "/views/members/mem_list.ejs",
-      "linkedForm": "serverconnectform2"
-    },
-    "$_POST": [
+    "$_PARAM": [
       {
         "type": "text",
-        "fieldName": "fname",
-        "name": "fname"
+        "name": "htmlIn"
       },
       {
         "type": "text",
-        "fieldName": "lname",
-        "name": "lname"
+        "name": "FirstName"
       },
       {
         "type": "text",
-        "fieldName": "email",
-        "name": "email"
+        "name": "LastName"
       },
       {
         "type": "text",
-        "fieldName": "address1",
-        "name": "address1"
+        "name": "Address"
       },
       {
         "type": "text",
-        "fieldName": "address2",
-        "name": "address2"
+        "name": "Address2"
       },
       {
         "type": "text",
-        "fieldName": "town1",
-        "name": "town1"
+        "name": "Town1"
       },
       {
         "type": "text",
-        "fieldName": "town2",
-        "name": "town2"
+        "name": "Town2"
       },
       {
         "type": "text",
-        "fieldName": "postcode",
-        "name": "postcode"
+        "name": "Pcode"
       },
       {
         "type": "text",
-        "fieldName": "mobile",
-        "name": "mobile"
-      },
-      {
-        "type": "text",
-        "fieldName": "tel",
-        "name": "tel"
-      },
-      {
-        "type": "date",
-        "fieldName": "dateJoined",
-        "options": {
-          "rules": {
-            "core:date": {}
-          }
-        },
-        "name": "dateJoined"
-      },
-      {
-        "type": "text",
-        "fieldName": "hidMemType",
-        "name": "hidMemType"
-      },
-      {
-        "type": "text",
-        "fieldName": "selMemType",
-        "multiple": true,
-        "name": "selMemType"
-      },
-      {
-        "type": "text",
-        "fieldName": "notes",
-        "name": "notes"
-      },
-      {
-        "type": "number",
-        "fieldName": "memNo",
-        "options": {
-          "rules": {
-            "core:number": {}
-          }
-        },
         "name": "memNo"
       },
       {
-        "type": "number",
-        "fieldName": "lstFeePd",
-        "name": "lstFeePd"
-      },
-      {
-        "type": "number",
-        "fieldName": "paymentMthd",
-        "name": "paymentMthd"
-      },
-      {
-        "type": "number",
-        "fieldName": "createdBy",
-        "name": "createdBy"
-      },
-      {
         "type": "text",
-        "fieldName": "payNotes",
-        "name": "payNotes"
-      },
-      {
-        "type": "text",
-        "fieldName": "memDetsId",
-        "name": "memDetsId"
-      },
-      {
-        "type": "date",
-        "fieldName": "lastPaidDte",
-        "options": {
-          "rules": {
-            "core:date": {}
-          }
-        },
-        "name": "lastPaidDte"
-      },
-      {
-        "type": "number",
-        "fieldName": "hidPayMeth",
-        "name": "hidPayMeth"
-      },
-      {
-        "type": "number",
-        "fieldName": "status",
-        "name": "status"
-      },
-      {
-        "type": "number",
-        "fieldName": "templateId",
-        "name": "templateId"
-      },
-      {
-        "type": "number",
-        "fieldName": "updatedBy",
-        "name": "updatedBy"
-      },
-      {
-        "type": "date",
-        "fieldName": "updatedDate",
-        "name": "updatedDate"
-      },
-      {
-        "type": "number",
-        "fieldName": "memId",
-        "name": "memId"
-      },
-      {
-        "type": "text",
-        "fieldName": "html",
-        "name": "html"
+        "name": "currDate"
       }
     ]
   },
   "exec": {
     "steps": [
       {
-        "name": "qryLstNum",
-        "module": "dbconnector",
-        "action": "single",
+        "name": "",
         "options": {
-          "connection": "db",
-          "sql": {
-            "type": "SELECT",
-            "columns": [
-              {
-                "table": "tbl_member_details",
-                "column": "memNo",
-                "alias": "lastMemNo",
-                "aggregate": "MAX"
-              }
-            ],
-            "params": [],
-            "table": {
-              "name": "tbl_member_details"
-            },
-            "primary": "memDetsId",
-            "joins": [],
-            "groupBy": [],
-            "query": "select max(`memNo`) as `lastMemNo` from `tbl_member_details`"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "number",
-            "name": "lastMemNo"
-          }
-        ],
-        "outputType": "object"
+          "comment": "format address block\n"
+        }
       },
       {
-        "name": "lastMemNo",
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {},
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "AddressBlock",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{qryLstNum.lastMemNo ? qryLstNum.lastMemNo+1 : 1}}"
+          "value": "{{AddressBlock+($_PARAM.Address && $_PARAM.Address.trim() ? '<div>' + $_PARAM.Address.trim() + '</div>' : '')}}"
         },
-        "meta": [
-          {
-            "name": "lastMemNo",
-            "type": "number"
-          }
-        ],
-        "outputType": "number",
+        "meta": [],
+        "outputType": "text",
         "output": true
       },
       {
-        "name": "qryFeePaid",
-        "module": "dbconnector",
-        "action": "single",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "SELECT",
-            "columns": [
-              {
-                "table": "tbl_mem_type",
-                "column": "fee"
-              }
-            ],
-            "params": [
-              {
-                "operator": "equal",
-                "type": "expression",
-                "name": ":P1",
-                "value": "{{$_POST.hidMemType}}",
-                "test": ""
-              }
-            ],
-            "table": {
-              "name": "tbl_mem_type"
-            },
-            "primary": "memTypeId",
-            "joins": [],
-            "wheres": {
-              "condition": "AND",
-              "rules": [
-                {
-                  "id": "tbl_mem_type.memTypeId",
-                  "field": "tbl_mem_type.memTypeId",
-                  "type": "double",
-                  "operator": "equal",
-                  "value": "{{$_POST.hidMemType}}",
-                  "data": {
-                    "table": "tbl_mem_type",
-                    "column": "memTypeId",
-                    "type": "number"
-                  },
-                  "operation": "="
-                }
-              ],
-              "valid": true
-            },
-            "query": "select `fee` from `tbl_mem_type` where `tbl_mem_type`.`memTypeId` = ?"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "number",
-            "name": "fee"
-          }
-        ],
-        "outputType": "object"
-      },
-      {
-        "name": "encrypt",
-        "module": "core",
-        "action": "exec",
-        "options": {
-          "exec": "libEncMems",
-          "params": {
-            "email": "{{$_POST.email}}",
-            "address1": "{{$_POST.address1}}",
-            "address2": "{{$_POST.address2}}",
-            "postcode": "{{$_POST.postcode}}",
-            "mobTel": "{{$_POST.mobile}}",
-            "tel": "{{$_POST.tel}}",
-            "notes": "{{$_POST.notes}}"
-          }
-        },
-        "output": true
-      },
-      {
-        "name": "insert",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "INSERT",
-            "values": [
-              {
-                "table": "tbl_member_details",
-                "column": "fName",
-                "type": "text",
-                "value": "{{$_POST.fname ? $_POST.fname.lowercase().capitalize() : ''}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "lName",
-                "type": "text",
-                "value": "{{$_POST.lname ? $_POST.lname.lowercase().capitalize() : ''}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "email",
-                "type": "text",
-                "value": "{{encrypt.email_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "address1",
-                "type": "text",
-                "value": "{{encrypt.address1_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "address2",
-                "type": "text",
-                "value": "{{encrypt.address2_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "postcode",
-                "type": "text",
-                "value": "{{encrypt.postcode_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "mobTel",
-                "type": "text",
-                "value": "{{encrypt.mobTel_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "tel",
-                "type": "text",
-                "value": "{{encrypt.tel_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "notes",
-                "type": "text",
-                "value": "{{encrypt.notes_enc}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "town1",
-                "type": "text",
-                "value": "{{$_POST.town1 ? $_POST.town1.lowercase().capitalize() : ''}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "town2",
-                "type": "text",
-                "value": "{{$_POST.town2 ? $_POST.town2.lowercase().capitalize() : ''}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "memNo",
-                "type": "number",
-                "value": "{{lastMemNo}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "createdDate",
-                "type": "datetime",
-                "value": "{{NOW}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "dateJoined",
-                "type": "date",
-                "value": "{{$_POST.dateJoined}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "memType",
-                "type": "number",
-                "value": "{{$_POST.hidMemType}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "memStatus",
-                "type": "number",
-                "value": "3"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "lastPaidDte",
-                "type": "date",
-                "value": "{{$_POST.dateJoined}}"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "lstFeePd",
-                "type": "number",
-                "value": "{{qryFeePaid.fee}}"
-              }
-            ],
-            "table": "tbl_member_details",
-            "returning": "memDetsId"
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ],
-        "output": true
-      },
-      {
-        "name": "insertPayment",
-        "module": "dbupdater",
-        "action": "insert",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "INSERT",
-            "values": [
-              {
-                "table": "tbl_payments",
-                "column": "paymentDate",
-                "type": "date",
-                "value": "{{$_POST.dateJoined}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "memId",
-                "type": "number",
-                "value": "{{insert.identity}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "paymentMthd",
-                "type": "number",
-                "value": "{{$_POST.hidPayMeth}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "createdBy",
-                "type": "number",
-                "value": "{{$_POST.createdBy}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "paidYear",
-                "type": "text",
-                "value": "{{$_POST.dateJoined.formatDate('yyyy', false)}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "amount",
-                "type": "number",
-                "value": "{{qryFeePaid.fee}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "createdDate",
-                "type": "datetime",
-                "value": "{{NOW}}"
-              },
-              {
-                "table": "tbl_payments",
-                "column": "payNotes",
-                "type": "text",
-                "value": "{{$_POST.payNotes}}"
-              }
-            ],
-            "table": "tbl_payments",
-            "returning": "paymentId"
-          }
-        },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
-      },
-      {
-        "name": "qryGetHtml",
-        "module": "dbconnector",
-        "action": "single",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "SELECT",
-            "columns": [
-              {
-                "table": "tbl_settings",
-                "column": "value",
-                "alias": "thisone"
-              }
-            ],
-            "params": [
-              {
-                "operator": "equal",
-                "type": "expression",
-                "name": ":P1",
-                "value": "4",
-                "test": ""
-              }
-            ],
-            "table": {
-              "name": "tbl_settings"
-            },
-            "primary": "settingsId",
-            "wheres": {
-              "condition": "AND",
-              "rules": [
-                {
-                  "id": "tbl_settings.settingsId",
-                  "field": "tbl_settings.settingsId",
-                  "type": "double",
-                  "operator": "equal",
-                  "value": "4",
-                  "data": {
-                    "table": "tbl_settings",
-                    "column": "settingsId",
-                    "type": "number"
-                  },
-                  "operation": "="
-                }
-              ],
-              "valid": true
-            },
-            "query": "select `value` as `thisone` from `tbl_settings` where `tbl_settings`.`settingsId` = ?"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "text",
-            "name": "thisone"
-          }
-        ],
-        "outputType": "object"
-      },
-      {
-        "name": "valno1",
+        "name": "AddressBlock",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{qryGetHtml.thisone}}"
+          "value": "{{AddressBlock+($_PARAM.Address2 && $_PARAM.Address2.trim() ? '<div>' + $_PARAM.Address2.trim() + '</div>' : '')}}"
         },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Town1 && $_PARAM.Town1.trim() ? '<div>' + $_PARAM.Town1.trim() + '</div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Town2 && $_PARAM.Town2.trim() ? '<div>' + $_PARAM.Town2.trim() + '</div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true,
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{AddressBlock+($_PARAM.Pcode && $_PARAM.Pcode.trim() ? '<div><strong>' + $_PARAM.Pcode.trim() + '</strong></div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true,
+        "output": true
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "Set Current Date"
+        }
+      },
+      {
+        "name": "currDate",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{NOW.formatDate('dd-MM-yyyy', false)}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "Set normal fields "
+        }
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.htmlIn}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?FirstName?>', $_PARAM.FirstName)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?LastName?>', $_PARAM.LastName)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?Address?>', $_PARAM.Address)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?Address2?>', $_PARAM.Address2)}}"
+        },
+        "meta": [],
         "outputType": "text",
         "output": true,
-        "meta": []
+        "collapsed": true
       },
       {
-        "name": "qryGetRawHtml",
-        "module": "dbconnector",
-        "action": "single",
-        "options": {
-          "connection": "db",
-          "sql": {
-            "type": "SELECT",
-            "columns": [
-              {
-                "table": "tbl_templates",
-                "column": "template_html"
-              }
-            ],
-            "params": [
-              {
-                "operator": "equal",
-                "type": "expression",
-                "name": ":P1",
-                "value": "{{qryGetHtml.thisone.toNumber()}}",
-                "test": ""
-              }
-            ],
-            "table": {
-              "name": "tbl_templates"
-            },
-            "primary": "templateId",
-            "wheres": {
-              "condition": "AND",
-              "rules": [
-                {
-                  "id": "tbl_templates.templateId",
-                  "field": "tbl_templates.templateId",
-                  "type": "double",
-                  "operator": "equal",
-                  "value": "{{qryGetHtml.thisone.toNumber()}}",
-                  "data": {
-                    "table": "tbl_templates",
-                    "column": "templateId",
-                    "type": "number"
-                  },
-                  "operation": "="
-                }
-              ],
-              "valid": true
-            },
-            "query": "select `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "text",
-            "name": "template_html"
-          }
-        ],
-        "outputType": "object"
-      },
-      {
-        "name": "libMerge",
-        "module": "core",
-        "action": "exec",
-        "options": {
-          "exec": "libMergePlaceholders",
-          "params": {
-            "htmlIn": "{{qryGetRawHtml.template_html}}",
-            "FirstName": "{{$_POST.fname}}",
-            "LastName": "{{$_POST.lname}}",
-            "Address": "{{$_POST.address1}}",
-            "Address2": "{{$_POST.address2}}",
-            "Town1": "{{$_POST.town1}}",
-            "Town2": "{{$_POST.town2}}",
-            "Pcode": "{{$_POST.postcode}}",
-            "memNo": "{{lastMemNo}}",
-            "currDate": "{{NOW.formatDate('dd-MM-yyyy', false)}}"
-          }
-        },
-        "output": true
-      },
-      {
-        "name": "finalHtmlOut",
+        "name": "htmlOut",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{libMerge.htmlOut}}"
+          "value": "{{htmlOut.replace('<?Town1?>', $_PARAM.Town1)}}"
         },
+        "meta": [],
         "outputType": "text",
-        "output": true,
-        "meta": []
+        "output": true
       },
       {
-        "name": "insertComms",
-        "module": "dbupdater",
-        "action": "insert",
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
         "options": {
-          "connection": "db",
-          "sql": {
-            "type": "INSERT",
-            "values": [
-              {
-                "table": "tbl_communications",
-                "column": "type",
-                "type": "number",
-                "value": "2"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "status",
-                "type": "number",
-                "value": "1"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "templateId",
-                "type": "number",
-                "value": "16"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "updatedBy",
-                "type": "number",
-                "value": "{{$_POST.updatedBy}}"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "updatedDate",
-                "type": "date",
-                "value": "{{NOW}}"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "memId",
-                "type": "number",
-                "value": "{{insert.identity}}"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "html",
-                "type": "text",
-                "value": "{{qryGetRawHtml.template_html}}"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "draft_html",
-                "type": "text",
-                "value": "{{finalHtmlOut}}"
-              }
-            ],
-            "table": "tbl_communications",
-            "returning": "commId"
-          }
+          "value": "{{htmlOut.replace('<?Town2?>', $_PARAM.Town2)}}"
         },
-        "meta": [
-          {
-            "name": "identity",
-            "type": "text"
-          },
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ],
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?Pcode?>', $_PARAM.Pcode)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?MemNo?>', $_PARAM.memNo)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?CurrDate?>', currDate)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.replace('<?AddressBlock?>', AddressBlock)}}"
+        },
+        "meta": [],
+        "outputType": "text",
         "output": true
       }
     ]
