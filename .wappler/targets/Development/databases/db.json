@@ -916,6 +916,24 @@
               "primary": false,
               "nullable": true
             }
+          },
+          "draft_html": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "final_html": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
           }
         }
       }
