@@ -52,18 +52,6 @@
         }
       },
       {
-        "name": "AddressBlock",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{($_PARAM.Address && $_PARAM.Address.trim() ? '<div>' + $_PARAM.Address.trim() + '</div>' : '')+($_PARAM.Address2 && $_PARAM.Address2.trim() ? '<div>' + $_PARAM.Address2.trim() + '</div>' : '')+($_PARAM.Town1 && $_PARAM.Town1.trim() ? '<div>' + $_PARAM.Town1.trim() + '</div>' : '')+($_PARAM.Town2 && $_PARAM.Town2.trim() ? '<div>' + $_PARAM.Town2.trim() + '</div>' : '')+($_PARAM.Pcode && $_PARAM.Pcode.trim() ? '<div><strong>' + $_PARAM.Pcode.trim() + '</strong></div>' : '')}}"
-        },
-        "meta": [],
-        "outputType": "text",
-        "output": true,
-        "disabled": true
-      },
-      {
         "name": "",
         "options": {
           "comment": "Set Current Date"
@@ -162,6 +150,17 @@
         "action": "setvalue",
         "options": {
           "value": "{{$_PARAM.MemNo.padNumber(4)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{(Address_tc  && Address_tc.trim()  ? '<div>' + Address_tc.trim()  + '</div>' : '')+(Address2_tc && Address2_tc.trim() ? '<div>' + Address2_tc.trim() + '</div>' : '')+(Town1_tc    && Town1_tc.trim()    ? '<div>' + Town1_tc.trim()    + '</div>' : '')+(Town2_tc    && Town2_tc.trim()    ? '<div>' + Town2_tc.trim()    + '</div>' : '')+(Postcode_tc && Postcode_tc.trim() ? '<div>' + Postcode_tc.trim() + '</div>' : '')}}"
         },
         "meta": [],
         "outputType": "text",
@@ -273,6 +272,17 @@
         "action": "setvalue",
         "options": {
           "value": "{{htmlOut.split('[[CurrDate]]').join(CurrDate_fmt || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[AddressBlock]]').join(AddressBlock || '')}}"
         },
         "meta": [],
         "outputType": "text",
