@@ -108,5 +108,13 @@ dmx.config({
       ],
       "outputType": "array"
     }
+  },
+  "encDecTest": {
+    "output_html": [
+      {
+        "name": "value",
+        "type": "text"
+      }
+    ]
   }
 });

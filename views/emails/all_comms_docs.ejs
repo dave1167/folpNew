@@ -10,32 +10,23 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover table-sm">
                             <thead>
-                                <tr class="text-center">
-                                    <th class="bg-warning">Membership No.</th>
-                                    <th class="bg-warning">Name</th>
-                                    <th class="bg-warning">Document Type</th>
-                                    <th class="bg-warning">Date</th>
-
-                                    <th class="bg-warning">Status</th>
-                                    <th class="bg-warning"></th>
-                                    <th scope="row" class="bg-warning"></th>
+                                <tr>
+                                    <th>Comm desc</th>
+                                    <th>Updated date</th>
+                                    <th>F name</th>
+                                    <th>L name</th>
+                                    <th>Mem no</th>
+                                    <th>Comm status</th>
                                 </tr>
                             </thead>
-                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetAllCommsDocs.data.qryAllCommsDocs" id="tableRepeat1">
+                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetAllCommsDocs.data.qryAllCommsDocs" id="tableRepeat2">
                                 <tr>
-                                    <td dmx-text="memNo.pad(4)"></td>
-                                    <td dmx-text="fName+' '+lName"></td>
                                     <td dmx-text="commDesc"></td>
-                                    <td dmx-text="updatedDate.formatDate('dd-MM-yyyy')"></td>
-
-                                    <td dmx-text="commStatus+' '"></td>
-                                    <td>
-                                        <button id="btn1" class="btn btn-info" dmx-bs-tooltip="'Edit Document'" data-bs-trigger="hover"><i class="fas fa-edit"></i></button>
-                                    </td>
-                                    <td>
-                                        <button id="btn2" class="btn btn-success" dmx-bs-tooltip="'Send or Create Document'" data-bs-trigger="hover"><i class="fas fa-paper-plane"></i></button>
-                                    </td>
-
+                                    <td dmx-text="updatedDate"></td>
+                                    <td dmx-text="fName"></td>
+                                    <td dmx-text="lName"></td>
+                                    <td dmx-text="memNo"></td>
+                                    <td dmx-text="commStatus"></td>
                                 </tr>
                             </tbody>
                         </table>

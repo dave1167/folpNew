@@ -4,7 +4,7 @@
     "module": "core",
     "action": "setvalue",
     "options": {
-      "value": "<?FirstName?> <?LastName?><?AddressBlock?><?Address?><?Address2?><?Town1?><?Town2?><?Pcode?><?MemNo?><?CurrDate?&gt"
+      "value": "<!doctype html>\n<html>\n  <head>\n    <title>Test Address Fields</title>\n  </head>\n  <body>\n    <h2>Individual Fields</h2>\n    <div><b>Address:</b> <?Address?></div>\n    <div><b>Address2:</b> <?Address2?></div>\n    <div><b>Town1:</b> <?Town1?></div>\n    <div><b>Town2:</b> <?Town2?></div>\n    <div><b>Pcode:</b> <?Pcode?></div>\n\n    <h2>Merged Address Block</h2>\n    <div><?AddressBlock?></div>\n  </body>\n</html>"
     },
     "meta": [],
     "outputType": "text",
@@ -20,14 +20,12 @@
       "params": {
         "htmlIn": "{{htmlIn}}",
         "FirstName": "Dave",
-        "LastName": "Rowe",
-        "Address": "2 Anywhere",
-        "Address2": "Wootn",
-        "Town1": "Whilaway",
-        "Town2": "Wimston",
-        "Pcode": "WA3 4ER",
-        "memNo": "0035",
-        "currDate": "{{NOW}}"
+        "LastName": "Rons",
+        "memNo": "0405",
+        "Address": "12 Don Ave",
+        "Town1": "walter",
+        "Town2": "cuntsville",
+        "Pcode": "KL6 7UI"
       }
     },
     "output": true

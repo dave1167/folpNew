@@ -18,11 +18,22 @@
       {
         "type": "text",
         "fieldName": "email",
+        "options": {
+          "rules": {}
+        },
         "name": "email"
       },
       {
         "type": "text",
         "fieldName": "address1",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Address is required"
+            }
+          }
+        },
         "name": "address1"
       },
       {
@@ -33,6 +44,17 @@
       {
         "type": "text",
         "fieldName": "town",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Town is required"
+            },
+            "core:lettersonly": {
+              "message": "Only letters allowed"
+            }
+          }
+        },
         "name": "town"
       },
       {
@@ -43,6 +65,18 @@
       {
         "type": "text",
         "fieldName": "postcode",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Postcode is required"
+            },
+            "core:pattern": {
+              "param": "^[A-Za-z]{2}[0-9]\\s[0-9][A-Za-z]{2}$",
+              "message": "Postcode must be entered in the format AB1 2CD (capital letters and a space required)"
+            }
+          }
+        },
         "name": "postcode"
       },
       {
@@ -60,7 +94,13 @@
         "fieldName": "dateJoined",
         "options": {
           "rules": {
-            "core:date": {}
+            "core:required": {
+              "param": "",
+              "message": "Please enter a valid date"
+            },
+            "core:date": {
+              "param": ""
+            }
           }
         },
         "name": "dateJoined"
@@ -84,6 +124,9 @@
       {
         "type": "text",
         "fieldName": "fName",
+        "options": {
+          "rules": {}
+        },
         "name": "fName"
       },
       {
@@ -95,9 +138,7 @@
         "type": "number",
         "fieldName": "memNo",
         "options": {
-          "rules": {
-            "core:number": {}
-          }
+          "rules": {}
         },
         "name": "memNo"
       },
@@ -126,15 +167,16 @@
         "type": "date",
         "fieldName": "lastPaidDte",
         "options": {
-          "rules": {
-            "core:date": {}
-          }
+          "rules": {}
         },
         "name": "lastPaidDte"
       },
       {
         "type": "text",
         "fieldName": "lName",
+        "options": {
+          "rules": {}
+        },
         "name": "lName"
       },
       {
@@ -161,9 +203,6 @@
       {
         "type": "number",
         "fieldName": "hidPayMeth",
-        "options": {
-          "rules": {}
-        },
         "name": "hidPayMeth"
       },
       {
@@ -249,6 +288,17 @@
           }
         ],
         "outputType": "number",
+        "output": true
+      },
+      {
+        "name": "varFName",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{'fname: '+$_POST.fName}}"
+        },
+        "meta": [],
+        "outputType": "text",
         "output": true
       },
       {
@@ -586,8 +636,7 @@
           }
         ],
         "output": true,
-        "_id": "j1_34",
-        "collapsed": true
+        "_id": "j1_34"
       },
       {
         "name": "insertPayment",
@@ -779,8 +828,7 @@
             "name": "thisone"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "valno1",
@@ -857,21 +905,37 @@
             "name": "template_html"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
-        "name": "",
+        "name": "merge",
         "module": "core",
         "action": "exec",
         "options": {
           "exec": "libMergePlaceholders",
           "params": {
             "htmlIn": "{{qryGetRawHtml.template_html}}",
-            "FirstName": "{{$_POST.fname}}",
-            "LastName": "{{$_POST.lname}}"
+            "LastName": "{{$_POST.lName}}",
+            "Pcode": "{{$_POST.postcode}}",
+            "Address": "{{$_POST.address1}}",
+            "FirstName": "{{$_POST.fName}}",
+            "memNo": "{{$_POST.memNo}}",
+            "Address2": "{{$_POST.address2}}",
+            "Town1": "{{$_POST.town}}",
+            "Town2": "{{$_POST.town2}}"
           }
         },
+        "output": true
+      },
+      {
+        "name": "testVALUE",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{'HTML OUT:'+merge.htmlOut}}"
+        },
+        "meta": [],
+        "outputType": "text",
         "output": true
       },
       {
@@ -924,11 +988,17 @@
                 "column": "html",
                 "type": "text",
                 "value": "{{qryGetRawHtml.template_html}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "draft_html",
+                "type": "text",
+                "value": "{{htmlOut}}"
               }
             ],
             "table": "tbl_communications",
             "returning": "commId",
-            "query": "insert into `tbl_communications` (`html`, `memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_communications` (`draft_html`, `html`, `memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -965,6 +1035,12 @@
                 "type": "expression",
                 "value": "{{qryGetRawHtml.template_html}}",
                 "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{htmlOut}}",
+                "test": ""
               }
             ]
           }
@@ -979,7 +1055,6 @@
             "type": "number"
           }
         ],
-        "collapsed": true,
         "output": true
       }
     ]

@@ -72,7 +72,8 @@
                       "name": "settingsId"
                     }
                   },
-                  "operation": "="
+                  "operation": "=",
+                  "table": "tbl_settings"
                 }
               ],
               "conditional": null,
@@ -101,44 +102,82 @@
         "options": {
           "connection": "db",
           "sql": {
-            "type": "SELECT",
+            "type": "select",
+            "distinct": false,
             "columns": [
               {
-                "table": "tbl_comms_type",
-                "column": "commDesc"
-              },
-              {
                 "table": "tbl_communications",
-                "column": "updatedDate"
-              },
-              {
-                "table": "tbl_communications",
-                "column": "html"
+                "column": "updatedDate",
+                "field": "tbl_communications.updatedDate"
               },
               {
                 "table": "tbl_member_details",
-                "column": "fName"
+                "column": "fName",
+                "field": "tbl_member_details.fName"
               },
               {
                 "table": "tbl_member_details",
-                "column": "lName"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "memNo"
+                "column": "lName",
+                "field": "tbl_member_details.lName"
               },
               {
                 "table": "tbl_comms_status",
-                "column": "commDesc",
-                "alias": "commStatus"
+                "column": "commStatusDesc"
+              },
+              {
+                "table": "tbl_comms_type",
+                "column": "commTypeDesc"
               }
             ],
-            "params": [],
             "table": {
               "name": "tbl_communications"
             },
-            "primary": "commId",
             "joins": [
+              {
+                "table": "tbl_member_details",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_member_details",
+                      "column": "memDetsId",
+                      "field": "tbl_member_details.memDetsId",
+                      "operation": "=",
+                      "operator": "equal",
+                      "value": {
+                        "table": "tbl_communications",
+                        "column": "memId",
+                        "field": "tbl_communications.memId"
+                      }
+                    }
+                  ]
+                },
+                "primary": "memDetsId"
+              },
+              {
+                "table": "tbl_comms_status",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_comms_status",
+                      "column": "commStatusId",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "tbl_communications",
+                        "column": "status",
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "primary": "commStatusId"
+              },
               {
                 "table": "tbl_comms_type",
                 "column": "*",
@@ -160,68 +199,19 @@
                   ]
                 },
                 "primary": "commTypeId"
-              },
-              {
-                "table": "tbl_member_details",
-                "column": "*",
-                "type": "INNER",
-                "clauses": {
-                  "condition": "AND",
-                  "rules": [
-                    {
-                      "table": "tbl_member_details",
-                      "column": "memDetsId",
-                      "operator": "equal",
-                      "operation": "=",
-                      "value": {
-                        "table": "tbl_communications",
-                        "column": "memId",
-                        "type": "number"
-                      }
-                    }
-                  ]
-                },
-                "primary": "memDetsId"
-              },
-              {
-                "table": "tbl_comms_status",
-                "column": "*",
-                "type": "INNER",
-                "clauses": {
-                  "condition": "AND",
-                  "rules": [
-                    {
-                      "table": "tbl_comms_status",
-                      "column": "commId",
-                      "operator": "equal",
-                      "operation": "=",
-                      "value": {
-                        "table": "tbl_communications",
-                        "column": "status",
-                        "type": "number"
-                      }
-                    }
-                  ]
-                },
-                "primary": "commId"
               }
             ],
-            "query": "select `tbl_comms_type`.`commDesc`, `tbl_communications`.`updatedDate`, `tbl_communications`.`html`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_member_details`.`memNo`, `tbl_comms_status`.`commDesc` as `commStatus` from `tbl_communications` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commId` = `tbl_communications`.`status`"
+            "orders": [],
+            "params": [],
+            "primary": "commId",
+            "query": "select `tbl_communications`.`updatedDate`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commStatusDesc`, `tbl_comms_type`.`commTypeDesc` from `tbl_communications` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commStatusId` = `tbl_communications`.`status` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type`"
           }
         },
         "output": true,
         "meta": [
           {
-            "type": "text",
-            "name": "commDesc"
-          },
-          {
             "type": "date",
             "name": "updatedDate"
-          },
-          {
-            "type": "text",
-            "name": "html"
           },
           {
             "type": "text",
@@ -232,16 +222,17 @@
             "name": "lName"
           },
           {
-            "type": "number",
-            "name": "memNo"
+            "type": "text",
+            "name": "commStatusDesc"
           },
           {
             "type": "text",
-            "name": "commStatus"
+            "name": "commTypeDesc"
           }
         ],
         "outputType": "array",
-        "collapsed": true
+        "collapsed": true,
+        "type": "dbconnector_select"
       }
     ]
   }
