@@ -12,8 +12,8 @@
       },
       {
         "type": "text",
-        "fieldName": "lname",
-        "name": "lname"
+        "fieldName": "lName",
+        "name": "lName"
       },
       {
         "type": "text",
@@ -411,7 +411,7 @@
                 "table": "tbl_member_details",
                 "column": "lName",
                 "type": "text",
-                "value": "{{$_POST.lname.lowercase().capitalize()}}"
+                "value": "{{$_POST.lName.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
@@ -523,7 +523,7 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.lname.lowercase().capitalize()}}",
+                "value": "{{$_POST.lName.lowercase().capitalize()}}",
                 "test": ""
               },
               {
@@ -919,10 +919,10 @@
             "Pcode": "{{$_POST.postcode}}",
             "Address": "{{$_POST.address1}}",
             "FirstName": "{{$_POST.fName}}",
-            "memNo": "{{$_POST.memNo}}",
             "Address2": "{{$_POST.address2}}",
             "Town1": "{{$_POST.town}}",
-            "Town2": "{{$_POST.town2}}"
+            "Town2": "{{$_POST.town2}}",
+            "MemNo": "{{lastMemNo}}"
           }
         },
         "output": true
@@ -993,7 +993,7 @@
                 "table": "tbl_communications",
                 "column": "draft_html",
                 "type": "text",
-                "value": "{{htmlOut}}"
+                "value": "{{merge.htmlOut}}"
               }
             ],
             "table": "tbl_communications",
@@ -1039,7 +1039,7 @@
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{htmlOut}}",
+                "value": "{{merge.htmlOut}}",
                 "test": ""
               }
             ]
@@ -1055,7 +1055,8 @@
             "type": "number"
           }
         ],
-        "output": true
+        "output": true,
+        "collapsed": true
       }
     ]
   }

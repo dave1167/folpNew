@@ -111,7 +111,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_POST.address1.lowercase().titlecase()}}"
+          "value": "{{$_PARAM.Address.lowercase().titlecase()}}"
         },
         "meta": [],
         "outputType": "text"
@@ -161,10 +161,11 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.MemNo.toNumber().padNumber(4)}}"
+          "value": "{{$_PARAM.MemNo.padNumber(4)}}"
         },
         "meta": [],
-        "outputType": "text"
+        "outputType": "text",
+        "output": true
       },
       {
         "name": "htmlOut",
