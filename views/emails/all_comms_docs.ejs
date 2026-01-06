@@ -1,6 +1,53 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="all_comms_docs" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Tooltips:{}}" -->
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="all_comms_docs" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Tooltips:{},dmxBootstrap5Modal:{},dmxSummernote:{}}" jquery_slim_35="cdn" -->
 <meta name="ac:route" content="/emails/all_comms_docs">
 <dmx-serverconnect id="scGetAllCommsDocs" url="/api/emailDocs/getCommsDocs"></dmx-serverconnect>
+<dmx-serverconnect id="scGetSingleComm" url="/api/emailDocs/getSingleComms" noload="true" dmx-param:commid="tableRepeat2[$index].commId"></dmx-serverconnect>
+<dmx-serverconnect id="scUpdateComms" url="/api/emailDocs/updateComms" noload="true" dmx-param:commsid="tableRepeat2[$index].commId"></dmx-serverconnect>
+<dmx-serverconnect id="scSendEmail" url="/api/emailDocs/createpdf" noload="true"></dmx-serverconnect>
+<div class="modal fade" id="modEditComm" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white fw-bold">
+                <h5 class="modal-title">Edit Communication</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmeditComm" method="post" is="dmx-serverconnect-form" action="/api/emailDocs/updateComms" dmx-on:success="frmeditComm.reset();modEditComm.hide();scGetAllCommsDocs.load({});notifies1.success('Status Updated')">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3">
+                                <label for="selStatus" class="form-label">Select Status</label>
+                                <select id="selStatus" name="status" class="form-select">
+                                    <option value="1">Draft</option>
+                                    <option value="3">Approve</option>
+                                    <option value="7">Cancel</option>
+                                </select>
+                                <!-- Hidden commid for record update -->
+                                <input name="commid" dmx-bind:value="scGetSingleComm.data.query.commId" type="hidden">
+                                <input id="hidStatus" name="hidStatus" type="hidden" class="form-control" dmx-bind:value="selStatus.value">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button id="btnChnageStatus" class="btn btn-success mt-4 btn-sm" type="submit"><i class="fas fa-clipboard-check"></i>&nbsp;Update Status</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <textarea id="editor1" name="editor1" is="dmx-summernote" dmx-bind:toolbar="[['style',['style']],['font',['bold','underline','clear']],['fontname',['fontname']],['color',['color']],['para',['ul','ol','paragraph']],['table',['table']],['insert',['link','picture','video']],['view',['fullscreen','codeview','help']]]" dmx-bind:value="scGetSingleComm.data.query.draft_html"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button type="button" class="btn btn-primary">Save changes</button><button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Close</button></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -23,6 +70,7 @@
                             </thead>
                             <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetAllCommsDocs.data.qryAllCommsDocs" id="tableRepeat2">
                                 <tr>
+                                    <td dmx-hide="commId"></td>
                                     <td dmx-text="memNo.pad(4)" class="text-center"></td>
                                     <td dmx-text="updatedDate.formatDate('dd-MM-yyyy')"></td>
                                     <td dmx-text="fName"></td>
@@ -32,9 +80,9 @@
                                     <td dmx-hide="status"></td>
                                     <td dmx-text="commTypeDesc"></td>
                                     <td>
-                                        <button id="btnEdit" class="btn btn-info text-white" dmx-bs-tooltip="'Edit/View Document'" data-bs-trigger="hover" dmx-show="status==1">
+                                        <button id="btnEdit" class="btn btn-info text-white" dmx-bs-tooltip="'Edit/View Document'" data-bs-trigger="hover" dmx-show="status==1" dmx-on:click="modEditComm.show();scGetSingleComm.load({commid: commId})">
                                             <i class="fas fa-edit fa-sm"></i></button>
-                                        <button id="btnSend" class="btn btn-success" dmx-bs-tooltip="'Create PDF or Send Email'" dmx-show="status==3">
+                                        <button id="btnSend" class="btn btn-success" dmx-bs-tooltip="'Create PDF or Send Email'" dmx-show="status==3" dmx-on:click="scSendEmail.load({commid: commId, commsid: commId})">
                                             <i class="fas fa-paper-plane"></i>
                                         </button>
                                         <button id="btnView" class="btn btn-dark" dmx-bs-tooltip="'View Created PDF or Email'" dmx-show="status&gt;=5">

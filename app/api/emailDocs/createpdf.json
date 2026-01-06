@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "commsid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_communications",
+                "column": "draft_html"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "templateId"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "memId"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "commId"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.commsid}}",
+                "test": "132"
+              }
+            ],
+            "table": {
+              "name": "tbl_communications"
+            },
+            "primary": "commId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_communications.commId",
+                  "field": "tbl_communications.commId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.commsid}}",
+                  "data": {
+                    "table": "tbl_communications",
+                    "column": "commId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "commId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_communications"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `draft_html`, `templateId`, `memId`, `commId` from `tbl_communications` where `tbl_communications`.`commId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "draft_html"
+          },
+          {
+            "type": "number",
+            "name": "templateId"
+          },
+          {
+            "type": "number",
+            "name": "memId"
+          },
+          {
+            "type": "number",
+            "name": "commId"
+          }
+        ],
+        "outputType": "object",
+        "type": "dbconnector_single"
+      },
+      {
+        "name": "html2pdf",
+        "module": "html2pdf",
+        "action": "html2pdf",
+        "options": {
+          "path": "uploads\\docs\\document2025.pdf",
+          "html": "{{query.draft_html}}",
+          "marginTop": "80mm",
+          "headerTemplate": "<div style=\"font-size:22px; padding:0 10px;\">  <img src=\"file:///C:/wappler_projects/public/assets/images/friends_logo.png\" style=\"height:24px; vertical-align:middle;\" />  <span style=\"margin-left:8px;\">Friends of Lowther Pavilion</span></div>",
+          "displayHeaderFooter": true,
+          "filename": "document2025.pdf"
+        },
+        "meta": [
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "filename",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ],
+        "output": true
+      }
+    ]
+  },
+  "usedModules": {
+    "puppeteer": "^22.0.0"
+  }
+}

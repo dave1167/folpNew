@@ -17,7 +17,6 @@
       "type": "local"
     }
   ],
-  "hostingType": "wappler",
   "projectServerModel": "node",
   "runtime": "capacitor",
   "webRootFolder": "/public",
@@ -28,37 +27,17 @@
   "targets": [
     {
       "name": "Development",
-      "remoteURL": "http://localhost:3000",
-      "targetType": "wappler",
-      "databaseConnectionType": "custom",
-      "db_host": "127.0.0.1",
-      "db_port": "3307",
-      "db_user": "root",
-      "db_password": "%Joanne@01",
-      "db_database": "folp_dev",
-      "databaseType": "mariadb"
-    },
-    {
-      "name": "Staging",
-      "remoteURL": "https://stage.folpmembers.org",
-      "databaseConnectionType": "custom",
-      "db_host": "159.65.95.252",
-      "db_port": "3306",
-      "db_user": "folpuser",
-      "db_password": "%Joanne@01!",
-      "db_database": "folp_members_stage",
-      "databaseType": "mariadb",
-      "usage": "stage",
-      "access": "sftp",
-      "ftpServer": "159.65.95.252",
-      "ftpUser": "sftpuser",
-      "ftpPassword": "v2:c62dbeddd4a75f3adf468ac93021bc782f49c0140d1cbe708c53",
-      "ftpRemoteFolder": "/var/www/folp-stage"
+      "remoteURL": "http://localhost:3000/",
+      "access": "local"
     }
   ],
   "activeTarget": "Development",
   "projectType": "web",
-  "extensions": [],
+  "extensions": [
+    {
+      "name": "@benpley/wappler-html2pdf"
+    }
+  ],
   "resources": {
     "providers": {
       "digitalocean": {
@@ -90,5 +69,6 @@
         }
       }
     }
-  }
+  },
+  "userUploadsFolder": "/uploads"
 }

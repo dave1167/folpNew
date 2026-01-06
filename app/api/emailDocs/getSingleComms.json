@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "commid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "single",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_communications",
+              "column": "commId"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "type"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "status"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "templateId"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "updatedBy"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "updatedDate"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "memId"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "html"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "draft_html"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "final_html"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.commid}}",
+              "test": "154"
+            }
+          ],
+          "table": {
+            "name": "tbl_communications"
+          },
+          "primary": "commId",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_communications.commId",
+                "field": "tbl_communications.commId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.commid}}",
+                "data": {
+                  "table": "tbl_communications",
+                  "column": "commId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "increments",
+                    "primary": true,
+                    "nullable": false,
+                    "name": "commId"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select `commId`, `type`, `status`, `templateId`, `updatedBy`, `updatedDate`, `memId`, `html`, `draft_html`, `final_html` from `tbl_communications` where `tbl_communications`.`commId` = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "commId"
+        },
+        {
+          "type": "number",
+          "name": "type"
+        },
+        {
+          "type": "number",
+          "name": "status"
+        },
+        {
+          "type": "number",
+          "name": "templateId"
+        },
+        {
+          "type": "number",
+          "name": "updatedBy"
+        },
+        {
+          "type": "date",
+          "name": "updatedDate"
+        },
+        {
+          "type": "number",
+          "name": "memId"
+        },
+        {
+          "type": "text",
+          "name": "html"
+        },
+        {
+          "type": "text",
+          "name": "draft_html"
+        },
+        {
+          "type": "text",
+          "name": "final_html"
+        }
+      ],
+      "outputType": "object",
+      "collapsed": true
+    }
+  }
+}

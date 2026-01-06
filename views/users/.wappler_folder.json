@@ -2,5 +2,9 @@
   "addUser.ejs": {
     "layoutPage": "lh_menu_2",
     "description": ""
+  },
+  "add_user.ejs": {
+    "layoutPage": "lh_menu",
+    "description": ""
   }
 }

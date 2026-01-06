@@ -5,7 +5,7 @@
 <dmx-value id="vSectionId" dmx-bind:value="1"></dmx-value>
 
 <!-- list settings filtered by current section -->
-<dmx-serverconnect id="scList" url="/api/settings/listSettings" dmx-param:sectionid="{{vSectionId.value.toNumber()}}">
+<dmx-serverconnect id="scList" url="/api/settings/listSettings" dmx-param:sectionid="vSectionId.value.toNumber()">
 </dmx-serverconnect>
 <dmx-serverconnect id="scUpdateDocs" url="/api/templates/updateTemplate"></dmx-serverconnect>
 <dmx-serverconnect id="scGetEmailTemps" url="/api/templates/getEmailTemps"></dmx-serverconnect>
@@ -13,6 +13,7 @@
 
 <dmx-serverconnect id="scSave" url="/api/settings/save" noload="true"></dmx-serverconnect>
 <dmx-serverconnect id="scGetSingleSettings" url="/api/settings/getSingleSetting" noload="true" dmx-param:settingsid="tableRepeatEmail[$index].settingsId"></dmx-serverconnect>
+<dmx-serverconnect id="scGetEmailDets" url="/api/settings/getEmailDetails"></dmx-serverconnect>
 
 <div class="modal fade" id="modeditSettings" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -85,7 +86,7 @@
                         <a class="nav-link bg-primary-subtle" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false" dmx-on:click="vSectionId.setValue(3); scList.load()">Document Templates</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link bg-primary-subtle" id="navTabs1_4_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false" dmx-on:click="vSectionId.setValue(4); scList.load()">Email Templates</a>
+                        <a class="nav-link bg-primary-subtle" id="navTabs1_4_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_4" role="tab" aria-controls="navTabs1_4" aria-selected="false" dmx-on:click="vSectionId.setValue(4); scList.load()">Email Details</a>
                     </li>
                 </ul>
 
@@ -216,18 +217,16 @@
                                     <table class="table table-striped table-bordered table-hover table-sm">
                                         <thead>
                                             <tr>
-                                                <th>Setting</th>
+                                                <th>Settings</th>
                                                 <th>Value</th>
                                             </tr>
                                         </thead>
-
-                                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scList.data.query" id="tableRepeatMessages1">
+                                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scGetEmailDets.data.query" id="tableRepeat3">
                                             <tr>
                                                 <td dmx-text="key"></td>
                                                 <td dmx-text="value"></td>
                                             </tr>
                                         </tbody>
-
                                     </table>
                                 </div>
 

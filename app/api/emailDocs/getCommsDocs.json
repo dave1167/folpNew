@@ -135,6 +135,10 @@
               {
                 "table": "tbl_communications",
                 "column": "status"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "commId"
               }
             ],
             "table": {
@@ -212,7 +216,7 @@
             "orders": [],
             "params": [],
             "primary": "commId",
-            "query": "select `tbl_communications`.`updatedDate`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commStatusDesc`, `tbl_comms_type`.`commTypeDesc`, `tbl_member_details`.`memNo`, `tbl_communications`.`status` from `tbl_communications` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commStatusId` = `tbl_communications`.`status` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type`"
+            "query": "select `tbl_communications`.`updatedDate`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commStatusDesc`, `tbl_comms_type`.`commTypeDesc`, `tbl_member_details`.`memNo`, `tbl_communications`.`status`, `tbl_communications`.`commId` from `tbl_communications` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commStatusId` = `tbl_communications`.`status` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type`"
           }
         },
         "output": true,
@@ -244,6 +248,10 @@
           {
             "type": "number",
             "name": "status"
+          },
+          {
+            "type": "number",
+            "name": "commId"
           }
         ],
         "outputType": "array",
