@@ -116,5 +116,13 @@ dmx.config({
         "type": "text"
       }
     ]
+  },
+  "add_user": {
+    "sessionStorage": [
+      {
+        "type": "text",
+        "name": "sessMemId"
+      }
+    ]
   }
 });

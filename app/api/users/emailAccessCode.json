@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "userid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "sendAccessCode",
+      "module": "core",
+      "action": "exec",
+      "options": {
+        "exec": "libEmailSend"
+      },
+      "output": true
+    }
+  }
+}
