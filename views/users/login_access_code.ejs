@@ -1,4 +1,5 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login_access_code" appConnect="local" components="{dmxValidator:{},dmxNotifications:{}}" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login_access_code" appConnect="local" components="{dmxValidator:{},dmxNotifications:{},dmxBrowser:{}}" -->
+<div is="dmx-browser" id="browser1"></div>
 <dmx-serverconnect id="scVerifyUser" url="/api/users/verificationUser" noload="true"></dmx-serverconnect>
 <dmx-notifications id="notifies1"></dmx-notifications>
 <meta name="ac:route" content="/users/login_access_code">
@@ -6,7 +7,7 @@
   <div class="card shadow-lg" style="max-width: 380px; width: 100%;">
     <div class="card-body p-4">
       <h4 class="card-title mb-4 text-center">Confirm Email</h4>
-      <form id="frmAccessCode" method="post" is="dmx-serverconnect-form" autocomplete="off" dmx-on:success="notifies1.success('ex')" action="/api/users/verificationUser">
+      <form id="frmAccessCode" method="post" is="dmx-serverconnect-form" autocomplete="off" dmx-on:success="notifies1.success('You have now verified your log-in');browser1.goto('/login/login')" action="/api/users/verificationUser">
         <div class="form-floating mb-3">
           <input type="email" class="form-control" id="input1" name="email" placeholder="name@example.com" autocomplete="off" required data-msg-required="Please enter your email address">
           <label for="input1">Email</label>

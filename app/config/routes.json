@@ -55,6 +55,11 @@
       "path": "/users/login_access_code",
       "page": "users/login_access_code",
       "layout": "main"
+    },
+    {
+      "path": "/login/login",
+      "page": "login/login",
+      "layout": "main"
     }
   ]
 }

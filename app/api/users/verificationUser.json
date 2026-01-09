@@ -82,6 +82,15 @@
   "exec": {
     "steps": [
       {
+        "name": "hashpword",
+        "module": "crypto",
+        "action": "passwordHash",
+        "options": {
+          "password": "{{$_POST.password}}"
+        },
+        "outputType": "text"
+      },
+      {
         "name": "currDate",
         "module": "core",
         "action": "setvalue",
@@ -228,6 +237,12 @@
                               "column": "active",
                               "type": "boolean",
                               "value": "{{true}}"
+                            },
+                            {
+                              "table": "tbl_users",
+                              "column": "password",
+                              "type": "text",
+                              "value": "{{hashpword}}"
                             }
                           ],
                           "table": "tbl_users",
@@ -250,7 +265,7 @@
                             "valid": true
                           },
                           "returning": "userId",
-                          "query": "update `tbl_users` set `active` = ? where `userId` = ?",
+                          "query": "update `tbl_users` set `active` = ?, `password` = ? where `userId` = ?",
                           "params": [
                             {
                               "name": ":P1",
@@ -259,9 +274,15 @@
                               "test": ""
                             },
                             {
+                              "name": ":P2",
+                              "type": "expression",
+                              "value": "{{hashpword}}",
+                              "test": ""
+                            },
+                            {
                               "operator": "equal",
                               "type": "expression",
-                              "name": ":P2",
+                              "name": ":P3",
                               "value": "{{qryGetUserRecord.userId}}",
                               "test": ""
                             }
@@ -317,5 +338,8 @@
         "outputType": "boolean"
       }
     ]
+  },
+  "usedModules": {
+    "argon2": "^0.30.2"
   }
 }

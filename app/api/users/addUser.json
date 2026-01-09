@@ -110,12 +110,6 @@
               },
               {
                 "table": "tbl_users",
-                "column": "password",
-                "type": "text",
-                "value": "{{hash}}"
-              },
-              {
-                "table": "tbl_users",
                 "column": "accessCode",
                 "type": "text",
                 "value": "{{final}}"
@@ -129,7 +123,7 @@
             ],
             "table": "tbl_users",
             "returning": "userId",
-            "query": "insert into `tbl_users` (`accessCode`, `email`, `expiryDateAccessCode`, `firstName`, `lastName`, `password`) values (?, ?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_users` (`accessCode`, `email`, `expiryDateAccessCode`, `firstName`, `lastName`) values (?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -152,17 +146,11 @@
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{hash}}",
-                "test": ""
-              },
-              {
-                "name": ":P5",
-                "type": "expression",
                 "value": "{{final}}",
                 "test": ""
               },
               {
-                "name": ":P6",
+                "name": ":P5",
                 "type": "expression",
                 "value": "{{NOW.dateAdd('hours', 24).formatDate('yyyy-MM-dd hh:mm', false)}}",
                 "test": ""
