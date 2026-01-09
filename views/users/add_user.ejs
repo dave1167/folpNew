@@ -10,7 +10,7 @@
             <h4 class="card-title bg-primary text-white ps-2">Add New User</h4>
             <div class="row">
                 <div class="col">
-                    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/addUser" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-on:success="notifies1.success(serverconnectform1.data.memIdOutput);scEmailAccess.load({userid: scAddUser.data.memIdOutput})">
+                    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/addUser" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-on:success="notifies1.success(serverconnectform1.data.memIdOutput);scEmailAccess.load({userid: serverconnectform1.data.memIdOutput})">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="inp_firstName" name="firstName" placeholder="First name">
                             <input id="hidMemId" name="hidMemId" type="number" class="form-control" dmx-bind:value="">
