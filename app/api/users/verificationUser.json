@@ -132,6 +132,10 @@
               {
                 "table": "tbl_users",
                 "column": "userId"
+              },
+              {
+                "table": "tbl_users",
+                "column": "active"
               }
             ],
             "params": [
@@ -176,7 +180,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "select `email`, `firstName`, `lastName`, `accessCode`, `expiryDateAccessCode`, `userId` from `tbl_users` where `tbl_users`.`email` = ?"
+            "query": "select `email`, `firstName`, `lastName`, `accessCode`, `expiryDateAccessCode`, `userId`, `active` from `tbl_users` where `tbl_users`.`email` = ?"
           }
         },
         "meta": [
@@ -203,6 +207,10 @@
           {
             "type": "number",
             "name": "userId"
+          },
+          {
+            "type": "boolean",
+            "name": "active"
           }
         ],
         "outputType": "object",
@@ -213,7 +221,7 @@
         "module": "core",
         "action": "condition",
         "options": {
-          "if": "{{qryGetUserRecord.email==$_POST.email}}",
+          "if": "{{qryGetUserRecord.email==$_POST.email&&qryGetUserRecord.active!=true}}",
           "then": {
             "steps": {
               "name": "",
