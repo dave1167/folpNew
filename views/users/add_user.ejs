@@ -25,12 +25,12 @@
                             <label for="inp_password">Password</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select id="selRole" class="form-select" dmx-bind:options="scGetRoles.data.query" optiontext="roleDesc" optionvalue="roleValue" name="selRole" dmx-bind:value="2">
+                            <select id="selRole" class="form-select" dmx-bind:options="scGetRoles.data.query" optiontext="roleDesc" optionvalue="roleValue" name="selRole">
                             </select>
-                            <label for="inp_select1">Select Role</label>
+                            <label for="inp_select1">Select1</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="hidden" class="form-control" id="inp_hidRole" name="hidRole" placeholder="Hid role" dmx-bind:value="selRole.value">
+                            <input type="text" class="form-control" id="inp_hidRole" name="hidRole" placeholder="Hid role">
                             <label for="inp_hidRole">Hid role</label>
                         </div>
                         <div class="form-group mb-3">
@@ -38,7 +38,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div><a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 
