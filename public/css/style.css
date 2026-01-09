@@ -80,6 +80,24 @@ main#content {
   /* Ensures content starts below navbar for desktop */
 }
 
+/* ===============
+   Add User Card Custom Width
+   =============== */
+.add-user-card {
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+@media (max-width: 575.98px) {
+  .add-user-card {
+    max-width: 98vw;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
 @media (max-width: 991.98px) {
   .layout-root {
     flex-direction: column;

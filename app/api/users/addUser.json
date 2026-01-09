@@ -478,6 +478,22 @@
           }
         ],
         "outputType": "object"
+      },
+      {
+        "name": "",
+        "module": "mail",
+        "action": "send",
+        "options": {
+          "instance": "mail",
+          "subject": "Welcome to FOLP members Website",
+          "fromName": "{{qrySenderName.value}}",
+          "fromEmail": "{{qrySenderEmail.value}}",
+          "replyTo": "{{qrySenderEmail.value}}",
+          "toName": "{{qryEmailDets.firstName+' '+qryEmailDets.lastName}}",
+          "toEmail": "daverowe1167@gmail.com",
+          "body": "You have been granted access to the Friends of Lowther Pavilion website. To access the site you will need to enter an access code \nThe access code is \n{{qryEmailDets.accessCode}}\n\nRegards\n{{qrySenderName.value}}",
+          "contentType": "html"
+        }
       }
     ]
   },
