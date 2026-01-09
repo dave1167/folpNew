@@ -50,6 +50,11 @@
       "path": "/users/add_user",
       "page": "users/add_user",
       "layout": "lh_menu"
+    },
+    {
+      "path": "/users/login_access_code",
+      "page": "users/login_access_code",
+      "layout": "main"
     }
   ]
 }

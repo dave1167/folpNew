@@ -13,7 +13,6 @@
                     <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/addUser" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-on:success="notifies1.success(serverconnectform1.data.memIdOutput);scEmailAccess.load({userid: serverconnectform1.data.memIdOutput})">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="inp_firstName" name="firstName" placeholder="First name">
-                            <input id="hidMemId" name="hidMemId" type="number" class="form-control" dmx-bind:value="">
                             <label for="inp_firstName">First name</label>
                         </div>
                         <div class="form-floating mb-3">

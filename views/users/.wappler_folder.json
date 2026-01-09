@@ -6,5 +6,9 @@
   "add_user.ejs": {
     "layoutPage": "lh_menu",
     "description": ""
+  },
+  "login_access_code.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }
