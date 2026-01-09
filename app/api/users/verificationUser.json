@@ -1,0 +1,321 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/users/login_access_code.ejs",
+      "linkedForm": "frmAccessCode"
+    },
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "useridget"
+      },
+      {
+        "type": "text",
+        "name": "useridget_copy"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Please enter your email address"
+            },
+            "core:email": {}
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "access_code",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Please enter your access code"
+            }
+          }
+        },
+        "name": "access_code"
+      },
+      {
+        "type": "text",
+        "fieldName": "password",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Please create a password"
+            },
+            "core:minlength": {
+              "param": "8",
+              "message": "Password must be at least 8 characters"
+            }
+          }
+        },
+        "name": "password"
+      },
+      {
+        "type": "text",
+        "fieldName": "password_confirm",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Please re-enter the password"
+            }
+          }
+        },
+        "name": "password_confirm"
+      },
+      {
+        "type": "number",
+        "fieldName": "userId",
+        "name": "userId"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "currDate",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{NOW.formatDate('yyyy-MM-dd hh:mm', false)}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "qryGetUserRecord",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_users",
+                "column": "email"
+              },
+              {
+                "table": "tbl_users",
+                "column": "firstName"
+              },
+              {
+                "table": "tbl_users",
+                "column": "lastName"
+              },
+              {
+                "table": "tbl_users",
+                "column": "accessCode"
+              },
+              {
+                "table": "tbl_users",
+                "column": "expiryDateAccessCode"
+              },
+              {
+                "table": "tbl_users",
+                "column": "userId"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_users"
+            },
+            "primary": "userId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_users.email",
+                  "field": "tbl_users.email",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.email}}",
+                  "data": {
+                    "table": "tbl_users",
+                    "column": "email",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "text",
+                      "maxLength": 65535,
+                      "primary": false,
+                      "nullable": false,
+                      "name": "email"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_users"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `email`, `firstName`, `lastName`, `accessCode`, `expiryDateAccessCode`, `userId` from `tbl_users` where `tbl_users`.`email` = ?"
+          }
+        },
+        "meta": [
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "text",
+            "name": "firstName"
+          },
+          {
+            "type": "text",
+            "name": "lastName"
+          },
+          {
+            "type": "text",
+            "name": "accessCode"
+          },
+          {
+            "type": "datetime",
+            "name": "expiryDateAccessCode"
+          },
+          {
+            "type": "number",
+            "name": "userId"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{qryGetUserRecord.email==$_POST.email}}",
+          "then": {
+            "steps": {
+              "name": "",
+              "module": "core",
+              "action": "condition",
+              "options": {
+                "if": "{{$_POST.access_code==qryGetUserRecord.accessCode&&currDate<=qryGetUserRecord.expiryDateAccessCode}}",
+                "then": {
+                  "steps": [
+                    {
+                      "name": "update",
+                      "module": "dbupdater",
+                      "action": "update",
+                      "options": {
+                        "connection": "db",
+                        "sql": {
+                          "type": "update",
+                          "values": [
+                            {
+                              "table": "tbl_users",
+                              "column": "active",
+                              "type": "boolean",
+                              "value": "{{true}}"
+                            }
+                          ],
+                          "table": "tbl_users",
+                          "wheres": {
+                            "condition": "AND",
+                            "rules": [
+                              {
+                                "id": "userId",
+                                "field": "userId",
+                                "type": "double",
+                                "operator": "equal",
+                                "value": "{{qryGetUserRecord.userId}}",
+                                "data": {
+                                  "column": "userId"
+                                },
+                                "operation": "="
+                              }
+                            ],
+                            "conditional": null,
+                            "valid": true
+                          },
+                          "returning": "userId",
+                          "query": "update `tbl_users` set `active` = ? where `userId` = ?",
+                          "params": [
+                            {
+                              "name": ":P1",
+                              "type": "expression",
+                              "value": "{{true}}",
+                              "test": ""
+                            },
+                            {
+                              "operator": "equal",
+                              "type": "expression",
+                              "name": ":P2",
+                              "value": "{{qryGetUserRecord.userId}}",
+                              "test": ""
+                            }
+                          ]
+                        }
+                      },
+                      "meta": [
+                        {
+                          "name": "affected",
+                          "type": "number"
+                        }
+                      ],
+                      "collapsed": true
+                    },
+                    {
+                      "name": "accessCodeFound",
+                      "module": "core",
+                      "action": "response",
+                      "options": {
+                        "status": 200,
+                        "data": "Access  Code matched"
+                      }
+                    }
+                  ]
+                },
+                "else": {
+                  "steps": {
+                    "name": "accessCodeNoMatch",
+                    "module": "core",
+                    "action": "response",
+                    "options": {
+                      "status": 404,
+                      "data": "Acces Code is  incorrecr"
+                    }
+                  }
+                }
+              },
+              "outputType": "boolean"
+            }
+          },
+          "else": {
+            "steps": {
+              "name": "noEmail",
+              "module": "core",
+              "action": "response",
+              "options": {
+                "status": 404,
+                "data": "Email not found"
+              }
+            }
+          }
+        },
+        "outputType": "boolean"
+      }
+    ]
+  }
+}

@@ -285,8 +285,15 @@
             "name": "fixedId"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
+      },
+      {
+        "name": "wait",
+        "module": "core",
+        "action": "wait",
+        "options": {
+          "delay": 500
+        }
       },
       {
         "name": "",
