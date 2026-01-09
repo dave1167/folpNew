@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "tbl_settings",
+              "column": "key"
+            },
+            {
+              "table": "tbl_settings",
+              "column": "value"
+            }
+          ],
+          "params": [],
+          "table": {
+            "name": "tbl_settings"
+          },
+          "primary": "settingsId",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tbl_settings.sectionId",
+                "field": "tbl_settings.sectionId",
+                "type": "double",
+                "operator": "equal",
+                "value": 2,
+                "data": {
+                  "table": "tbl_settings",
+                  "column": "sectionId",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "default": "",
+                    "primary": false,
+                    "nullable": true,
+                    "name": "sectionId"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select `key`, `value` from `tbl_settings` where `tbl_settings`.`sectionId` = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "key"
+        },
+        {
+          "type": "text",
+          "name": "value"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

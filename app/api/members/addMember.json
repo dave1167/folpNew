@@ -12,17 +12,28 @@
       },
       {
         "type": "text",
-        "fieldName": "lname",
-        "name": "lname"
+        "fieldName": "lName",
+        "name": "lName"
       },
       {
         "type": "text",
         "fieldName": "email",
+        "options": {
+          "rules": {}
+        },
         "name": "email"
       },
       {
         "type": "text",
         "fieldName": "address1",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Address is required"
+            }
+          }
+        },
         "name": "address1"
       },
       {
@@ -33,6 +44,17 @@
       {
         "type": "text",
         "fieldName": "town",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Town is required"
+            },
+            "core:lettersonly": {
+              "message": "Only letters allowed"
+            }
+          }
+        },
         "name": "town"
       },
       {
@@ -43,6 +65,18 @@
       {
         "type": "text",
         "fieldName": "postcode",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Postcode is required"
+            },
+            "core:pattern": {
+              "param": "^[A-Za-z]{2}[0-9]\\s[0-9][A-Za-z]{2}$",
+              "message": "Postcode must be entered in the format AB1 2CD (capital letters and a space required)"
+            }
+          }
+        },
         "name": "postcode"
       },
       {
@@ -60,7 +94,13 @@
         "fieldName": "dateJoined",
         "options": {
           "rules": {
-            "core:date": {}
+            "core:required": {
+              "param": "",
+              "message": "Please enter a valid date"
+            },
+            "core:date": {
+              "param": ""
+            }
           }
         },
         "name": "dateJoined"
@@ -84,6 +124,9 @@
       {
         "type": "text",
         "fieldName": "fName",
+        "options": {
+          "rules": {}
+        },
         "name": "fName"
       },
       {
@@ -95,9 +138,7 @@
         "type": "number",
         "fieldName": "memNo",
         "options": {
-          "rules": {
-            "core:number": {}
-          }
+          "rules": {}
         },
         "name": "memNo"
       },
@@ -126,15 +167,16 @@
         "type": "date",
         "fieldName": "lastPaidDte",
         "options": {
-          "rules": {
-            "core:date": {}
-          }
+          "rules": {}
         },
         "name": "lastPaidDte"
       },
       {
         "type": "text",
         "fieldName": "lName",
+        "options": {
+          "rules": {}
+        },
         "name": "lName"
       },
       {
@@ -161,10 +203,31 @@
       {
         "type": "number",
         "fieldName": "hidPayMeth",
-        "options": {
-          "rules": {}
-        },
         "name": "hidPayMeth"
+      },
+      {
+        "type": "number",
+        "name": "status"
+      },
+      {
+        "type": "number",
+        "name": "templateId"
+      },
+      {
+        "type": "number",
+        "name": "updatedBy"
+      },
+      {
+        "type": "date",
+        "name": "updatedDate"
+      },
+      {
+        "type": "number",
+        "name": "memId"
+      },
+      {
+        "type": "text",
+        "name": "html"
       }
     ]
   },
@@ -209,8 +272,7 @@
             "name": "lastMemNo"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "lastMemNo",
@@ -229,10 +291,22 @@
         "output": true
       },
       {
+        "name": "varFName",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{'fname: '+$_POST.fName}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
         "name": "",
         "options": {
           "comment": "Get Fee Paid"
-        }
+        },
+        "disabled": true
       },
       {
         "name": "qryFeePaid",
@@ -298,8 +372,7 @@
             "name": "fee"
           }
         ],
-        "outputType": "object",
-        "collapsed": true
+        "outputType": "object"
       },
       {
         "name": "encrypt",
@@ -338,7 +411,7 @@
                 "table": "tbl_member_details",
                 "column": "lName",
                 "type": "text",
-                "value": "{{$_POST.lname.lowercase().capitalize()}}"
+                "value": "{{$_POST.lName.lowercase().capitalize()}}"
               },
               {
                 "table": "tbl_member_details",
@@ -450,7 +523,7 @@
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.lname.lowercase().capitalize()}}",
+                "value": "{{$_POST.lName.lowercase().capitalize()}}",
                 "test": ""
               },
               {
@@ -563,8 +636,7 @@
           }
         ],
         "output": true,
-        "_id": "j1_34",
-        "collapsed": true
+        "_id": "j1_34"
       },
       {
         "name": "insertPayment",
@@ -688,7 +760,302 @@
             "name": "affected",
             "type": "number"
           }
+        ]
+      },
+      {
+        "name": "qryGetHtml",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "value",
+                "alias": "thisone"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{4}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.settingsId",
+                  "field": "tbl_settings.settingsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{4}}",
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "settingsId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "settingsId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_settings"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `value` as `thisone` from `tbl_settings` where `tbl_settings`.`settingsId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "thisone"
+          }
         ],
+        "outputType": "object"
+      },
+      {
+        "name": "valno1",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{qryGetHtml.thisone}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "qryGetRawHtml",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_templates",
+                "column": "template_html"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{qryGetHtml.thisone.toNumber()}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_templates"
+            },
+            "primary": "templateId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_templates.templateId",
+                  "field": "tbl_templates.templateId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{qryGetHtml.thisone.toNumber()}}",
+                  "data": {
+                    "table": "tbl_templates",
+                    "column": "templateId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "templateId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `template_html` from `tbl_templates` where `tbl_templates`.`templateId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "template_html"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "merge",
+        "module": "core",
+        "action": "exec",
+        "options": {
+          "exec": "libMergePlaceholders",
+          "params": {
+            "htmlIn": "{{qryGetRawHtml.template_html}}",
+            "LastName": "{{$_POST.lName}}",
+            "Pcode": "{{$_POST.postcode}}",
+            "Address": "{{$_POST.address1}}",
+            "FirstName": "{{$_POST.fName}}",
+            "Address2": "{{$_POST.address2}}",
+            "Town1": "{{$_POST.town}}",
+            "Town2": "{{$_POST.town2}}",
+            "MemNo": "{{lastMemNo}}"
+          }
+        },
+        "output": true
+      },
+      {
+        "name": "testVALUE",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{'HTML OUT:'+merge.htmlOut}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "insertComms",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "tbl_communications",
+                "column": "type",
+                "type": "number",
+                "value": "{{2}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "status",
+                "type": "number",
+                "value": "1"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "templateId",
+                "type": "number",
+                "value": "{{16}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "updatedBy",
+                "type": "number",
+                "value": "{{$_POST.updatedBy}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "updatedDate",
+                "type": "date",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "memId",
+                "type": "number",
+                "value": "{{insert.identity}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "html",
+                "type": "text",
+                "value": "{{qryGetRawHtml.template_html}}"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "draft_html",
+                "type": "text",
+                "value": "{{merge.htmlOut}}"
+              }
+            ],
+            "table": "tbl_communications",
+            "returning": "commId",
+            "query": "insert into `tbl_communications` (`draft_html`, `html`, `memId`, `status`, `templateId`, `type`, `updatedBy`, `updatedDate`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{2}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{16}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.updatedBy}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{insert.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{qryGetRawHtml.template_html}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{merge.htmlOut}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ],
+        "output": true,
         "collapsed": true
       }
     ]

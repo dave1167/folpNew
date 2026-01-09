@@ -1,4 +1,8 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Modal:{},dmxNotifications:{},dmxBrowser:{},dmxValidator:{},dmxBootstrap5Alert:{},dmxBootstrap5Tooltips:{}}" -->
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="mem_list" appConnect="local" components="{dmxStateManagement:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Modal:{},dmxNotifications:{},dmxBrowser:{},dmxValidator:{},dmxBootstrap5Alert:{},dmxBootstrap5Tooltips:{},dmxBootstrap5Toasts:{}}" -->
+<div class="alert" id="alert2" is="dmx-bs5-alert" role="alert">
+    <p>This is a nice alert!</p>
+</div>
+<div is="dmx-bs5-toasts" id="toasts1"></div>
 
 
 
@@ -211,6 +215,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modYesNoEmails" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Welcome&nbsp;<i class="fas fa-question"></i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to send a welcome email or print a letter, to this member</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Yes</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal" id="modAddNewMember" is="dmx-bs5-modal" tabindex="-1">
     <div class="modal-body"></div>
     <div class="modal-dialog" role="document">
@@ -224,24 +245,27 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_fname" name="fName" aria-describedby="inp_fname_help" placeholder="Enter First Name"><label for="input2" class="form-label">First Name</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_fname" name="fName" aria-describedby="inp_fname_help" placeholder="Enter First Name" required data-msg-required="First name is required" data-rule-lettersonly="true" data-msg-lettersonly="Only letters allowed">
+                                <label for="inp_fname" class="form-label">First Name</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_lname" name="lname" aria-describedby="inp_lname_help" placeholder="Enter Last Name"><label for="hidPayMeth" class="form-label">Last Name</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_lname" name="lName" aria-describedby="inp_lname_help" placeholder="Enter Last Name" required data-msg-required="Last name is required" data-rule-lettersonly="true" data-msg-lettersonly="Only letters allowed">
+                                <label for="inp_lname" class="form-label">Last Name</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_email" name="email" aria-describedby="inp_email_help" placeholder="Enter Email"><label for="hidPayMeth" class="form-label">Email<label for="inp_fname" class="col-sm-2 col-form-label">Fname</label></label>
+                                <input type="text" class="form-control form-control-sm" id="inp_email" name="email" aria-describedby="inp_email_help" placeholder="Enter Email" data-rule-email=""><label for="hidPayMeth" class="form-label">Email<label for="inp_fname" class="col-sm-2 col-form-label">Fname</label></label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control form-control-sm" id="inp_address3" name="address1" aria-describedby="inp_address2_help" placeholder="Enter Address"><label for="inp_address1" class="form-label col-form-label-sm">Address Line 1</label>
+                                <input type="text" class="form-control form-control-sm" id="inp_address1" name="address1" aria-describedby="inp_address1_help" placeholder="Enter Address" required="" data-msg-required="Address is required">
+                                <label for="inp_address1" class="form-label col-form-label-sm">Address Line 1</label>
                             </div>
                         </div>
                         <div class="col">
@@ -254,7 +278,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_town" name="town" aria-describedby="inp_town_help" placeholder="Enter Town"><label for="inp_town" class="form-label">Town</label>
+                                <input type="text" class="form-control" id="inp_town" name="town" aria-describedby="inp_town_help" placeholder="Enter Town" required data-msg-required="Town is required" data-rule-lettersonly="true" data-msg-lettersonly="Only letters allowed">
+                                <label for="inp_town" class="form-label">Town</label>
                             </div>
                         </div>
                         <div class="col">
@@ -265,7 +290,8 @@
 
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inp_postcode" name="postcode" aria-describedby="inp_postcode_help" placeholder="Enter Postcode"><label for="inp_postcode" class="form-label">Postcode</label>
+                                <input type="text" class="form-control" id="inp_postcode" name="postcode" aria-describedby="inp_postcode_help" placeholder="Enter Postcode" required="" data-msg-required="Postcode is required" data-rule-pattern="^[A-Za-z]{2}[0-9]\s[0-9][A-Za-z]{2}$" data-msg-pattern="Postcode must be entered in the format AB1 2CD (capital letters and a space required)">
+                                <label for="inp_postcode" class="form-label">Postcode</label>
                             </div>
                         </div>
                     </div>
@@ -284,7 +310,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" aria-describedby="inp_dateJoined_help" placeholder="Enter Date joined"><label for="inp_dateJoined" class="form-label">Date joined</label>
+                                <input type="date" class="form-control" id="inp_dateJoined" name="dateJoined" aria-describedby="inp_dateJoined_help" placeholder="Enter Date joined" data-rule-date="" required="" data-msg-required="Please enter a valid date"><label for="inp_dateJoined" class="form-label">Date joined</label>
                             </div>
                         </div>
                         <div class="col">
@@ -298,7 +324,7 @@
                         <div class="col">
                             <div class="form-floating mb-3">
                                 <select id="selPayMeth" class="form-select" dmx-bind:options="scPayMethod.data.query" optiontext="PayMethod" optionvalue="payMethodId">
-                                </select> <input type="number" class="form-control" id="hidPayMeth" name="hidPayMeth" aria-describedby="input1_help" placeholder="Enter some text" dmx-bind:value="selPayMeth.value">
+                                </select> <input type="hidden" class="form-control" id="hidPayMeth" name="hidPayMeth" aria-describedby="input1_help" placeholder="Enter some text" dmx-bind:value="selPayMeth.value">
                                 <label for="hidPayMeth" class="form-label">Some text</label>
                             </div>
                         </div>

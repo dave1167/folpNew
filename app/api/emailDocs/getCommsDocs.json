@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "options": {
+          "comment": "Gets all the documents and status of each.  "
+        }
+      },
+      {
+        "name": "qrykeyValue ",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "key"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "value"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{4}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "query": "select `key`, `value` from `tbl_settings` where `tbl_settings`.`settingsId` = ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.settingsId",
+                  "field": "tbl_settings.settingsId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{4}}",
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "settingsId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "settingsId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_settings"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "key"
+          },
+          {
+            "type": "text",
+            "name": "value"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "qryAllCommsDocs",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "select",
+            "distinct": false,
+            "columns": [
+              {
+                "table": "tbl_communications",
+                "column": "updatedDate",
+                "field": "tbl_communications.updatedDate"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "fName",
+                "field": "tbl_member_details.fName"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "lName",
+                "field": "tbl_member_details.lName"
+              },
+              {
+                "table": "tbl_comms_status",
+                "column": "commStatusDesc"
+              },
+              {
+                "table": "tbl_comms_type",
+                "column": "commTypeDesc"
+              },
+              {
+                "table": "tbl_member_details",
+                "column": "memNo"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "status"
+              },
+              {
+                "table": "tbl_communications",
+                "column": "commId"
+              }
+            ],
+            "table": {
+              "name": "tbl_communications"
+            },
+            "joins": [
+              {
+                "table": "tbl_member_details",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_member_details",
+                      "column": "memDetsId",
+                      "field": "tbl_member_details.memDetsId",
+                      "operation": "=",
+                      "operator": "equal",
+                      "value": {
+                        "table": "tbl_communications",
+                        "column": "memId",
+                        "field": "tbl_communications.memId"
+                      }
+                    }
+                  ]
+                },
+                "primary": "memDetsId"
+              },
+              {
+                "table": "tbl_comms_status",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_comms_status",
+                      "column": "commStatusId",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "tbl_communications",
+                        "column": "status",
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "primary": "commStatusId"
+              },
+              {
+                "table": "tbl_comms_type",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "tbl_comms_type",
+                      "column": "commTypeId",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "tbl_communications",
+                        "column": "type",
+                        "type": "number"
+                      }
+                    }
+                  ]
+                },
+                "primary": "commTypeId"
+              }
+            ],
+            "orders": [],
+            "params": [],
+            "primary": "commId",
+            "query": "select `tbl_communications`.`updatedDate`, `tbl_member_details`.`fName`, `tbl_member_details`.`lName`, `tbl_comms_status`.`commStatusDesc`, `tbl_comms_type`.`commTypeDesc`, `tbl_member_details`.`memNo`, `tbl_communications`.`status`, `tbl_communications`.`commId` from `tbl_communications` inner join `tbl_member_details` on `tbl_member_details`.`memDetsId` = `tbl_communications`.`memId` inner join `tbl_comms_status` on `tbl_comms_status`.`commStatusId` = `tbl_communications`.`status` inner join `tbl_comms_type` on `tbl_comms_type`.`commTypeId` = `tbl_communications`.`type`"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "date",
+            "name": "updatedDate"
+          },
+          {
+            "type": "text",
+            "name": "fName"
+          },
+          {
+            "type": "text",
+            "name": "lName"
+          },
+          {
+            "type": "text",
+            "name": "commStatusDesc"
+          },
+          {
+            "type": "text",
+            "name": "commTypeDesc"
+          },
+          {
+            "type": "number",
+            "name": "memNo"
+          },
+          {
+            "type": "number",
+            "name": "status"
+          },
+          {
+            "type": "number",
+            "name": "commId"
+          }
+        ],
+        "outputType": "array",
+        "collapsed": true,
+        "type": "dbconnector_select"
+      }
+    ]
+  }
+}

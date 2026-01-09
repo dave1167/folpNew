@@ -3,21 +3,135 @@
     "$_PARAM": [
       {
         "type": "text",
-        "name": "email"
+        "name": "email_enc"
+      },
+      {
+        "type": "text",
+        "name": "address_enc"
+      },
+      {
+        "type": "text",
+        "name": "address2_enc"
+      },
+      {
+        "type": "text",
+        "name": "postcode_enc"
+      },
+      {
+        "type": "text",
+        "name": "mobile_enc"
+      },
+      {
+        "type": "text",
+        "name": "tel_enc"
+      },
+      {
+        "type": "text",
+        "name": "notes_enc"
+      },
+      {
+        "type": "text",
+        "name": "draft_html_enc"
+      },
+      {
+        "type": "text",
+        "name": "final_html_enc"
       }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "email_dec",
-      "module": "core",
-      "action": "setvalue",
-      "options": {
-        "value": "{{$_PARAM.email.encrypt($_ENV.EKY)}}"
+    "steps": [
+      {
+        "name": "email",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.email_enc && $_PARAM.email_enc.trim())?$_PARAM.email_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
       },
-      "meta": [],
-      "outputType": "text",
-      "output": true
-    }
+      {
+        "name": "address",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.address_enc && $_PARAM.address_enc.trim())?$_PARAM.address_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "address2",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.address2_enc && $_PARAM.address2_enc.trim())?$_PARAM.address2_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "postcode",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.pcode_enc && $_PARAM.pcode_enc.trim())?$_PARAM.pcode_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "mobile",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.mobile_enc && $_PARAM.mobile_enc.trim())?$_PARAM.mobile_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "tel",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.tel_enc && $_PARAM.tel_enc.trim())?$_PARAM.tel_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "notes",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.notes_enc && $_PARAM.notes_enc.trim())?$_PARAM.notes_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "draft_html",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.draft_html_enc && $_PARAM.draft_html_enc.trim())?$_PARAM.draft_html_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "final_html",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{($_PARAM.final_html_enc && $_PARAM.final_html_enc.trim())?$_PARAM.final_html_enc.decrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      }
+    ]
   }
 }

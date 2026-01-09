@@ -1,0 +1,44 @@
+[
+  {
+    "name": "htmlIn",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "<!doctype html>\n<html>\n  <head>\n    <title>Test Address Fields</title>\n  </head>\n  <body>\n    <h2>Individual Fields</h2>\n    <div><b>Address:</b> <?Address?></div>\n    <div><b>Address2:</b> <?Address2?></div>\n    <div><b>Town1:</b> <?Town1?></div>\n    <div><b>Town2:</b> <?Town2?></div>\n    <div><b>Pcode:</b> <?Pcode?></div>\n\n    <h2>Merged Address Block</h2>\n    <div><?AddressBlock?></div>\n  </body>\n</html>"
+    },
+    "meta": [],
+    "outputType": "text",
+    "output": true,
+    "collapsed": true
+  },
+  {
+    "name": "htmlOut",
+    "module": "core",
+    "action": "exec",
+    "options": {
+      "exec": "libMergePlaceholders",
+      "params": {
+        "htmlIn": "{{htmlIn}}",
+        "FirstName": "Dave",
+        "LastName": "Rons",
+        "memNo": "0405",
+        "Address": "12 Don Ave",
+        "Town1": "walter",
+        "Town2": "cuntsville",
+        "Pcode": "KL6 7UI"
+      }
+    },
+    "output": true
+  },
+  {
+    "name": "htmlOut",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "{{htmlOut}}"
+    },
+    "meta": [],
+    "output": true,
+    "outputType": "text"
+  }
+]

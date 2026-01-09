@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/emails/all_comms_docs.ejs",
+      "linkedForm": "frmeditComm"
+    },
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "commsid"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "type"
+      },
+      {
+        "type": "number",
+        "fieldName": "status",
+        "name": "status"
+      },
+      {
+        "type": "number",
+        "name": "templateId"
+      },
+      {
+        "type": "number",
+        "name": "updatedBy"
+      },
+      {
+        "type": "date",
+        "name": "updatedDate"
+      },
+      {
+        "type": "number",
+        "name": "memId"
+      },
+      {
+        "type": "text",
+        "name": "html"
+      },
+      {
+        "type": "text",
+        "name": "draft_html"
+      },
+      {
+        "type": "text",
+        "name": "final_html"
+      },
+      {
+        "type": "number",
+        "name": "commId"
+      },
+      {
+        "type": "text",
+        "fieldName": "selStatus",
+        "name": "selStatus"
+      },
+      {
+        "type": "text",
+        "fieldName": "editor1",
+        "name": "editor1"
+      },
+      {
+        "type": "text",
+        "fieldName": "commid",
+        "name": "commid"
+      },
+      {
+        "type": "number",
+        "fieldName": "hidStatus",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "hidStatus"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "updateComms",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "tbl_communications",
+              "column": "status",
+              "type": "number",
+              "value": "{{$_POST.hidStatus}}"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "updatedBy",
+              "type": "number",
+              "value": "{{$_POST.updatedBy}}"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "updatedDate",
+              "type": "date",
+              "value": "{{NOW}}"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "draft_html",
+              "type": "text",
+              "value": "{{$_POST.draft_html}}"
+            },
+            {
+              "table": "tbl_communications",
+              "column": "final_html",
+              "type": "text",
+              "value": "{{$_POST.final_html}}"
+            }
+          ],
+          "table": "tbl_communications",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "commId",
+                "field": "commId",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_POST.commid}}",
+                "data": {
+                  "column": "commId"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "commId",
+          "query": "update `tbl_communications` set `status` = ?, `updatedBy` = ?, `updatedDate` = ?, `draft_html` = ?, `final_html` = ? where `commId` = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.hidStatus}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.updatedBy}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{NOW}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.draft_html}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.final_html}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P6",
+              "value": "{{$_POST.commid}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ],
+      "output": true,
+      "collapsed": true
+    }
+  }
+}

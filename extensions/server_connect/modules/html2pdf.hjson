@@ -1,0 +1,219 @@
+{
+  type: 'html2pdf_html2pdf',
+  module: 'html2pdf',
+  action: 'html2pdf',
+  groupTitle: 'PDF Operations',
+  groupIcon: 'fa fa-file-pdf-o comp-data',
+  addTitle: 'HTML to PDF',
+  title: 'HTML to PDF',
+  icon: 'fa fa-file-pdf-o comp-data',
+  help: 'Convert HTML content to PDF using Puppeteer',
+  serverModel: ['node'],
+  dataPickObject: true,
+  dataScheme: [
+    {name: 'path', type: 'text'},
+    {name: 'filename', type: 'text'},
+    {name: 'size', type: 'number'}
+  ],
+  
+  usedModules: {
+    node: {
+      'puppeteer': '^22.0.0'
+    }
+  },
+  
+  properties: [
+    {
+      group: 'Step Properties',
+      variables: [
+        {
+          name: 'actionName',
+          optionName: 'name',
+          title: 'Name',
+          type: 'text',
+          required: true,
+          defaultValue: '',
+          baseName: 'html2pdf'
+        },
+        {
+          name: 'output',
+          optionName: 'output',
+          title: 'Output',
+          type: 'boolean',
+          defaultValue: true
+        }
+      ]
+    },
+    {
+      group: 'HTML Content',
+      variables: [
+        {
+          name: 'html',
+          optionName: 'html',
+          title: 'HTML Content',
+          type: 'text',
+          multiline: true,
+          required: true,
+          serverDataBindings: true,
+          help: 'The HTML content to convert to PDF'
+        }
+      ]
+    },
+    {
+      group: 'PDF Settings',
+      variables: [
+        {
+          name: 'filename',
+          optionName: 'filename',
+          title: 'Filename',
+          type: 'text',
+          defaultValue: 'document.pdf',
+          serverDataBindings: true,
+          help: 'The name of the PDF file to generate'
+        },
+        {
+          name: 'path',
+          optionName: 'path',
+          title: 'Save Path',
+          type: 'text',
+          serverDataBindings: true,
+          help: 'Optional path to save the PDF file permanently (e.g., uploads/pdfs/myfile.pdf). If not specified, PDF is saved to a temporary location.'
+        },
+        {
+          name: 'format',
+          optionName: 'format',
+          title: 'Page Format',
+          type: 'droplist',
+          values: ['A4','A3','A5','Letter','Legal','Tabloid'],
+          defaultValue: 'A4',
+          help: 'Page format for the PDF'
+        },
+        {
+          name: 'landscape',
+          optionName: 'landscape',
+          title: 'Landscape',
+          type: 'boolean',
+          defaultValue: false,
+          help: 'Use landscape orientation'
+        },
+        {
+          name: 'printBackground',
+          optionName: 'printBackground',
+          title: 'Print Background',
+          type: 'boolean',
+          defaultValue: true,
+          help: 'Print background graphics'
+        },
+        {
+          name: 'scale',
+          optionName: 'scale',
+          title: 'Scale',
+          type: 'text',
+          defaultValue: '1',
+          help: 'Scale of the webpage rendering (0.1 to 2)'
+        }
+      ]
+    },
+    {
+      group: 'Margins',
+      variables: [
+        {
+          name: 'marginTop',
+          optionName: 'marginTop',
+          title: 'Top',
+          type: 'text',
+          defaultValue: '10mm',
+          serverDataBindings: true,
+          help: 'Top margin (e.g., 10mm, 1in)'
+        },
+        {
+          name: 'marginRight',
+          optionName: 'marginRight',
+          title: 'Right',
+          type: 'text',
+          defaultValue: '10mm',
+          serverDataBindings: true,
+          help: 'Right margin (e.g., 10mm, 1in)'
+        },
+        {
+          name: 'marginBottom',
+          optionName: 'marginBottom',
+          title: 'Bottom',
+          type: 'text',
+          defaultValue: '10mm',
+          serverDataBindings: true,
+          help: 'Bottom margin (e.g., 10mm, 1in)'
+        },
+        {
+          name: 'marginLeft',
+          optionName: 'marginLeft',
+          title: 'Left',
+          type: 'text',
+          defaultValue: '10mm',
+          serverDataBindings: true,
+          help: 'Left margin (e.g., 10mm, 1in)'
+        }
+      ]
+    },
+    {
+      group: 'Header and Footer',
+      variables: [
+        {
+          name: 'displayHeaderFooter',
+          optionName: 'displayHeaderFooter',
+          title: 'Display Header/Footer',
+          type: 'boolean',
+          defaultValue: false,
+          help: 'Display header and footer'
+        },
+        {
+          name: 'headerTemplate',
+          optionName: 'headerTemplate',
+          title: 'Header Template',
+          type: 'text',
+          multiline: true,
+          serverDataBindings: true,
+          help: 'HTML template for the header'
+        },
+        {
+          name: 'footerTemplate',
+          optionName: 'footerTemplate',
+          title: 'Footer Template',
+          type: 'text',
+          multiline: true,
+          serverDataBindings: true,
+          help: 'HTML template for the footer'
+        }
+      ]
+    },
+    {
+      group: 'Advanced',
+      variables: [
+        {
+          name: 'preferCSSPageSize',
+          optionName: 'preferCSSPageSize',
+          title: 'Prefer CSS Page Size',
+          type: 'boolean',
+          defaultValue: false,
+          help: 'Use CSS-defined page size'
+        },
+        {
+          name: 'waitForSelector',
+          optionName: 'waitForSelector',
+          title: 'Wait For Selector',
+          type: 'text',
+          serverDataBindings: true,
+          help: 'CSS selector to wait for before generating PDF'
+        },
+        {
+          name: 'waitTime',
+          optionName: 'waitTime',
+          title: 'Wait Time (ms)',
+          type: 'text',
+          defaultValue: '0',
+          help: 'Time to wait before generating PDF (milliseconds)'
+        }
+      ]
+    }
+  ]
+}

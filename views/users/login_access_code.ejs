@@ -1,0 +1,31 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login_access_code" appConnect="local" components="{dmxValidator:{},dmxNotifications:{},dmxBrowser:{}}" -->
+<div is="dmx-browser" id="browser1"></div>
+<dmx-serverconnect id="scVerifyUser" url="/api/users/verificationUser" noload="true"></dmx-serverconnect>
+<dmx-notifications id="notifies1"></dmx-notifications>
+<meta name="ac:route" content="/users/login_access_code">
+<div class="container py-5">
+  <div class="card shadow-lg" style="max-width: 380px; width: 100%;">
+    <div class="card-body p-4">
+      <h4 class="card-title mb-4 text-center">Confirm Email</h4>
+      <form id="frmAccessCode" method="post" is="dmx-serverconnect-form" autocomplete="off" dmx-on:success="notifies1.success('You have now verified your log-in');browser1.goto('/login/login')" action="/api/users/verificationUser">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="input1" name="email" placeholder="name@example.com" autocomplete="off" required data-msg-required="Please enter your email address">
+          <label for="input1">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="input2" name="access_code" placeholder="Enter access code" autocomplete="off" required data-msg-required="Please enter your access code">
+          <label for="input2">Access Code</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Create password" autocomplete="new-password" required="" data-msg-required="Please create a password" minlength="8" data-msg-minlength="Password must be at least 8 characters">
+          <label for="password">Create Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Re-enter password" autocomplete="new-password" required="" data-msg-required="Please re-enter the password">
+          <label for="password_confirm">Re-enter Password</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "commid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "qryGetSingleComm",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.commid}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_communications"
+            },
+            "primary": "commId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_communications.commId",
+                  "field": "tbl_communications.commId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_GET.commid}}",
+                  "data": {
+                    "table": "tbl_communications",
+                    "column": "commId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "commId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select * from `tbl_communications` where `tbl_communications`.`commId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "commId"
+          },
+          {
+            "type": "number",
+            "name": "type"
+          },
+          {
+            "type": "number",
+            "name": "status"
+          },
+          {
+            "type": "number",
+            "name": "templateId"
+          },
+          {
+            "type": "number",
+            "name": "updatedBy"
+          },
+          {
+            "type": "date",
+            "name": "updatedDate"
+          },
+          {
+            "type": "number",
+            "name": "memId"
+          },
+          {
+            "type": "text",
+            "name": "html"
+          },
+          {
+            "type": "text",
+            "name": "draft_html"
+          },
+          {
+            "type": "text",
+            "name": "final_html"
+          },
+          {
+            "type": "text",
+            "name": "subject"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "qrySettings",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "key"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "value"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "fixedId"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.sectionId",
+                  "field": "tbl_settings.sectionId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": 2,
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "sectionId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "integer",
+                      "default": "",
+                      "primary": false,
+                      "nullable": true,
+                      "name": "sectionId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `key`, `value`, `fixedId` from `tbl_settings` where `tbl_settings`.`sectionId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "key"
+          },
+          {
+            "type": "text",
+            "name": "value"
+          },
+          {
+            "type": "text",
+            "name": "fixedId"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "",
+        "module": "mail",
+        "action": "send",
+        "options": {
+          "instance": "mail",
+          "subject": "Welcome to Friends of Lowther",
+          "fromName": "JaneSmith",
+          "fromEmail": "membership@friendsoflowtherpavilion.co.uk",
+          "toName": "Dave Rowe",
+          "toEmail": "daverowe1167@gmail.com",
+          "contentType": "html",
+          "replyTo": "membership@friendsoflowtherpavilion.co.uk",
+          "recipientType": "extended"
+        },
+        "output": false,
+        "disabled": true
+      },
+      {
+        "name": "html2pdf",
+        "module": "html2pdf",
+        "action": "html2pdf",
+        "options": {
+          "html": "<p>Dear  Tina Deals</p><p>Welcome to Friends</p><p>0069<br>33 Wash Road<br><br>Washington<br><br>OP2 4RT</p><p>03-01-2026</p><p>We are pleased to see you join your details are as follows <br><div>33 Wash Road</div><div>Washington</div><div><strong>OP2 4RT</strong></div></p><p><br></p>",
+          "path": "\\app\\docs"
+        },
+        "meta": [
+          {
+            "name": "path",
+            "type": "text"
+          },
+          {
+            "name": "filename",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "usedModules": {
+    "puppeteer": "^22.0.0"
+  }
+}

@@ -38,6 +38,24 @@
   position: sticky;
   top: 0;
   z-index: 1030;
+  background-color: #0b2a5b !important; /* dark blue */
+  color: #ffeb3b !important; /* yellow text */
+}
+.app-header .navbar-brand,
+.app-header .nav-link,
+.app-header .btn,
+.app-header .h1,
+.app-header .h2,
+.app-header .h3,
+.app-header .h4,
+.app-header .h5,
+.app-header .h6 {
+  color: #ffeb3b !important;
+}
+
+/* Force icons in header to yellow too */
+.app-header i[class^="fa"], .app-header i[class*=" fa"] {
+  color: #ffeb3b !important;
 }
 
 /* ---------------- Layout ---------------- */
@@ -210,6 +228,16 @@ main#content {
 /* Prevent hover overriding active */
 #navTabs1_tabs.nav-tabs .nav-link.active:hover,
 #navTabs1_tabs.nav-tabs .nav-link.active:focus {
-  background-color: #0b2a5b !important;
+  background-color: #15052f !important;
   color: #ffeb3b !important;
+}
+
+/* =============================
+   Custom: Reduce .card width for add_user page only
+   ============================= */
+.add-user-card.card {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }

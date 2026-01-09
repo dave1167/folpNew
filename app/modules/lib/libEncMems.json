@@ -28,6 +28,14 @@
       {
         "type": "text",
         "name": "notes"
+      },
+      {
+        "type": "text",
+        "name": "draft_html"
+      },
+      {
+        "type": "text",
+        "name": "final_html"
       }
     ]
   },
@@ -64,8 +72,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "address1_enc",
@@ -87,8 +94,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "address2_enc",
@@ -110,8 +116,7 @@
         },
         "meta": [],
         "outputType": "text",
-        "output": true,
-        "collapsed": true
+        "output": true
       },
       {
         "name": "postcode_enc",
@@ -151,9 +156,29 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_PARAM.notes ? $_PARAM.notes.encrypt($_ENV.EKY) : null}}"
+          "value": "{{$_PARAM.notes?$_PARAM.notes.encrypt($_ENV.EKY):null}}"
         },
         "output": true,
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "draft_html_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.draft_html?$_PARAM.draft_html.encrypt($_ENV.EKY):null}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "final_html_enc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.final_html?$_PARAM.final_html.encrypt($_ENV.EKY):null}}"
+        },
         "meta": [],
         "outputType": "text"
       }

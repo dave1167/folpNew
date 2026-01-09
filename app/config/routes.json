@@ -22,11 +22,6 @@
       "layout": "main"
     },
     {
-      "path": "/users/addUser",
-      "page": "users/addUser",
-      "layout": "lh_menu_2"
-    },
-    {
       "path": "/settings/createTemplates",
       "page": "settings/createTemplates",
       "layout": "lh_menu"
@@ -45,6 +40,26 @@
       "path": "/settings/templates",
       "page": "settings/templates",
       "layout": "lh_menu"
+    },
+    {
+      "path": "/emails/all_comms_docs",
+      "page": "emails/all_comms_docs",
+      "layout": "lh_menu"
+    },
+    {
+      "path": "/users/add_user",
+      "page": "users/add_user",
+      "layout": "lh_menu"
+    },
+    {
+      "path": "/users/login_access_code",
+      "page": "users/login_access_code",
+      "layout": "main"
+    },
+    {
+      "path": "/login/login",
+      "page": "login/login",
+      "layout": "main"
     }
   ]
 }

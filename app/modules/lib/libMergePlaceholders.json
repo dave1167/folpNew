@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "$_PARAM": [
+      {
+        "type": "text",
+        "name": "htmlIn"
+      },
+      {
+        "type": "text",
+        "name": "FirstName"
+      },
+      {
+        "type": "text",
+        "name": "LastName"
+      },
+      {
+        "type": "text",
+        "name": "Address"
+      },
+      {
+        "type": "text",
+        "name": "Address2"
+      },
+      {
+        "type": "text",
+        "name": "Town1"
+      },
+      {
+        "type": "text",
+        "name": "Town2"
+      },
+      {
+        "type": "text",
+        "name": "Pcode"
+      },
+      {
+        "type": "text",
+        "name": "MemNo"
+      },
+      {
+        "type": "text",
+        "name": "currDate"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "options": {
+          "comment": "format address block\n"
+        }
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "Set Current Date"
+        }
+      },
+      {
+        "name": "CurrDate_fmt",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{NOW.formatDate('dd-MM-yyyy', false)}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "",
+        "options": {
+          "comment": "Set normal fields "
+        }
+      },
+      {
+        "name": "fName_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.FirstName.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "lName_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.LastName.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "collapsed": true
+      },
+      {
+        "name": "Address_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.Address.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "Address2_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.Address2.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "Town1_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.Town1.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "Town2_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.Town2.lowercase().titlecase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "Postcode_tc",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.Pcode.uppercase()}}"
+        },
+        "meta": [],
+        "outputType": "text"
+      },
+      {
+        "name": "MemNo_fmt",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.MemNo.padNumber(4)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "AddressBlock",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{(Address_tc  && Address_tc.trim()  ? '<div>' + Address_tc.trim()  + '</div>' : '')+(Address2_tc && Address2_tc.trim() ? '<div>' + Address2_tc.trim() + '</div>' : '')+(Town1_tc    && Town1_tc.trim()    ? '<div>' + Town1_tc.trim()    + '</div>' : '')+(Town2_tc    && Town2_tc.trim()    ? '<div>' + Town2_tc.trim()    + '</div>' : '')+(Postcode_tc && Postcode_tc.trim() ? '<div>' + Postcode_tc.trim() + '</div>' : '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_PARAM.htmlIn}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[FirstName]]').join(fName_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[LastName]]').join(lName_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[Address]]').join(Address_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[Address2]]').join(Address2_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[Town1]]').join(Town1_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[Town2]]').join(Town2_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[Postcode]]').join(Postcode_tc || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[MemNo]]').join(MemNo_fmt || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[CurrDate]]').join(CurrDate_fmt || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "htmlOut",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut.split('[[AddressBlock]]').join(AddressBlock || '')}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "FinalOutput",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{htmlOut}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      }
+    ]
+  }
+}

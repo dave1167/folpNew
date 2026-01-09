@@ -40,6 +40,7 @@
 </head>
 
 <body is="dmx-app">
+  <dmx-notifications id="notifies1"></dmx-notifications>
   <dmx-toggle id="menu_toggle" checked="true"></dmx-toggle>
   <!-- Header -->
   <header class="app-header navbar bg-body shadow-sm">
@@ -47,7 +48,7 @@
       <button class="btn btn-outline-primary me-2 menu-toggle" type="button" aria-label="Toggle menu" dmx-on:click="menu_toggle.toggle()" dmx-bind:aria-expanded="menu_toggle.checked">
         <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
-      <a class="navbar-brand mb-0 h1" href="/">My App</a>
+      <a class="navbar-brand mb-0 h1" href="/">Friends of Lowther Pavilion</a>
       <div class="ms-auto d-flex align-items-center">
         <nav class="nav">
           <a class="nav-link" href="#">Help</a>

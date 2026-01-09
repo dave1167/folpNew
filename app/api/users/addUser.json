@@ -59,6 +59,29 @@
         "output": true
       },
       {
+        "name": "accessCode",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{UUID}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "final",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{accessCode.substr(1, 6)}}"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true,
+        "collapsed": true
+      },
+      {
         "name": "insUser",
         "module": "dbupdater",
         "action": "insert",
@@ -71,65 +94,65 @@
                 "table": "tbl_users",
                 "column": "email",
                 "type": "text",
-                "value": "{{$_POST.email}}"
+                "value": "{{$_POST.email.lowercase()}}"
               },
               {
                 "table": "tbl_users",
                 "column": "firstName",
                 "type": "text",
-                "value": "{{$_POST.firstName}}"
+                "value": "{{$_POST.firstName.lowercase().titlecase()}}"
               },
               {
                 "table": "tbl_users",
                 "column": "lastName",
                 "type": "text",
-                "value": "{{$_POST.lastName}}"
+                "value": "{{$_POST.lastName.lowercase().titlecase()}}"
               },
               {
                 "table": "tbl_users",
-                "column": "password",
+                "column": "accessCode",
                 "type": "text",
-                "value": "{{hash}}"
+                "value": "{{final}}"
               },
               {
                 "table": "tbl_users",
-                "column": "active",
-                "type": "boolean",
-                "value": "{{$_POST.active}}"
+                "column": "expiryDateAccessCode",
+                "type": "datetime",
+                "value": "{{NOW.dateAdd('hours', 24).formatDate('yyyy-MM-dd hh:mm', false)}}"
               }
             ],
             "table": "tbl_users",
             "returning": "userId",
-            "query": "insert into `tbl_users` (`active`, `email`, `firstName`, `lastName`, `password`) values (?, ?, ?, ?, ?)",
+            "query": "insert into `tbl_users` (`accessCode`, `email`, `expiryDateAccessCode`, `firstName`, `lastName`) values (?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
                 "type": "expression",
-                "value": "{{$_POST.email}}",
+                "value": "{{$_POST.email.lowercase()}}",
                 "test": ""
               },
               {
                 "name": ":P2",
                 "type": "expression",
-                "value": "{{$_POST.firstName}}",
+                "value": "{{$_POST.firstName.lowercase().titlecase()}}",
                 "test": ""
               },
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{$_POST.lastName}}",
+                "value": "{{$_POST.lastName.lowercase().titlecase()}}",
                 "test": ""
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{hash}}",
+                "value": "{{final}}",
                 "test": ""
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{$_POST.active}}",
+                "value": "{{NOW.dateAdd('hours', 24).formatDate('yyyy-MM-dd hh:mm', false)}}",
                 "test": ""
               }
             ]
@@ -209,8 +232,272 @@
             "name": "affected",
             "type": "number"
           }
+        ]
+      },
+      {
+        "name": "memIdOutput",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{insUser.identity}}",
+          "key": "gbltest"
+        },
+        "meta": [],
+        "outputType": "text",
+        "output": true
+      },
+      {
+        "name": "qrySenderEmail",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "key"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "value"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "query": "select `key`, `value` from `tbl_settings` where `tbl_settings`.`fixedId` = ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.fixedId",
+                  "field": "tbl_settings.fixedId",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "2",
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "fixedId",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "default": "",
+                      "maxLength": 255,
+                      "primary": false,
+                      "nullable": true,
+                      "name": "fixedId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "key"
+          },
+          {
+            "type": "text",
+            "name": "value"
+          }
         ],
+        "outputType": "object",
         "collapsed": true
+      },
+      {
+        "name": "qrySenderName",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_settings",
+                "column": "key"
+              },
+              {
+                "table": "tbl_settings",
+                "column": "value"
+              }
+            ],
+            "params": [],
+            "table": {
+              "name": "tbl_settings"
+            },
+            "primary": "settingsId",
+            "joins": [],
+            "query": "select `key`, `value` from `tbl_settings` where `tbl_settings`.`fixedId` = ?",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_settings.fixedId",
+                  "field": "tbl_settings.fixedId",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "3",
+                  "data": {
+                    "table": "tbl_settings",
+                    "column": "fixedId",
+                    "type": "text",
+                    "columnObj": {
+                      "type": "string",
+                      "default": "",
+                      "maxLength": 255,
+                      "primary": false,
+                      "nullable": true,
+                      "name": "fixedId"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "tbl_settings"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "key"
+          },
+          {
+            "type": "text",
+            "name": "value"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "qryEmailDets",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "tbl_users",
+                "column": "email"
+              },
+              {
+                "table": "tbl_users",
+                "column": "firstName"
+              },
+              {
+                "table": "tbl_users",
+                "column": "lastName"
+              },
+              {
+                "table": "tbl_users",
+                "column": "active"
+              },
+              {
+                "table": "tbl_users",
+                "column": "accessCode"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{insUser.identity}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "tbl_users"
+            },
+            "primary": "userId",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "tbl_users.userId",
+                  "field": "tbl_users.userId",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{insUser.identity}}",
+                  "data": {
+                    "table": "tbl_users",
+                    "column": "userId",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "primary": true,
+                      "nullable": false,
+                      "name": "userId"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select `email`, `firstName`, `lastName`, `active`, `accessCode` from `tbl_users` where `tbl_users`.`userId` = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "text",
+            "name": "email"
+          },
+          {
+            "type": "text",
+            "name": "firstName"
+          },
+          {
+            "type": "text",
+            "name": "lastName"
+          },
+          {
+            "type": "boolean",
+            "name": "active"
+          },
+          {
+            "type": "text",
+            "name": "accessCode"
+          }
+        ],
+        "outputType": "object",
+        "collapsed": true
+      },
+      {
+        "name": "",
+        "module": "mail",
+        "action": "send",
+        "options": {
+          "instance": "mail",
+          "subject": "Welcome to Friends of Lowther Membership Website",
+          "fromName": "{{qrySenderName.value}}",
+          "fromEmail": "{{qrySenderEmail.value}}",
+          "replyTo": "{{qrySenderEmail.value}}",
+          "toName": "{{qryEmailDets.firstName+' '+qryEmailDets.lastName}}",
+          "toEmail": "daverowe1167@gmail.com",
+          "body": "{{qryEmailDets.accessCode}}"
+        },
+        "disabled": true
       }
     ]
   },

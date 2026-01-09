@@ -8,12 +8,12 @@
 <dmx-serverconnect id="scGetSingleTemplate" url="/api/templates/getSingleTemplate" noload="true"></dmx-serverconnect>
 <dmx-serverconnect id="scUpdateTemplates" url="/api/templates/updateTemplate" noload="true"></dmx-serverconnect>
 <div class="modal" id="modEditTemplate" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">Edit Template</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col">
@@ -57,6 +57,7 @@
                             <div class="form-group mb-3 row">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary" dmx-bind:value="scGetSingleTemplate.data.query.Save" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                    <button type="submit" class="btn btn-dark" dmx-on:click="modEditTemplate.hide()">Close</button>
                                 </div>
                             </div>
                         </form>
