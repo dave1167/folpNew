@@ -1,19 +1,15 @@
-<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="add_user" appConnect="local" components="{dmxStateManagement:{}}" -->
-<dmx-session-manager id="session1"></dmx-session-manager>
+<!-- Wappler include head-page="layouts/lh_menu" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="add_user" appConnect="local" -->
 <dmx-serverconnect id="scGetRoles" url="/api/users/getRoles"></dmx-serverconnect>
-<dmx-serverconnect id="scEmailAccess" url="/api/users/emailAccessCode"></dmx-serverconnect>
-<dmx-serverconnect id="scAddUser" url="/api/users/addUser"></dmx-serverconnect>
 <div class="container-lg">
-    <div class="card add-user-card shadow-lg">
+    <div class="card add-user-card shadow-lg w-auto">
 
         <div class="card-body">
             <h4 class="card-title bg-primary text-white ps-2">Add New User</h4>
             <div class="row">
                 <div class="col">
-                    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/addUser" dmx-generator="bootstrap5" dmx-form-type="floating" dmx-on:success="notifies1.success(serverconnectform1.data.memIdOutput);scEmailAccess.load({userid: scAddUser.data.memIdOutput})">
+                    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="" dmx-generator="bootstrap5" dmx-form-type="floating">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="inp_firstName" name="firstName" placeholder="First name">
-                            <input id="hidMemId" name="hidMemId" type="number" class="form-control" dmx-bind:value="">
                             <label for="inp_firstName">First name</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -29,19 +25,30 @@
                             <label for="inp_password">Password</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select id="selRole" class="form-select" dmx-bind:options="scGetRoles.data.query" optiontext="roleDesc" optionvalue="roleValue" name="selRole" dmx-bind:value="2">
+                            <select id="selRole" class="form-select" dmx-bind:options="scGetRoles.data.query" optiontext="roleDesc" optionvalue="roleValue" name="selRole">
                             </select>
-                            <input type="hidden" class="form-control" id="inp_hidRole" name="hidRole" placeholder="Hid role" dmx-bind:value="selRole.value"><label for="inp_select1">Role</label>
+                            <label for="inp_select1">Select1</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="inp_hidRole" name="hidRole" placeholder="Hid role">
+                            <label for="inp_hidRole">Hid role</label>
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary" dmx-bind:disabled="state.executing">Save <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
-                            <button id="btn1" class="btn btn-dark">Cancel</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div><a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
 </div>
 <meta name="ac:route" content="/users/add_user">

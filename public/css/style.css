@@ -1,243 +1,110 @@
-/* =========================================================
-   Project stylesheet - left-hand menu layout
-   ========================================================= */
-
-:root {
-  --offcanvas-width: 150px;
-  --topNavbarHeight: 56px;
-}
-
-/* ---------------- Offcanvas ---------------- */
-.offcanvas {
-  width: var(--offcanvas-width);
-}
-
-@media (min-width: 992px) {
-  main {
-    margin-left: var(--offcanvas-width);
-  }
-
-  .offcanvas {
-    transform: none;
-    visibility: visible !important;
-    top: var(--topNavbarHeight);
-    height: calc(100% - var(--topNavbarHeight));
-  }
-
-  .offcanvas-backdrop::before {
-    display: none;
-  }
-
-  .offcanvas-header .btn-close {
-    visibility: hidden;
-  }
-}
-
-/* ---------------- Header ---------------- */
-.app-header {
+/* =========================
+   Notification Bar Styles
+   ========================= */
+div#notification-bar-wrapper {
   position: sticky;
-  top: 0;
-  z-index: 1030;
-  background-color: #0b2a5b !important; /* dark blue */
-  color: #ffeb3b !important; /* yellow text */
+  top: var(--topNavbarHeight, 56px);
+  left: 0;
+  width: 100vw;
+  min-height: 3.5rem;
+  background-color: var(--bs-warning, #ffc107);
+  color: var(--bs-dark, #1a1a1a);
+  z-index: 1055;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 0.75rem 1.5rem;
+  margin: 0;
+  /* Ensures it covers full page regardless of containers */
 }
-.app-header .navbar-brand,
-.app-header .nav-link,
-.app-header .btn,
-.app-header .h1,
-.app-header .h2,
-.app-header .h3,
-.app-header .h4,
-.app-header .h5,
-.app-header .h6 {
-  color: #ffeb3b !important;
+div#notification-bar-wrapper .notification-bar-message {
+  width: 100%;
+  text-align: center;
 }
 
-/* Force icons in header to yellow too */
-.app-header i[class^="fa"], .app-header i[class*=" fa"] {
-  color: #ffeb3b !important;
+@media (max-width: 575.98px) {
+  div#notification-bar-wrapper {
+    font-size: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }
 
-/* ---------------- Layout ---------------- */
+/* =========================
+   Main Layout Structure
+   ========================= */
 .layout-root {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-/* ---------------- Sidebar ---------------- */
-.sidebar {
-  background: var(--bs-body-bg);
-  width: 260px;
-  max-width: 80%;
-  box-shadow: 0 0 0.5rem rgba(0,0,0,0.05);
-  border-right: 1px solid var(--bs-border-color, #e9ecef);
-  transition: transform .25s ease, visibility .25s ease;
-  transform: translateX(-100%);
-  position: fixed;
-  top: var(--topNavbarHeight); /* Always under the navbar */
-  left: 0;
-  height: calc(100vh - var(--topNavbarHeight));
-  overflow: auto;
-  visibility: hidden;
-  z-index: 1040;
-}
-
-.sidebar.open {
-  transform: translateX(0);
-  visibility: visible;
-}
-
-.sidebar .sidebar-inner {
-  padding-bottom: 2rem;
-  padding-top: calc(0.5rem + var(--bs-navbar-padding-y, 0));
-}
-
-/* Sidebar nav links */
-.sidebar .nav-link {
-  color: var(--bs-body-color);
-}
-
-/* Sidebar active (unchanged from your design) */
-.sidebar .nav-link.active {
-  background-color: var(--bs-primary-bg, rgba(13,110,253,0.08));
-  color: var(--bs-primary);
-}
-
-/* ---------------- Main ---------------- */
-main#content {
+  flex-direction: row;
   width: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
-  min-height: calc(100vh - 56px);
 }
 
-@media (min-width: 992px) {
-  .layout-root {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .sidebar {
-    position: sticky;
-    top: var(--topNavbarHeight); /* Stick under navbar on large screens too */
-    height: calc(100vh - var(--topNavbarHeight));
-    flex: 0 0 260px;
-    width: 260px;
-    left: 0;
-    z-index: 1020;
-  }
-
-  .sidebar .sidebar-inner {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: auto;
-    padding-top: 1rem;
-  }
-
-  main#content {
-    flex: 1 1 auto;
-    min-height: calc(100vh - 56px);
-  }
+.header.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  height: var(--topNavbarHeight, 56px);
 }
 
-/* Sidebar parent nav - always allow multiple collapse open */
-.sidebar .collapse {
-  /* remove accordion style, allow multiple menus open */
+.sidebar {
+  position: sticky;
+  top: var(--topNavbarHeight, 56px);
+  align-self: flex-start;
+  width: 240px;
+  min-width: 180px;
+  max-width: 270px;
+  min-height: calc(100vh - var(--topNavbarHeight, 56px));
+  height: -moz-fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+  z-index: 1040;
+  background: #fff;
+  border-right: 1px solid #dee2e6;
 }
 
-/* ---------------- Sidebar backdrop ---------------- */
-.sidebar.open + .sidebar-backdrop,
-.sidebar-backdrop {
-  display: none;
+main#content {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 2rem;
+  margin-top: var(--topNavbarHeight, 56px);
+  /* Ensures content starts below navbar for desktop */
 }
 
 @media (max-width: 991.98px) {
-  .sidebar.open + .sidebar-backdrop,
-  .sidebar-backdrop.open {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.35);
-    z-index: 1035;
-    display: block;
+  .layout-root {
+    flex-direction: column;
+  }
+  .sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: unset;
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+  main#content {
+    margin-top: 0;
+    padding: 1.25rem 0.75rem;
   }
 }
 
-/* ---------------- UI polish ---------------- */
-.menu-toggle { z-index: 1050; }
-
-@media (prefers-reduced-motion: reduce) {
-  .sidebar,
-  .sidebar.open {
-    transition: none;
+@media (max-width: 575.98px) {
+  main#content {
+    padding: 0.75rem 0.25rem;
   }
-}
-
-/* ---------------- Settings page ---------------- */
-.settings-table td { vertical-align: middle; }
-
-.settings-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  font-size: .85rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 220px;
-  overflow: auto;
-}
-
-@media (max-width: 575.98px) {
-  .settings-code { font-size: .75rem; }
-}
-
-/* Modal tweaks */
-#editModal .settings-code { max-height: 300px; }
-#editModal .modal-body { padding: 1rem; }
-
-@media (max-width: 575.98px) {
-  #editModal .modal-dialog { margin: 0 0.5rem; }
-}
-
-/* =========================================================
-   SETTINGS NAV TABS (navTabs1)
-   ========================================================= */
-
-/* Base transition */
-#navTabs1_tabs .nav-link {
-  transition: background-color .12s ease, color .12s ease, box-shadow .12s ease;
-}
-
-/* NON-active tabs keep subtle look */
-#navTabs1_tabs .nav-link:not(.active) {
-  background-color: var(--bs-primary-bg-subtle);
-}
-
-/* ACTIVE tab — FORCE dark blue + yellow */
-#navTabs1_tabs.nav-tabs .nav-link.active,
-#navTabs1_tabs.nav-tabs .nav-link[aria-selected="true"] {
-  background-color: #0b2a5b !important;
-  color: #ffeb3b !important;
-  border-color: #0b2a5b !important;
-  box-shadow: 0 0 0.375rem rgba(11, 42, 91, 0.35);
-}
-
-/* Correct Bootstrap tab border */
-#navTabs1_tabs.nav-tabs .nav-link.active {
-  border-bottom-color: transparent !important;
-}
-
-/* Prevent hover overriding active */
-#navTabs1_tabs.nav-tabs .nav-link.active:hover,
-#navTabs1_tabs.nav-tabs .nav-link.active:focus {
-  background-color: #15052f !important;
-  color: #ffeb3b !important;
-}
-
-/* =============================
-   Custom: Reduce .card width for add_user page only
-   ============================= */
-.add-user-card.card {
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  .sidebar {
+    padding: 0 0.25rem;
+  }
 }
